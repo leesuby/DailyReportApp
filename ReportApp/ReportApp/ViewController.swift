@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ViewController: UIViewController {
     private var isInitial : Bool = true
@@ -56,11 +57,20 @@ class ViewController: UIViewController {
     }()
     
     private var emailTextField : CustomTextField = {
-        return CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Email",imageName: "MailSymbol")
+        let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Email",imageName: "MailSymbol")
+        
+        textField.font = .latoLight(size: 14)
+        
+        return textField
     }()
     
     private var passTextField : CustomTextField = {
-        return CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Password",imageName: "KeySymbol")
+        let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Password",imageName: "KeySymbol")
+        
+        textField.font = .latoLight(size: 14)
+        
+        textField.isSecureTextEntry = true
+        return textField
     }()
     
     private var loginButton : UIButton = {
@@ -71,8 +81,31 @@ class ViewController: UIViewController {
         button.titleLabel?.font = .latoBold(size: 16)
         button.layer.cornerRadius = 16
         button.backgroundColor = .deepPurple
+        button.addTarget(self, action: #selector(loginTapped), for: .touchUpInside)
+        button.tag = 1
         return button
     }()
+    
+    
+    
+    @objc func loginTapped(sender : UIButton!){
+        let button: UIButton = sender
+        if (button.tag == 1){
+            let email = emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            let password = passTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            Auth.auth().signIn(withEmail: email, password: password){
+                (result,error) in
+                
+                if error != nil{
+                    print(error!.localizedDescription)
+                }
+                else {
+                    print("yeahhhh")
+                }
+                
+            }
+        }
+    }
     
     private var forgotTextView : UITextView = {
         let textView = UITextView()
@@ -95,10 +128,59 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         setView()
+        
+    }
+    
+    private func setView(){
+        //Set Background
+        view.addSubview(background)
+        background.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: background, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: background, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: background, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: background, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        
+        
+        //Set Logo
+        view.addSubview(logo)
+        logo.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: logo, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: logo, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1/2, constant: 0).isActive = true
+        NSLayoutConstraint(item: logo, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/3, constant: 0).isActive = true
+        NSLayoutConstraint(item: logo, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1.0, constant: 0).isActive = true
+        
+        
+        //Set Copyright
+        view.addSubview(copyrightTextView)
+        copyrightTextView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: copyrightTextView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
+        
+        NSLayoutConstraint(item: copyrightTextView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
+        
+        NSLayoutConstraint(item: copyrightTextView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        
+        NSLayoutConstraint(item: copyrightTextView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/10, constant: 0).isActive = true
+        
+        NSLayoutConstraint(item: copyrightTextView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1.0, constant: 0).isActive = true
+        
+        
+        //Set Login container
+        view.addSubview(loginBox)
+        
+        loginBox.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: loginBox, attribute: .top, relatedBy: .equal, toItem: logo, attribute: .bottom, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: loginBox, attribute: .bottom, relatedBy: .equal, toItem: copyrightTextView, attribute: .top, multiplier: 1.0, constant: -20).isActive = true
+        NSLayoutConstraint(item: loginBox, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading , multiplier: 1.0, constant: 40).isActive = true
+        NSLayoutConstraint(item: loginBox, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: -40).isActive = true
+        
     }
     
     override func viewDidLayoutSubviews() {
         if (isInitial){
+            //Draw shadow for login container
             let shadowLayer = CAShapeLayer()
             shadowLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: loginBox.frame.width - 3, height: loginBox.frame.height - 30), cornerRadius: 30).cgPath
             shadowLayer.fillColor = UIColor.white.cgColor
@@ -112,6 +194,7 @@ class ViewController: UIViewController {
             loginBox.layer.cornerRadius = 40
             loginBox.clipsToBounds = true
             
+            //Draw Elipse
             let ellipsePath = UIBezierPath(ovalIn: CGRect(x: -((view.frame.width - loginBox.frame.width) / 2 ), y: -(loginBox.frame.height / 4), width: view.frame.width - 10, height: loginBox.frame.height / 2.2))
             
             let shapeLayer = CAShapeLayer()
@@ -125,10 +208,9 @@ class ViewController: UIViewController {
             
             loginBox.layer.addSublayer(shapeLayer)
             
+            
             loginBox.addSubview(textViewLoginBox)
-            
             textViewLoginBox.translatesAutoresizingMaskIntoConstraints = false
-            
             NSLayoutConstraint(item: textViewLoginBox, attribute: .top, relatedBy: .equal, toItem: loginBox, attribute: .top, multiplier: 1.0, constant: loginBox.frame.height / 26).isActive = true
             NSLayoutConstraint(item: textViewLoginBox, attribute: .leading, relatedBy: .equal, toItem: loginBox, attribute: .leading , multiplier: 1.0, constant: 0).isActive = true
             NSLayoutConstraint(item: textViewLoginBox, attribute: .trailing, relatedBy: .equal, toItem: loginBox, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
@@ -148,6 +230,7 @@ class ViewController: UIViewController {
             NSLayoutConstraint(item: emailTextField, attribute: .width, relatedBy: .equal, toItem: loginBox, attribute: .width, multiplier: 7/8, constant: 0).isActive = true
             
             NSLayoutConstraint(item: emailTextField, attribute: .height, relatedBy: .equal, toItem: loginBox, attribute: .height, multiplier: 1/8, constant: 0).isActive = true
+            
             
             loginBox.addSubview(passTextField)
             passTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -188,58 +271,6 @@ class ViewController: UIViewController {
             
             isInitial = false
         }
-    }
-    
-    private func setView(){
-        //Set Background
-        view.addSubview(background)
-        background.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: background, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
-        
-        
-        //Set Logo
-        view.addSubview(logo)
-        logo.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint(item: logo, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: logo, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1/2, constant: 0).isActive = true
-        NSLayoutConstraint(item: logo, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/3, constant: 0).isActive = true
-        NSLayoutConstraint(item: logo, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1.0, constant: 0).isActive = true
-        
-        
-        //Set Copyright
-        view.addSubview(copyrightTextView)
-        copyrightTextView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint(item: copyrightTextView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        
-        NSLayoutConstraint(item: copyrightTextView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        
-        NSLayoutConstraint(item: copyrightTextView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
-        
-        NSLayoutConstraint(item: copyrightTextView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/10, constant: 0).isActive = true
-        
-        NSLayoutConstraint(item: copyrightTextView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1.0, constant: 0).isActive = true
-        
-        
-        //Set LoginBox
-        
-        
-        view.addSubview(loginBox)
-        
-        loginBox.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint(item: loginBox, attribute: .top, relatedBy: .equal, toItem: logo, attribute: .bottom, multiplier: 1.0, constant: 20).isActive = true
-        NSLayoutConstraint(item: loginBox, attribute: .bottom, relatedBy: .equal, toItem: copyrightTextView, attribute: .top, multiplier: 1.0, constant: -20).isActive = true
-        NSLayoutConstraint(item: loginBox, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading , multiplier: 1.0, constant: 40).isActive = true
-        NSLayoutConstraint(item: loginBox, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: -40).isActive = true
-        
-        
-        
-        
     }
     
     

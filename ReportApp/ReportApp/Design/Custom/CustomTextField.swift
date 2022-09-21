@@ -14,7 +14,7 @@ class CustomTextField : UITextField {
         self.insets = insets
         super.init(frame: .zero)
         
-        layer.borderWidth = 1.5
+        layer.borderWidth = 1.0
         layer.cornerRadius = 18
         layer.borderColor = UIColor.darkPurple40a.cgColor
         attributedPlaceholder = NSAttributedString(

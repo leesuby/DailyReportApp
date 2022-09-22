@@ -29,7 +29,7 @@ class ViewController: UIViewController, LoginViewDelegate {
         }
     }
     
-   
+    
     
     func btnLoginTapped(sender: UIButton) {
         let button: UIButton = sender
@@ -43,8 +43,15 @@ class ViewController: UIViewController, LoginViewDelegate {
                     print(error!.localizedDescription)
                 }
                 else {
-                    print("yeahhhh")
+                    
+                    let homeViewController = HomeViewController()
+                    self.present(homeViewController, animated: true, completion: nil)
                 }
+                
+                let homeViewController = HomeViewController()
+                let nav = UINavigationController(rootViewController: homeViewController)
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
                 
             }
         }

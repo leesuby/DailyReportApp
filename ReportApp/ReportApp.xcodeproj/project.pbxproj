@@ -32,6 +32,8 @@
 		E7D5232F28D32C8A00BB5F27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D5232D28D32C8A00BB5F27 /* LaunchScreen.storyboard */; };
 		E7DE4A0328DC07C200E4C7BF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */; };
 		E7DE4A0628DC087600E4C7BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0528DC087600E4C7BF /* LoginView.swift */; };
+		E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0728DC176E00E4C7BF /* HomeView.swift */; };
+		E7DE4A0B28DC60E400E4C7BF /* ReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0A28DC60E400E4C7BF /* ReportCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +60,8 @@
 		E7D5233028D32C8A00BB5F27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E7DE4A0528DC087600E4C7BF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E7DE4A0728DC176E00E4C7BF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		E7DE4A0A28DC60E400E4C7BF /* ReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 				E707F28628D9A30F001F55F8 /* Material */,
 				E707F2A328DADAFF001F55F8 /* Custom */,
 				E7DE4A0528DC087600E4C7BF /* LoginView.swift */,
+				E7DE4A0728DC176E00E4C7BF /* HomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -146,6 +151,7 @@
 		E7D5232128D32C8900BB5F27 /* ReportApp */ = {
 			isa = PBXGroup;
 			children = (
+				E7DE4A0928DC60AF00E4C7BF /* Cell */,
 				E7DE4A0128DC07AB00E4C7BF /* ViewController */,
 				E707F29E28DABD15001F55F8 /* View */,
 				E7D5232228D32C8900BB5F27 /* AppDelegate.swift */,
@@ -166,6 +172,14 @@
 				E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E7DE4A0928DC60AF00E4C7BF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				E7DE4A0A28DC60E400E4C7BF /* ReportCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,8 +278,10 @@
 				E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */,
 				E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */,
 				E707F28528D9A261001F55F8 /* UIHelper.swift in Sources */,
+				E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */,
 				E707F2A028DABD44001F55F8 /* CustomTextField.swift in Sources */,
 				E7DE4A0328DC07C200E4C7BF /* HomeViewController.swift in Sources */,
+				E7DE4A0B28DC60E400E4C7BF /* ReportCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

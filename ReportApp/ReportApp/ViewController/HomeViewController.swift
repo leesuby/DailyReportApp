@@ -13,6 +13,11 @@ class HomeViewController: UIViewController{
     private let homeView = HomeView()
     var reportCollectionView : UICollectionView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +34,7 @@ class HomeViewController: UIViewController{
       
     }
     
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeView.initialLayer(view: view)
@@ -37,6 +43,11 @@ class HomeViewController: UIViewController{
 }
 
 extension HomeViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = ViewReportViewController()
+
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
 
@@ -66,6 +77,6 @@ extension HomeViewController: UICollectionViewDataSource{
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height:collectionView.frame.size.height / 2 )
+        return CGSize(width: collectionView.frame.size.width, height:collectionView.frame.size.height / 4 )
     }
 }

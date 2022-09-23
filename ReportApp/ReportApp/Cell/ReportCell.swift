@@ -13,7 +13,7 @@ class ReportCell: UICollectionViewCell {
         contentView.backgroundColor = .clear
         
         let shadowLayer = CAShapeLayer()
-        shadowLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: contentView.frame.width - 3, height: contentView.frame.height), cornerRadius: 30).cgPath
+        shadowLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: contentView.frame.width - 3, height: contentView.frame.height), cornerRadius: 20).cgPath
         shadowLayer.fillColor = UIColor.white.cgColor
    
         shadowLayer.shadowColor = UIColor.darkGray.cgColor
@@ -23,12 +23,14 @@ class ReportCell: UICollectionViewCell {
         shadowLayer.shadowRadius = 1
         
         contentView.layer.addSublayer(shadowLayer)
-        contentView.layer.cornerRadius = 30
+        contentView.layer.cornerRadius = 20
+        contentView.layer.borderWidth = 0.5
+        contentView.layer.borderColor = UIColor.gray.cgColor
         
         let dateBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width) / 3, height: Int(contentView.frame.size.width) / 10))
         
         dateBox.backgroundColor = .zingPurple
-        dateBox.roundCorners(corners: [.topLeft], radius: 30)
+        dateBox.roundCorners(corners: [.topLeft], radius: 20)
         
         let dateText: UITextView = UITextView(frame: CGRect(x: 12,y: 0,width: Int(dateBox.frame.size.width),height: Int(dateBox.frame.size.height)))
         
@@ -55,9 +57,9 @@ class ReportCell: UICollectionViewCell {
         contentView.addSubview(reportText)
       
 
-        let viewDetail : UIImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: contentView.frame.size.width / 2, height: contentView.frame.size.height / 3))
+        let viewDetail : UIImageView = UIImageView(frame: CGRect(x: 0, y: 20, width: contentView.frame.size.width / 2, height: contentView.frame.size.height / 3))
         viewDetail.center.x = contentView.center.x
-        viewDetail.center.y = contentView.center.y
+        viewDetail.center.y = contentView.center.y + 15
         viewDetail.image = UIImage(named: "ViewDetailSymbol")
         viewDetail.backgroundColor = .clear
         viewDetail.contentMode = .scaleAspectFit

@@ -34,6 +34,10 @@
 		E7DE4A0628DC087600E4C7BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0528DC087600E4C7BF /* LoginView.swift */; };
 		E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0728DC176E00E4C7BF /* HomeView.swift */; };
 		E7DE4A0B28DC60E400E4C7BF /* ReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0A28DC60E400E4C7BF /* ReportCell.swift */; };
+		E7DE4A0D28DD608800E4C7BF /* ViewReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0C28DD608800E4C7BF /* ViewReportViewController.swift */; };
+		E7DE4A0F28DD60C600E4C7BF /* ViewReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0E28DD60C600E4C7BF /* ViewReportView.swift */; };
+		E7DE4A1128DD8E8D00E4C7BF /* DetailReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A1028DD8E8D00E4C7BF /* DetailReportCell.swift */; };
+		E7DE4A1428DD949700E4C7BF /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A1328DD949700E4C7BF /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +66,10 @@
 		E7DE4A0528DC087600E4C7BF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E7DE4A0728DC176E00E4C7BF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		E7DE4A0A28DC60E400E4C7BF /* ReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCell.swift; sourceTree = "<group>"; };
+		E7DE4A0C28DD608800E4C7BF /* ViewReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReportViewController.swift; sourceTree = "<group>"; };
+		E7DE4A0E28DD60C600E4C7BF /* ViewReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewReportView.swift; sourceTree = "<group>"; };
+		E7DE4A1028DD8E8D00E4C7BF /* DetailReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReportCell.swift; sourceTree = "<group>"; };
+		E7DE4A1328DD949700E4C7BF /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +128,7 @@
 				E707F2A328DADAFF001F55F8 /* Custom */,
 				E7DE4A0528DC087600E4C7BF /* LoginView.swift */,
 				E7DE4A0728DC176E00E4C7BF /* HomeView.swift */,
+				E7DE4A0E28DD60C600E4C7BF /* ViewReportView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,6 +160,7 @@
 		E7D5232128D32C8900BB5F27 /* ReportApp */ = {
 			isa = PBXGroup;
 			children = (
+				E7DE4A1228DD948100E4C7BF /* Model */,
 				E7DE4A0928DC60AF00E4C7BF /* Cell */,
 				E7DE4A0128DC07AB00E4C7BF /* ViewController */,
 				E707F29E28DABD15001F55F8 /* View */,
@@ -170,6 +180,7 @@
 			children = (
 				E7D5232628D32C8900BB5F27 /* LoginViewController.swift */,
 				E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */,
+				E7DE4A0C28DD608800E4C7BF /* ViewReportViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -178,8 +189,17 @@
 			isa = PBXGroup;
 			children = (
 				E7DE4A0A28DC60E400E4C7BF /* ReportCell.swift */,
+				E7DE4A1028DD8E8D00E4C7BF /* DetailReportCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		E7DE4A1228DD948100E4C7BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E7DE4A1328DD949700E4C7BF /* Task.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -273,11 +293,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7DE4A1128DD8E8D00E4C7BF /* DetailReportCell.swift in Sources */,
 				E7DE4A0628DC087600E4C7BF /* LoginView.swift in Sources */,
 				E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */,
 				E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */,
+				E7DE4A0D28DD608800E4C7BF /* ViewReportViewController.swift in Sources */,
+				E7DE4A0F28DD60C600E4C7BF /* ViewReportView.swift in Sources */,
 				E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */,
 				E707F28528D9A261001F55F8 /* UIHelper.swift in Sources */,
+				E7DE4A1428DD949700E4C7BF /* Task.swift in Sources */,
 				E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */,
 				E707F2A028DABD44001F55F8 /* CustomTextField.swift in Sources */,
 				E7DE4A0328DC07C200E4C7BF /* HomeViewController.swift in Sources */,
@@ -432,6 +456,8 @@
 				INFOPLIST_FILE = ReportApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -459,6 +485,8 @@
 				INFOPLIST_FILE = ReportApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

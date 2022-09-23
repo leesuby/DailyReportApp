@@ -82,6 +82,8 @@ extension UIColor{
     static var darkPurple20a = hexStringToUIColor(hex: "2E038C",alpha: 0.2)
     static var deepPurple = hexStringToUIColor(hex: "552FAC",alpha: 1)
     static var zingPurple = hexStringToUIColor(hex: "72179A",alpha: 1)
+    static var zingPurple70a = hexStringToUIColor(hex: "72179A",alpha: 0.7)
+    static var darkGreen = hexStringToUIColor(hex: "2B8B2F",alpha: 1.0)
 }
 
 
@@ -130,4 +132,18 @@ extension CALayer {
 
     addSublayer(border)
  }
+}
+
+extension UINavigationController{
+
+   func setNavBarImage(_ image:UIImage?) {
+
+       guard let image = image  else {return}
+
+       self.navigationBar.setBackgroundImage(image, for: .default)
+       self.navigationBar.shadowImage = UIImage()
+      self.navigationBar.isTranslucent = true
+
+      
+    }
 }

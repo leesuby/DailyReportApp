@@ -75,7 +75,13 @@ class HomeView {
     func initialFisrtLook(viewController : HomeViewController){
         
         let view: UIView = viewController.view
-        let topLayoutGuide = viewController.topLayoutGuide
+        var safeArea : UILayoutGuide
+        
+        if #available(iOS 11.0, *) {
+            safeArea = viewController.view.safeAreaLayoutGuide
+        } else {
+            safeArea = viewController.topLayoutGuide as! UILayoutGuide
+        }
         let collectionView : UICollectionView = viewController.reportCollectionView
         
         view.addSubview(background)
@@ -101,15 +107,15 @@ class HomeView {
         
         view.addSubview(brand)
         brand.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: brand, attribute: .bottom, relatedBy: .equal, toItem: topLayoutGuide, attribute: .bottom, multiplier: 1.0, constant: 25).isActive = true
+        NSLayoutConstraint(item: brand, attribute: .bottom, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 55).isActive = true
         NSLayoutConstraint(item: brand, attribute: .centerX, relatedBy: .equal, toItem: logo, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: brand, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1/3, constant: 0).isActive = true
-        NSLayoutConstraint(item: brand, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/10, constant: 0).isActive = true
+        NSLayoutConstraint(item: brand, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/12, constant: 0).isActive = true
        
         
         view.addSubview(avatar)
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: avatar, attribute: .centerY, relatedBy: .equal, toItem: topLayoutGuide, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: avatar, attribute: .bottom, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 20).isActive = true
         NSLayoutConstraint(item: avatar, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 10).isActive = true
         NSLayoutConstraint(item: avatar, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1/20, constant: 0).isActive = true
         NSLayoutConstraint(item: avatar, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/26, constant: 0).isActive = true

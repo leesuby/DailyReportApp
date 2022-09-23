@@ -15,6 +15,7 @@ class ViewController: UIViewController, LoginViewDelegate {
     
     private var loginView = LoginView()
     
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +50,7 @@ class ViewController: UIViewController, LoginViewDelegate {
                 }
                 
                 let homeViewController = HomeViewController()
+    
                 let nav = UINavigationController(rootViewController: homeViewController)
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true, completion: nil)

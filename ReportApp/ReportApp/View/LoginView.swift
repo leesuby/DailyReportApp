@@ -40,6 +40,7 @@ class LoginView{
         textView.textAlignment = .center
         textView.backgroundColor = .clear
         textView.isEditable = false
+        textView.isScrollEnabled = false
         textView.alpha = 0.4
         return textView
     }()
@@ -54,6 +55,7 @@ class LoginView{
         let textView = UITextView()
         textView.contentMode = .center
         textView.isEditable = false
+        textView.isScrollEnabled = false
         textView.text = "Login"
         textView.textColor = .white
         textView.font = .latoBlack(size: 30)
@@ -99,6 +101,7 @@ class LoginView{
         let textView = UITextView()
         
         textView.isEditable = false
+        textView.isScrollEnabled = false
         textView.textColor = .darkPurple
         textView.textAlignment = .right
         

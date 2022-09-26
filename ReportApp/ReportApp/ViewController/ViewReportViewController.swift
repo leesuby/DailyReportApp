@@ -11,6 +11,10 @@ class ViewReportViewController: UIViewController {
     
     private let viewReportView : ViewReport = ViewReport()
     var detailReportCollectionView : UICollectionView!
+   
+    
+    private var report : [Report] = [Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], user: "longnct", date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], user: "longnct", date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], user: "longnct", date: "19/09/2022")]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,8 @@ class ViewReportViewController: UIViewController {
         detailReportCollectionView.dataSource = self
         
         detailReportCollectionView.register(DetailReportCell.self, forCellWithReuseIdentifier: "detailReport")
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -63,7 +69,9 @@ class ViewReportViewController: UIViewController {
     
     
     @objc func editReport(){
-        
+        let vc = EditReportViewController()
+
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -85,16 +93,21 @@ extension ViewReportViewController : UICollectionViewDelegate{
 
 extension ViewReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return report.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
-        if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
+        
+            if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
+                
+                detailCell.configure(tasks: report[indexPath.row].tasks)
             
-            cell = detailCell
-        }
+                cell = detailCell
+            }
+        
+        
         
         return cell
     }

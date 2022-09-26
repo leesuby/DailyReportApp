@@ -7,15 +7,24 @@
 
 import Foundation
 class Task{
-    var title: String;
-    var status: Int;
-    var detail: String;
-    var note: String;
+    var title: String = ""
+    var status: Int = 0
+    var detail: String = ""
+    var note: String = ""
+    var isEdit: Bool = false
     
     init(title: String, status: Int, detail: String, note: String){
         self.title = title
         self.status = status
         self.detail = detail
         self.note = note
+    }
+    
+    init(isEdit: Bool){
+        self.isEdit = isEdit
+    }
+    
+    func editTask(){
+        isEdit = true
     }
 }

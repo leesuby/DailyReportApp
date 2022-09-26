@@ -38,6 +38,7 @@ class HomeView {
         textView.textAlignment = .center
         textView.backgroundColor = .clear
         textView.isEditable = false
+        textView.isScrollEnabled = false
         return textView
     }()
     
@@ -56,6 +57,7 @@ class HomeView {
         textView.textAlignment = .right
         textView.font = .latoRegular(size: 14)
         textView.isEditable = false
+        textView.isScrollEnabled = false
         return textView
     }()
     
@@ -67,6 +69,7 @@ class HomeView {
         textView.textAlignment = .left
         textView.font = .latoBold(size: 26)
         textView.isEditable = false
+        textView.isScrollEnabled = false
         return textView
     }()
     

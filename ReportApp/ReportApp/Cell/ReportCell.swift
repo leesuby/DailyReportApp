@@ -40,6 +40,7 @@ class ReportCell: UICollectionViewCell {
         dateText.textColor = .white
         dateText.textAlignment = .left
         dateText.backgroundColor = .clear
+        dateText.isScrollEnabled = false
         
         dateBox.addSubview(dateText)
         contentView.addSubview(dateBox)
@@ -53,6 +54,8 @@ class ReportCell: UICollectionViewCell {
         reportText.textAlignment = .center
         reportText.backgroundColor = .clear
         reportText.layer.addBorder(edge: .bottom , color: UIColor.zingPurple, thickness: 1)
+        reportText.isScrollEnabled = false
+
     
         contentView.addSubview(reportText)
       

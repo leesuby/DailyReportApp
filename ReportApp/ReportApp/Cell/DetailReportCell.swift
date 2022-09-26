@@ -9,7 +9,9 @@ import UIKit
 
 class DetailReportCell: UICollectionViewCell {
     
-    private var tasks : [Task]  = [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")]
+    private var tasks : [Task]  = []
+    
+    private var heightUserBox : Float = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,39 +32,53 @@ class DetailReportCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.gray.cgColor
         contentView.layer.cornerRadius = 20
         
-        let dateBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: Int(contentView.frame.size.width) / 10))
+        let userBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: Int(contentView.frame.size.width) / 10))
         
-        dateBox.backgroundColor = .zingPurple
-        dateBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
+        userBox.backgroundColor = .zingPurple
+        userBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
         
-        let dateText: UITextView = UITextView(frame: CGRect(x: 0,y: 0,width: Int(dateBox.frame.size.width),height: Int(dateBox.frame.size.height)))
+        heightUserBox = Float(userBox.frame.size.height)
         
-        dateText.text = "Longnct"
-        dateText.font = .latoBold(size: 20)
-        dateText.isEditable = false
-        dateText.textColor = .white
-        dateText.textAlignment = .center
-        dateText.backgroundColor = .clear
+        let userText: UITextView = UITextView(frame: CGRect(x: 0,y: 0,width: Int(userBox.frame.size.width),height: Int(userBox.frame.size.height)))
         
-        dateBox.addSubview(dateText)
-        contentView.addSubview(dateBox)
+        userText.text = "Longnct"
+        userText.font = .latoBold(size: 20)
+        userText.isEditable = false
+        userText.isScrollEnabled = false
+        userText.textColor = .white
+        userText.textAlignment = .center
+        userText.backgroundColor = .clear
+        
+        userBox.addSubview(userText)
+        contentView.addSubview(userBox)
+        
+        
+        
+        
+    }
+    
+    func configure(tasks : [Task]){
+        self.tasks = tasks
         var y = 0
+        
         for task in tasks {
-            let title = UITextView(frame: CGRect(x: 10,y: y + Int(dateBox.frame.size.height) + 10,width: 50,height: 30))
+            let title = UITextView(frame: CGRect(x: 10,y: y + Int(heightUserBox) + 10,width: 50,height: 30))
             title.text = task.title
             title.font = .latoBold(size: 18)
             title.isEditable = false
+            title.isScrollEnabled = false
             title.textColor = .white
             title.textAlignment = .center
             title.backgroundColor = .zingPurple70a
             title.layer.cornerRadius = 15
             contentView.addSubview(title)
             
-            let status = UITextView(frame: CGRect(x: Int(contentView.frame.width) - 50, y: y + Int(dateBox.frame.size.height) + 10 , width: 50, height: 35))
+            let status = UITextView(frame: CGRect(x: Int(contentView.frame.width) - 50, y: y + Int(heightUserBox) + 10 , width: 50, height: 35))
             
             status.text = "\(task.status)%"
             status.font = .latoRegular(size: 18)
             status.isEditable = false
+            status.isScrollEnabled = false
             status.textColor = .darkGreen
             status.textAlignment = .left
             status.backgroundColor = .clear
@@ -72,6 +88,7 @@ class DetailReportCell: UICollectionViewCell {
             detail.text = task.detail
             detail.font = .latoRegular(size: 16)
             detail.isEditable = false
+            detail.isScrollEnabled = false
             detail.textColor = .black
             detail.textAlignment = .left
             detail.backgroundColor = .clear
@@ -88,6 +105,7 @@ class DetailReportCell: UICollectionViewCell {
             noteText.text = task.note
             noteText.font = .latoRegular(size: 16)
             noteText.isEditable = false
+            noteText.isScrollEnabled = false
             noteText.textColor = .red
             noteText.textAlignment = .left
             noteText.backgroundColor = .clear
@@ -100,8 +118,6 @@ class DetailReportCell: UICollectionViewCell {
         
             y = Int(noteImage.center.y)
         }
-        
-        
     }
     
     required init?(coder: NSCoder) {

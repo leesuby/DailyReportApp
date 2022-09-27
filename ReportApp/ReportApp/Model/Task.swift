@@ -8,11 +8,11 @@
 import Foundation
 @objc(Task)
 class Task :NSObject{
-    var title: String = ""
-    var status: Int = 0
-    var detail: String = ""
-    var note: String = ""
-    var isEdit: Bool = false
+    @objc var title: String = ""
+    @objc var status: Int = 0
+    @objc var detail: String = ""
+    @objc var note: String = ""
+    @objc var isEdit: Bool = false
     
     init(title: String, status: Int, detail: String, note: String){
         self.title = title
@@ -23,6 +23,10 @@ class Task :NSObject{
     
     init(isEdit: Bool){
         self.isEdit = isEdit
+    }
+    
+
+    override init(){
     }
     
     func editTask(){

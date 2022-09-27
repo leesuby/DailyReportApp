@@ -11,7 +11,8 @@ class EditReportViewController: UIViewController {
 
     private let EditReportView : EditReport = EditReport()
     var EditReportCollectionView : UICollectionView!
-    private var tasks : [Task]  = [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")]
+    private var tasks : NSMutableArray = []
+    var dateOfReport: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,13 +31,15 @@ class EditReportViewController: UIViewController {
         
         EditReportCollectionView.register(AddReportCell.self, forCellWithReuseIdentifier: "editReport")
         // Do any additional setup after loading the view.
+        
+        Remote.remoteFirebase.readTaskOfUser(list: tasks, collectionView: EditReportCollectionView, date: dateOfReport)
     }
 
     
     private func setupNavBar(){
         navigationItem.title = "Your Task"
         self.navigationController!.navigationBar.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveTask))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(saveTask))
         
     }
     
@@ -49,11 +52,12 @@ class EditReportViewController: UIViewController {
 
 extension EditReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if (tasks[indexPath.row].isEdit == true){
+        let task = tasks[indexPath.row] as! Task
+        if (task.isEdit == true){
             return CGSize(width: collectionView.frame.size.width, height:  500)
         }
         else{
-            return CGSize(width: collectionView.frame.size.width, height:  200)
+            return CGSize(width: collectionView.frame.size.width, height:  230)
         }
     }
     
@@ -75,7 +79,9 @@ extension EditReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
-        if (tasks[indexPath.row].isEdit == true){
+        let task = tasks[indexPath.row] as! Task
+        
+        if (task.isEdit == true){
             if let editCell = collectionView.dequeueReusableCell(withReuseIdentifier: "editReport", for: indexPath) as? AddReportCell{
                 
                 cell = editCell
@@ -85,7 +91,7 @@ extension EditReportViewController : UICollectionViewDataSource{
             
             if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
                 
-                detailCell.configure(tasks: [self.tasks[indexPath.row]])
+                detailCell.configure(tasks: [task], userName: UserSession.username)
                 cell = detailCell
             }
         }
@@ -98,7 +104,9 @@ extension EditReportViewController : UICollectionViewDataSource{
 
 extension EditReportViewController : EditReportDelegate{
     func addTask() {
-        tasks.append(Task(isEdit: true))
+        
+        tasks.add(Task(isEdit: true))
+    
         EditReportCollectionView.reloadData()
     }
     

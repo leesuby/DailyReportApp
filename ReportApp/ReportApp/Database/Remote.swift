@@ -26,6 +26,11 @@ class Remote {
     }
     
     func readDetailReport(list : NSMutableArray, collectionView: UICollectionView, date : String){
+        database.readDetailReport(list, collectionView: collectionView, dateofReport: date)
+    }
+    
+    func readTaskOfUser(list : NSMutableArray, collectionView: UICollectionView, date : String){
+        database.readTaskUser(list, collectionView: collectionView, dateofReport: date)
     }
     
 }

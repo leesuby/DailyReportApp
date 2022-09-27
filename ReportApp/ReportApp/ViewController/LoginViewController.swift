@@ -15,7 +15,7 @@ class ViewController: UIViewController, LoginViewDelegate {
     
     private var loginView = LoginView()
     
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,17 +50,20 @@ class ViewController: UIViewController, LoginViewDelegate {
                     UserSession.username = email.components(separatedBy: "@")[0]
                     
                     let homeViewController = HomeViewController()
-        
+                    
                     let nav = UINavigationController(rootViewController: homeViewController)
                     nav.modalPresentationStyle = .fullScreen
                     self.present(nav, animated: true, completion: nil)
                 }
                 
-                let homeViewController = HomeViewController()
-    
-                let nav = UINavigationController(rootViewController: homeViewController)
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
+                // create the alert
+                let alert = UIAlertController(title: "Notification", message: "Please check again your email and password!!!", preferredStyle: UIAlertController.Style.alert)
+                
+                // add an action (button)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+                
+                // show the alert
+                self.present(alert, animated: true, completion: nil)
                 
             }
         }

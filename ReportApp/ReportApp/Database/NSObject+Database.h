@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) readAllReport: (NSMutableArray*) reportList collectionView :(UICollectionView*) cv;
 
 - (void) readDetailReport : (NSMutableArray*) reportDetailList collectionView :(UICollectionView*) cv dateofReport: (NSString*) date;
+
+- (void) readTaskUser: (NSMutableArray*) reportDetailList collectionView :(UICollectionView*) cv dateofReport: (NSString*) date;
 @end
 
 NS_ASSUME_NONNULL_END

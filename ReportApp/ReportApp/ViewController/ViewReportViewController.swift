@@ -17,7 +17,7 @@ class ViewReportViewController: UIViewController {
 
    
     
-    private var report : [Report] = [Report(tasks: [Task(title: "Bugasdsadad", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022")]
+//    private var report : [Report] = [Report(tasks: [Task(title: "Bugasdsadad", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022")]
     
     
     override func viewDidLoad() {
@@ -33,6 +33,8 @@ class ViewReportViewController: UIViewController {
         
         detailReportCollectionView.register(DetailReportCell.self, forCellWithReuseIdentifier: "detailReport")
         
+        
+        Remote.remoteFirebase.readDetailReport(list: reportDetailList, collectionView: detailReportCollectionView, date: self.navigationItem.title!)
         
         // Do any additional setup after loading the view.
     }
@@ -73,6 +75,7 @@ class ViewReportViewController: UIViewController {
     
     @objc func editReport(){
         let vc = EditReportViewController()
+        vc.dateOfReport = self.navigationItem.title!
 
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -81,7 +84,9 @@ class ViewReportViewController: UIViewController {
 
 extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.size.width, height:  400)
+        let report : Report = reportDetailList[indexPath.row] as! Report
+        return CGSize(width: collectionView.frame.size.width, height: CGFloat(report.tasks.count * 230 - 30 * (report.tasks.count - 1)))
+       
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -96,7 +101,7 @@ extension ViewReportViewController : UICollectionViewDelegate{
 
 extension ViewReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return report.count
+        return reportDetailList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,8 +109,9 @@ extension ViewReportViewController : UICollectionViewDataSource{
         
         
             if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
+                let report : Report = reportDetailList[indexPath.row] as! Report
                 
-                detailCell.configure(tasks: report[indexPath.row].tasks)
+                detailCell.configure(tasks: report.tasks,userName: report.userName)
             
                 cell = detailCell
             }

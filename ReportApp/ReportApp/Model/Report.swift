@@ -17,10 +17,14 @@ class Report: NSObject{
         self.tasks = tasks
         self.date = date
     }
+
     
-    @objc func initDate(date: String){
+    @objc func setTask(tasks: [Task]){
+        self.tasks = tasks
+    }
     
-        self.date = date
+    @objc func setUser(userName: String){
+        self.userName = userName
     }
     
     override init(){

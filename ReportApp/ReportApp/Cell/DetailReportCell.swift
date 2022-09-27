@@ -11,6 +11,8 @@ class DetailReportCell: UICollectionViewCell {
     
     private var tasks : [Task]  = []
     
+    private let userText: UITextView = UITextView()
+    
     private var heightUserBox : Float = 0
     
     override init(frame: CGRect) {
@@ -39,8 +41,7 @@ class DetailReportCell: UICollectionViewCell {
         
         heightUserBox = Float(userBox.frame.size.height)
         
-        let userText: UITextView = UITextView(frame: CGRect(x: 0,y: 0,width: Int(userBox.frame.size.width),height: Int(userBox.frame.size.height)))
-        
+        userText.frame = CGRect(x: 0,y: 0,width: Int(userBox.frame.size.width),height: Int(userBox.frame.size.height))
         userText.text = "Longnct"
         userText.font = .latoBold(size: 20)
         userText.isEditable = false
@@ -57,10 +58,11 @@ class DetailReportCell: UICollectionViewCell {
         
     }
     
-    func configure(tasks : [Task]){
+    func configure(tasks : [Task],userName : String){
         self.tasks = tasks
         var y = 0
         
+        userText.text = userName
         for task in tasks {
             let title = UITextView(frame: CGRect(x: 10,y: y + Int(heightUserBox) + 10,width: 200,height: 30))
             title.text = task.title
@@ -75,18 +77,18 @@ class DetailReportCell: UICollectionViewCell {
             title.sizeToFit()
             contentView.addSubview(title)
             
-            let status = UITextView(frame: CGRect(x: Int(contentView.frame.width) - 50, y: y + Int(heightUserBox) + 10 , width: 50, height: 35))
+            let status = UITextView(frame: CGRect(x: Int(contentView.frame.width) - 80, y: y + Int(heightUserBox) + 10 , width: 80, height: 35))
             
             status.text = "\(task.status)%"
             status.font = .latoRegular(size: 18)
             status.isEditable = false
             status.isScrollEnabled = false
             status.textColor = .darkGreen
-            status.textAlignment = .left
+            status.textAlignment = .right
             status.backgroundColor = .clear
             contentView.addSubview(status)
             
-            let detail = UITextView(frame: CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 60))
+            let detail = UITextView(frame: CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100))
             detail.text = task.detail
             detail.font = .latoRegular(size: 16)
             detail.isEditable = false
@@ -94,16 +96,17 @@ class DetailReportCell: UICollectionViewCell {
             detail.textColor = .black
             detail.textAlignment = .left
             detail.backgroundColor = .clear
+            detail.sizeToFit()
             contentView.addSubview(detail)
             
-            let noteImage = UIImageView(frame: CGRect(x: 10, y: Int(detail.center.y) + 20, width: Int(contentView.frame.width / 8), height: 40))
+            let noteImage = UIImageView(frame: CGRect(x: 10, y: Int(detail.center.y) + 40, width: Int(contentView.frame.width / 8), height: 40))
             
             noteImage.image = UIImage(named: "NoteSymbol")
             noteImage.contentMode = .scaleAspectFit
             noteImage.backgroundColor = .clear
             contentView.addSubview(noteImage)
             
-            let noteText = UITextView(frame: CGRect(x: Int(noteImage.center.x) + 20, y: Int(detail.center.y) + 20 , width: Int(contentView.frame.width * 7/8) - 20, height: 60))
+            let noteText = UITextView(frame: CGRect(x: Int(noteImage.center.x) + 20, y: Int(detail.center.y) + 40 , width: Int(contentView.frame.width * 7/8) - 20, height: 60))
             noteText.text = task.note
             noteText.font = .latoRegular(size: 16)
             noteText.isEditable = false
@@ -118,7 +121,7 @@ class DetailReportCell: UICollectionViewCell {
             
             
         
-            y = Int(noteImage.center.y)
+            y = Int(noteImage.center.y) + 5
         }
     }
     

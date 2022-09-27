@@ -7,7 +7,8 @@
 
 import Foundation
 
-class UserSession{
-    static var username : String = ""
-    static var role : Int = 0
+@objc (UserSession)
+class UserSession : NSObject{
+    @objc static var username : String = ""
+    @objc static var role : Int = 0
 }

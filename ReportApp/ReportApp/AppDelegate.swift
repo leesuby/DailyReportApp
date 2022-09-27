@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func checkUser(){
-        
+
         if(UserDefaults.standard.value(forKey: "user")) != nil{
             UserSession.username = UserDefaults.standard.value(forKey: "user") as! String
             let homeViewController = HomeViewController()

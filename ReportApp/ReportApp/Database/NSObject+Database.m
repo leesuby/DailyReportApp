@@ -20,10 +20,6 @@
     return self;
 }
 
-- (void)saveReport{
-    [[[self.ref child:@"users"] child: @"1"]
-        setValue:@{@"username": @"long"}];
-}
 
 
 - (void) readAllReport: (NSMutableArray*) reportList collectionView :(UICollectionView*) cv{
@@ -46,6 +42,25 @@
         
       // ...
     }];
+}
+
+- (void) readAllReport:(void (^)(NSArray * _Nonnull))completionBlock{
+    [_ref observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+
+        NSMutableArray *reportArray  =  [[NSMutableArray alloc] init ];
+        for(FIRDataSnapshot* child in snapshot.children)
+        {
+            Report* tmp = [[Report alloc] init];
+            [tmp setDate:child.key];
+        
+            [reportArray addObject:tmp];
+            
+        }
+    
+        completionBlock([NSArray arrayWithArray:reportArray]);
+      // ...
+    }];
+    
 }
 - (void) readDetailReport : (NSMutableArray*) reportDetailList collectionView :(UICollectionView*) cv dateofReport: (NSString*) date{
     
@@ -89,11 +104,53 @@
     
 }
 
-- (void) readTaskUser: (NSMutableArray*) reportDetailList collectionView :(UICollectionView*) cv dateofReport: (NSString*) date{
+- (void) readDetailReportWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock{
     
-    [[[_ref child:date] child:[UserSession.username lowercaseString]]observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[_ref child:date] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
-        NSMutableArray *taskArray  =  [[NSMutableArray alloc] init ];
+        NSMutableArray *reportArray  =  [[NSMutableArray alloc] init ];
+        for(FIRDataSnapshot* user in snapshot.children)
+        {
+            
+            Report* tmp = [[Report alloc] init];
+            [tmp setUserName:user.key];
+           
+            
+            if(user.hasChildren){
+                NSMutableArray* tasks = [[NSMutableArray alloc] init ];
+                for(FIRDataSnapshot* task in user.children)
+                {
+                    Task* tmpTask = [[Task alloc] init];
+                    
+                    [tmpTask setNote:task.value[@"note"]];
+                    [tmpTask setTitle:task.value[@"title"]];
+                    [tmpTask setDetail:task.value[@"detail"]];
+                    [tmpTask setStatus:[task.value[@"status"] integerValue]];
+                    
+                    [tasks addObject:tmpTask];
+                }
+                
+                NSArray* arrayTask = [tasks copy];
+                [tmp setTasks:arrayTask];
+            }
+            
+            [reportArray addObject:tmp];
+
+        }
+        
+        completionBlock([NSArray arrayWithArray:reportArray]);
+
+      // ...
+    }];
+    
+}
+
+- (void)readTaskUserWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock{
+    [[[_ref child:date] child:[UserSession.username lowercaseString]]observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        ///
+        ///LOAD DATA..
+        NSMutableArray *taskArray = [[NSMutableArray alloc] init ];
+        
         for(FIRDataSnapshot* task in snapshot.children)
         {
             
@@ -108,11 +165,19 @@
 
         }
         
-        [reportDetailList setArray:taskArray];
-        [cv reloadData];
-
-      // ...
+        
+        completionBlock([NSArray arrayWithArray:taskArray]);
     }];
+}
+
+- (void)saveTaskUser:(Task *)task dateofReport: (NSString*) date{
+    
+    [[[[self.ref child:date] child:[UserSession.username lowercaseString]] child:task.id]
+     setValue:@{@"title": task.title,
+                @"note": task.note,
+                @"status": [NSNumber numberWithLong:task.status],
+                @"detail": task.detail
+              }];
 }
 
 @end

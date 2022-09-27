@@ -9,37 +9,43 @@ import UIKit
 
 class EditReportViewController: UIViewController {
 
-    private let EditReportView : EditReport = EditReport()
-    var EditReportCollectionView : UICollectionView!
-    private var tasks : NSMutableArray = []
+    private let editReportView : EditReport = EditReport()
+    var editReportCollectionView : UICollectionView!
+    private var tasks : [Task] = []
     var dateOfReport: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         
-        EditReportView.delegate = self
+        editReportView.delegate = self
         
-        EditReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        editReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
-        EditReportView.initialFisrtLook(viewController: self)
+        editReportView.initialFisrtLook(viewController: self)
         
-        EditReportCollectionView.delegate = self
-        EditReportCollectionView.dataSource = self
+        editReportCollectionView.delegate = self
+        editReportCollectionView.dataSource = self
         
-        EditReportCollectionView.register(DetailReportCell.self, forCellWithReuseIdentifier: "detailReport")
+        editReportCollectionView.register(UserReportCell.self, forCellWithReuseIdentifier: "userReport")
         
-        EditReportCollectionView.register(AddReportCell.self, forCellWithReuseIdentifier: "editReport")
+        editReportCollectionView.register(AddReportCell.self, forCellWithReuseIdentifier: "editReport")
         // Do any additional setup after loading the view.
         
-        Remote.remoteFirebase.readTaskOfUser(list: tasks, collectionView: EditReportCollectionView, date: dateOfReport)
+        Remote.remoteFirebase.readTaskOfUser(date: dateOfReport) { loadedTask in
+            DispatchQueue.main.async {
+                self.tasks = loadedTask as! [Task]
+                self.editReportCollectionView.reloadData()
+            }
+            
+        }
+
     }
 
     
     private func setupNavBar(){
         navigationItem.title = "Your Task"
         self.navigationController!.navigationBar.tintColor = UIColor.white
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(saveTask))
         
     }
     
@@ -52,12 +58,14 @@ class EditReportViewController: UIViewController {
 
 extension EditReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let task = tasks[indexPath.row] as! Task
+        
+        let task = tasks[indexPath.row]
+        
         if (task.isEdit == true){
             return CGSize(width: collectionView.frame.size.width, height:  500)
         }
         else{
-            return CGSize(width: collectionView.frame.size.width, height:  230)
+            return CGSize(width: collectionView.frame.size.width, height:  260)
         }
     }
     
@@ -78,20 +86,23 @@ extension EditReportViewController : UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
+
         
-        let task = tasks[indexPath.row] as! Task
+        let task = tasks[indexPath.item]
         
         if (task.isEdit == true){
             if let editCell = collectionView.dequeueReusableCell(withReuseIdentifier: "editReport", for: indexPath) as? AddReportCell{
                 
+                editCell.config(title: String(indexPath.item))
+                editCell.delegate = self
                 cell = editCell
             }
         }
         else{
             
-            if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
+            if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "userReport", for: indexPath) as? UserReportCell{
                 
-                detailCell.configure(tasks: [task], userName: UserSession.username)
+                detailCell.configureOneTask(task: task)
                 cell = detailCell
             }
         }
@@ -105,12 +116,35 @@ extension EditReportViewController : UICollectionViewDataSource{
 extension EditReportViewController : EditReportDelegate{
     func addTask() {
         
-        tasks.add(Task(isEdit: true))
+        tasks.append(Task(isEdit: true))
+        
+        editReportCollectionView.reloadData()
+        
+    }
     
-        EditReportCollectionView.reloadData()
+}
+
+extension EditReportViewController : AddReportCellDelegate{
+    func cancelReport(task: String) {
+        let oneTask = tasks[Int(task)!]
+        if(oneTask.detail != ""){
+            oneTask.isEdit = false
+        }
+        else{
+            tasks.remove(at: Int(task)!)
+        }
+        
+        self.editReportCollectionView.reloadData()
+    }
+    
+    func saveReport(task: Task) {
+        Remote.remoteFirebase.saveTaskOfUser(task: task, date: self.dateOfReport)
+        tasks.removeAll()
+    
     }
     
     
 }
+
 
 

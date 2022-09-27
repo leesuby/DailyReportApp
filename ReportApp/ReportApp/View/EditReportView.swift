@@ -40,7 +40,7 @@ class EditReport {
     
     func initialFisrtLook(viewController : EditReportViewController){
         let view: UIView = viewController.view
-        let collectionView: UICollectionView = viewController.EditReportCollectionView
+        let collectionView: UICollectionView = viewController.editReportCollectionView
         
         view.addSubview(background)
         background.translatesAutoresizingMaskIntoConstraints = false

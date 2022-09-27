@@ -8,6 +8,7 @@
 import Foundation
 @objc(Task)
 class Task :NSObject{
+    @objc var id: String = ""
     @objc var title: String = ""
     @objc var status: Int = 0
     @objc var detail: String = ""

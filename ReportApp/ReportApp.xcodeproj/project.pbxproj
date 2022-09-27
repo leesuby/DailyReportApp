@@ -35,6 +35,7 @@
 		E7DE32B328E2A39800398287 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7DE32B228E2A39800398287 /* GoogleService-Info.plist */; };
 		E7DE32B528E2A59C00398287 /* Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32B428E2A59C00398287 /* Remote.swift */; };
 		E7DE32B728E2A8C100398287 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32B628E2A8C100398287 /* UserSession.swift */; };
+		E7DE32B928E35EB100398287 /* UserReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32B828E35EB100398287 /* UserReportCell.swift */; };
 		E7DE4A0328DC07C200E4C7BF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */; };
 		E7DE4A0628DC087600E4C7BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0528DC087600E4C7BF /* LoginView.swift */; };
 		E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0728DC176E00E4C7BF /* HomeView.swift */; };
@@ -75,6 +76,7 @@
 		E7DE32B228E2A39800398287 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E7DE32B428E2A59C00398287 /* Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remote.swift; sourceTree = "<group>"; };
 		E7DE32B628E2A8C100398287 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
+		E7DE32B828E35EB100398287 /* UserReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReportCell.swift; sourceTree = "<group>"; };
 		E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E7DE4A0528DC087600E4C7BF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E7DE4A0728DC176E00E4C7BF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				E7DE4A0A28DC60E400E4C7BF /* ReportCell.swift */,
 				E7DE4A1028DD8E8D00E4C7BF /* DetailReportCell.swift */,
 				E7DE32A228E0AFC700398287 /* AddReportCell.swift */,
+				E7DE32B828E35EB100398287 /* UserReportCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				E7DE4A0F28DD60C600E4C7BF /* ViewReportView.swift in Sources */,
 				E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */,
 				E707F28528D9A261001F55F8 /* UIHelper.swift in Sources */,
+				E7DE32B928E35EB100398287 /* UserReportCell.swift in Sources */,
 				E7DE4A1428DD949700E4C7BF /* Task.swift in Sources */,
 				E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */,
 				E707F2A028DABD44001F55F8 /* CustomTextField.swift in Sources */,

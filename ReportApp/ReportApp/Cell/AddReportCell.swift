@@ -8,8 +8,8 @@
 import UIKit
 
 protocol AddReportCellDelegate {
-    func cancelReport()
-    func saveReport()
+    func cancelReport(task: String)
+    func saveReport(task: Task)
 }
 
 class AddReportCell: UICollectionViewCell {
@@ -19,6 +19,8 @@ class AddReportCell: UICollectionViewCell {
     private var detailField : UITextView = UITextView()
     private var noteField : UITextView = UITextView()
     var delegate : AddReportCellDelegate!
+    
+    private let taskText : UITextView = UITextView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,32 +40,32 @@ class AddReportCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.gray.cgColor
         contentView.layer.cornerRadius = 20
         
-        let userBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: Int(contentView.frame.size.width) / 10))
+        let taskBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: Int(contentView.frame.size.width) / 10))
         
-        userBox.backgroundColor = .zingPurple
-        userBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
+        taskBox.backgroundColor = .zingPurple
+        taskBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
         
-        let userText: UITextView = UITextView(frame: CGRect(x: 0,y: 0,width: Int(userBox.frame.size.width),height: Int(userBox.frame.size.height)))
+        taskText.frame = CGRect(x: 0,y: 0,width: Int(taskBox.frame.size.width),height: Int(taskBox.frame.size.height))
         
-        userText.text = "Longnct"
-        userText.font = .latoBold(size: 20)
-        userText.isEditable = false
-        userText.isScrollEnabled = false
-        userText.textColor = .white
-        userText.textAlignment = .center
-        userText.backgroundColor = .clear
+        taskText.text = ""
+        taskText.font = .latoBold(size: 20)
+        taskText.isEditable = false
+        taskText.isScrollEnabled = false
+        taskText.textColor = .white
+        taskText.textAlignment = .center
+        taskText.backgroundColor = .clear
         
-        userBox.addSubview(userText)
-        contentView.addSubview(userBox)
+        taskBox.addSubview(taskText)
+        contentView.addSubview(taskBox)
         
-        let tagImage = UIImageView(frame: CGRect(x: 10, y: userBox.frame.size.height + 15, width: 30, height: 30))
+        let tagImage = UIImageView(frame: CGRect(x: 10, y: taskBox.frame.size.height + 15, width: 30, height: 30))
         tagImage.image = UIImage(named: "TitleSymbol")
         tagImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
         tagImage.layer.cornerRadius = 15
         contentView.addSubview(tagImage)
         
         
-        let tagText = UITextView(frame: CGRect(x: 40, y: userBox.frame.size.height + 12, width: 60, height: 30))
+        let tagText = UITextView(frame: CGRect(x: 40, y: taskBox.frame.size.height + 12, width: 60, height: 30))
         tagText.text = "Title"
         tagText.textColor = .zingPurple70a
         tagText.font = .latoRegular(size: 16)
@@ -73,7 +75,7 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(tagText)
         
 
-        tagField.frame = CGRect(x: 105, y: userBox.frame.size.height + 12, width: contentView.frame.size.width - tagText.frame.size
+        tagField.frame = CGRect(x: 105, y: taskBox.frame.size.height + 12, width: contentView.frame.size.width - tagText.frame.size
             .width - tagImage.frame.size.width - 40, height: 40)
         tagField.textColor = .black
         tagField.font = .latoLight(size: 14)
@@ -176,6 +178,7 @@ class AddReportCell: UICollectionViewCell {
         buttonCancel.titleLabel?.font = .latoBold(size: 16)
         buttonCancel.backgroundColor = .gray40a
         buttonCancel.layer.cornerRadius = 10
+        buttonCancel.addTarget(self, action: #selector(cancelAddReport) , for: .touchUpInside)
         contentView.addSubview(buttonCancel)
         
         
@@ -186,12 +189,24 @@ class AddReportCell: UICollectionViewCell {
         buttonSave.titleLabel?.font = .latoBold(size: 16)
         buttonSave.backgroundColor = .darkPurple40a
         buttonSave.layer.cornerRadius = 10
+        buttonSave.addTarget(self, action: #selector(saveAddReport) , for: .touchUpInside)
         contentView.addSubview(buttonSave)
         
+    }
+    
+    func config(title: String){
+        taskText.text = title
+    }
+    
+    @objc func cancelAddReport(){
+        self.delegate.cancelReport(task: taskText.text)
+    }
+    
+    @objc func saveAddReport(){
+        let task = Task(title: tagField.text!, status: Int(statusField.text!)!, detail: detailField.text, note: noteField.text)
         
-        
-        
-        
+        task.id = "\(Int(taskText.text)! + 1)"
+        self.delegate.saveReport(task: task)
     }
     
     required init?(coder: NSCoder) {

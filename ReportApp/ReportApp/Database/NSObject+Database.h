@@ -21,13 +21,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
-- (void) saveReport;
 
-- (void) readAllReport: (NSMutableArray*) reportList collectionView :(UICollectionView*) cv;
+- (void) readAllReport:(void(^)(NSArray *))completionBlock;
 
-- (void) readDetailReport : (NSMutableArray*) reportDetailList collectionView :(UICollectionView*) cv dateofReport: (NSString*) date;
+- (void) readDetailReportWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock;
 
-- (void) readTaskUser: (NSMutableArray*) reportDetailList collectionView :(UICollectionView*) cv dateofReport: (NSString*) date;
+- (void)readTaskUserWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock ;
+
+- (void) saveTaskUser: (Task*) task dateofReport: (NSString*) date;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,15 +9,11 @@ import UIKit
 
 class ViewReportViewController: UIViewController {
     
-    private var reportDetailList : NSMutableArray = []
+    private var reportDetailList : [Report] = []
     
     private let viewReportView : ViewReport = ViewReport()
     var detailReportCollectionView : UICollectionView!
     
-
-   
-    
-//    private var report : [Report] = [Report(tasks: [Task(title: "Bugasdsadad", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022")]
     
     
     override func viewDidLoad() {
@@ -34,7 +30,14 @@ class ViewReportViewController: UIViewController {
         detailReportCollectionView.register(DetailReportCell.self, forCellWithReuseIdentifier: "detailReport")
         
         
-        Remote.remoteFirebase.readDetailReport(list: reportDetailList, collectionView: detailReportCollectionView, date: self.navigationItem.title!)
+        Remote.remoteFirebase.readDetailReport(date: self.navigationItem.title!) { loadedData in
+            DispatchQueue.main.async {
+                self.reportDetailList = loadedData as! [Report]
+                self.detailReportCollectionView.reloadData()
+            }
+           
+        }
+       
         
         // Do any additional setup after loading the view.
     }
@@ -84,7 +87,7 @@ class ViewReportViewController: UIViewController {
 
 extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let report : Report = reportDetailList[indexPath.row] as! Report
+        let report : Report = reportDetailList[indexPath.row]
         return CGSize(width: collectionView.frame.size.width, height: CGFloat(report.tasks.count * 230 - 30 * (report.tasks.count - 1)))
        
     }
@@ -109,7 +112,7 @@ extension ViewReportViewController : UICollectionViewDataSource{
         
         
             if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
-                let report : Report = reportDetailList[indexPath.row] as! Report
+                let report : Report = reportDetailList[indexPath.row]
                 
                 detailCell.configure(tasks: report.tasks,userName: report.userName)
             

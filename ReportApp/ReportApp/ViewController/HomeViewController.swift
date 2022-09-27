@@ -10,7 +10,7 @@ import UIKit
 
 class HomeViewController: UIViewController{
     
-    private var reportlist : NSMutableArray = []
+    private var reportlist : [Report] = []
     
     private let homeView = HomeView()
     var reportCollectionView : UICollectionView!
@@ -35,7 +35,13 @@ class HomeViewController: UIViewController{
         reportCollectionView.register(ReportCell.self, forCellWithReuseIdentifier: "report")
         
         
-        Remote.remoteFirebase.readAllReport(list: reportlist, collectionView: reportCollectionView)
+        Remote.remoteFirebase.readAllReport { loadedData in
+            DispatchQueue.main.async {
+                self.reportlist = loadedData as! [Report]
+                self.reportCollectionView.reloadData()
+            }
+            
+        }
       
     }
     
@@ -44,8 +50,6 @@ class HomeViewController: UIViewController{
         super.viewDidLayoutSubviews()
         homeView.initialLayer(view: view)
         
-        
-        
     }
     
 }
@@ -53,7 +57,7 @@ class HomeViewController: UIViewController{
 extension HomeViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = ViewReportViewController()
-        vc.navigationItem.title = (reportlist[indexPath.row] as! Report).date
+        vc.navigationItem.title = (reportlist[indexPath.row]).date
 
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -73,7 +77,7 @@ extension HomeViewController: UICollectionViewDataSource{
         var cell = UICollectionViewCell()
         if let reportCell = collectionView.dequeueReusableCell(withReuseIdentifier: "report", for: indexPath) as? ReportCell{
             
-            let report : Report = reportlist[indexPath.row] as! Report
+            let report : Report = reportlist[indexPath.row]
             
             reportCell.config(date: report.date)
             

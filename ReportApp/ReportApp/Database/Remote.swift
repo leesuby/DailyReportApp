@@ -11,26 +11,27 @@ import UIKit
 class Remote {
     static var remoteFirebase = Remote()
     
-    private var database: DatabaseFirebase
+    var database: DatabaseFirebase
     
     init(){
         database = DatabaseFirebase()
     }
     
-    func saveData(){
-        database.saveReport()
+    func readAllReport(completion: @escaping ([Any]) -> Void){
+        database.readAllReport(completion)
     }
     
-    func readAllReport(list : NSMutableArray, collectionView : UICollectionView){
-        database.readAllReport(list , collectionView: collectionView)
+    func readDetailReport(date : String, completion: @escaping ([Any]) -> Void){
+        database.readDetailReport(withDate: date, completion: completion)
     }
     
-    func readDetailReport(list : NSMutableArray, collectionView: UICollectionView, date : String){
-        database.readDetailReport(list, collectionView: collectionView, dateofReport: date)
+    
+    func readTaskOfUser(date : String, completion: @escaping ([Any]) -> Void){
+        database.readTaskUser(withDate: date, completion: completion)
     }
     
-    func readTaskOfUser(list : NSMutableArray, collectionView: UICollectionView, date : String){
-        database.readTaskUser(list, collectionView: collectionView, dateofReport: date)
+    func saveTaskOfUser(task: Task,date: String){
+        database.saveTaskUser(task, dateofReport: date)
     }
     
 }

@@ -66,7 +66,7 @@ class LoginView{
     
     var emailTextField : CustomTextField = {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Email",imageName: "MailSymbol")
-        
+        textField.textColor = .darkPurple40a
         textField.font = .latoLight(size: 16)
         
         return textField
@@ -74,7 +74,7 @@ class LoginView{
     
     var passTextField : CustomTextField = {
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Password",imageName: "KeySymbol")
-        
+        textField.textColor = .darkPurple40a
         textField.font = .latoLight(size: 16)
         
         textField.isSecureTextEntry = true

@@ -27,6 +27,7 @@ class ViewController: UIViewController, LoginViewDelegate {
         if (isInitial){
             loginView.initialLoginBox(view: view)
             isInitial = false
+            
         }
     }
     
@@ -37,6 +38,7 @@ class ViewController: UIViewController, LoginViewDelegate {
         if (button.tag == 1){
             let email = loginView.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
             let password = loginView.passTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+            
             Auth.auth().signIn(withEmail: email, password: password){
                 (result,error) in
                 
@@ -44,9 +46,14 @@ class ViewController: UIViewController, LoginViewDelegate {
                     print(error!.localizedDescription)
                 }
                 else {
+                    UserDefaults.standard.set(email.components(separatedBy: "@")[0], forKey: "user")
+                    UserSession.username = email.components(separatedBy: "@")[0]
                     
                     let homeViewController = HomeViewController()
-                    self.present(homeViewController, animated: true, completion: nil)
+        
+                    let nav = UINavigationController(rootViewController: homeViewController)
+                    nav.modalPresentationStyle = .fullScreen
+                    self.present(nav, animated: true, completion: nil)
                 }
                 
                 let homeViewController = HomeViewController()

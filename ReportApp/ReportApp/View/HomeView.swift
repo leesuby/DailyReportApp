@@ -51,7 +51,7 @@ class HomeView {
     
     var userName : UITextView = {
         let textView = UITextView(frame: .zero)
-        textView.text = "Longnct"
+        textView.text = UserSession.username
         textView.textColor = .white
         textView.backgroundColor = .clear
         textView.textAlignment = .right
@@ -147,7 +147,7 @@ class HomeView {
         NSLayoutConstraint(item: collectionView, attribute: .top , relatedBy: .equal, toItem: latestText, attribute: .bottom, multiplier: 1.0, constant: 10).isActive = true
         NSLayoutConstraint(item: collectionView, attribute: .centerX, relatedBy: .equal, toItem: latestText, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: collectionView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1.0, constant: -30).isActive = true
-        NSLayoutConstraint(item: collectionView, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 3/5, constant: 0).isActive = true
+        NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
         
         
         

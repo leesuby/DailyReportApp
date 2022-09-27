@@ -6,7 +6,8 @@
 //
 
 import Foundation
-class Task{
+@objc(Task)
+class Task :NSObject{
     var title: String = ""
     var status: Int = 0
     var detail: String = ""

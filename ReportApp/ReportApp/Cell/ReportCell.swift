@@ -8,6 +8,9 @@
 import UIKit
 
 class ReportCell: UICollectionViewCell {
+    
+    let dateText: UITextView = UITextView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .clear
@@ -32,7 +35,7 @@ class ReportCell: UICollectionViewCell {
         dateBox.backgroundColor = .zingPurple
         dateBox.roundCorners(corners: [.topLeft], radius: 20)
         
-        let dateText: UITextView = UITextView(frame: CGRect(x: 12,y: 0,width: Int(dateBox.frame.size.width),height: Int(dateBox.frame.size.height)))
+        dateText.frame = CGRect(x: 12,y: 0,width: Int(dateBox.frame.size.width),height: Int(dateBox.frame.size.height))
         
         dateText.text = "19/09/2022"
         dateText.font = .latoRegular(size: 16)
@@ -72,6 +75,10 @@ class ReportCell: UICollectionViewCell {
     
         
         
+    }
+    
+    func config(date : String){
+        dateText.text = date
     }
     
     required init?(coder: NSCoder) {

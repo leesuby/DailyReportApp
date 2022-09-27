@@ -144,7 +144,7 @@ extension UINavigationController{
 
        self.navigationBar.setBackgroundImage(image, for: .default)
        self.navigationBar.shadowImage = UIImage()
-      self.navigationBar.isTranslucent = true
+       self.navigationBar.isTranslucent = true
 
       
     }

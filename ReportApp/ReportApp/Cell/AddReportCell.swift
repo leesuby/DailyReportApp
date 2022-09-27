@@ -57,7 +57,7 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(userBox)
         
         let tagImage = UIImageView(frame: CGRect(x: 10, y: userBox.frame.size.height + 15, width: 30, height: 30))
-        tagImage.image = UIImage(named: "AddSymbol")
+        tagImage.image = UIImage(named: "TitleSymbol")
         tagImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
         tagImage.layer.cornerRadius = 15
         contentView.addSubview(tagImage)
@@ -86,7 +86,7 @@ class AddReportCell: UICollectionViewCell {
         
         
         let statusImage = UIImageView(frame: CGRect(x: 10, y: tagImage.center.y + 38, width: 30, height: 30))
-        statusImage.image = UIImage(named: "AddSymbol")
+        statusImage.image = UIImage(named: "StatusSymbol")
         statusImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
         statusImage.layer.cornerRadius = 15
         contentView.addSubview(statusImage)
@@ -114,7 +114,7 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(statusField)
         
         let detailImage = UIImageView(frame: CGRect(x: 10, y: statusImage.center.y + 38, width: 30, height: 30))
-        detailImage.image = UIImage(named: "AddSymbol")
+        detailImage.image = UIImage(named: "DetailSymbol")
         detailImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
         detailImage.layer.cornerRadius = 15
         contentView.addSubview(detailImage)
@@ -141,7 +141,9 @@ class AddReportCell: UICollectionViewCell {
         
         
         let noteImage = UIImageView(frame: CGRect(x: 10, y: detailImage.center.y + detailField.frame.size.height + 38, width: 30, height: 30))
-        noteImage.image = UIImage(named: "AddSymbol")
+        noteImage.image = UIImage(named: "NoteSymbol_White")
+     
+        noteImage.contentMode = .scaleAspectFit
         noteImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
         noteImage.layer.cornerRadius = 15
         contentView.addSubview(noteImage)

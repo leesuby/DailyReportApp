@@ -19,7 +19,6 @@
 		E707F29C28D9BC63001F55F8 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E707F29128D9A32A001F55F8 /* Lato-Light.ttf */; };
 		E707F29D28D9BC63001F55F8 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E707F29228D9A32A001F55F8 /* Lato-ThinItalic.ttf */; };
 		E707F2A028DABD44001F55F8 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E707F29F28DABD44001F55F8 /* CustomTextField.swift */; };
-		E707F2A528DB0791001F55F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E707F2A428DB0791001F55F8 /* GoogleService-Info.plist */; };
 		E707F2A828DB11DB001F55F8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E707F2A728DB11DB001F55F8 /* FirebaseAnalytics */; };
 		E707F2AA28DB11DB001F55F8 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E707F2A928DB11DB001F55F8 /* FirebaseAuth */; };
 		E707F2AC28DB11DB001F55F8 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E707F2AB28DB11DB001F55F8 /* FirebaseDatabase */; };
@@ -27,12 +26,15 @@
 		E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232228D32C8900BB5F27 /* AppDelegate.swift */; };
 		E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */; };
 		E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232628D32C8900BB5F27 /* LoginViewController.swift */; };
-		E7D5232A28D32C8900BB5F27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D5232828D32C8900BB5F27 /* Main.storyboard */; };
 		E7D5232C28D32C8A00BB5F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D5232B28D32C8A00BB5F27 /* Assets.xcassets */; };
 		E7D5232F28D32C8A00BB5F27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D5232D28D32C8A00BB5F27 /* LaunchScreen.storyboard */; };
 		E7DE32A128E0AD7800398287 /* EditReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32A028E0AD7800398287 /* EditReportView.swift */; };
 		E7DE32A328E0AFC700398287 /* AddReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32A228E0AFC700398287 /* AddReportCell.swift */; };
 		E7DE32A528E15C9D00398287 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32A428E15C9D00398287 /* Report.swift */; };
+		E7DE32B128E299A300398287 /* NSObject+Database.m in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32B028E299A300398287 /* NSObject+Database.m */; };
+		E7DE32B328E2A39800398287 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7DE32B228E2A39800398287 /* GoogleService-Info.plist */; };
+		E7DE32B528E2A59C00398287 /* Remote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32B428E2A59C00398287 /* Remote.swift */; };
+		E7DE32B728E2A8C100398287 /* UserSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32B628E2A8C100398287 /* UserSession.swift */; };
 		E7DE4A0328DC07C200E4C7BF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */; };
 		E7DE4A0628DC087600E4C7BF /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0528DC087600E4C7BF /* LoginView.swift */; };
 		E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE4A0728DC176E00E4C7BF /* HomeView.swift */; };
@@ -57,18 +59,22 @@
 		E707F29128D9A32A001F55F8 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		E707F29228D9A32A001F55F8 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		E707F29F28DABD44001F55F8 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		E707F2A428DB0791001F55F8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E7D5231F28D32C8900BB5F27 /* ReportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D5232228D32C8900BB5F27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E7D5232628D32C8900BB5F27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		E7D5232928D32C8900BB5F27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7D5232B28D32C8A00BB5F27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7D5232E28D32C8A00BB5F27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E7D5233028D32C8A00BB5F27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7DE32A028E0AD7800398287 /* EditReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReportView.swift; sourceTree = "<group>"; };
 		E7DE32A228E0AFC700398287 /* AddReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReportCell.swift; sourceTree = "<group>"; };
 		E7DE32A428E15C9D00398287 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		E7DE32A628E1AC1100398287 /* ReportApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReportApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		E7DE32AF28E299A300398287 /* NSObject+Database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Database.h"; sourceTree = "<group>"; };
+		E7DE32B028E299A300398287 /* NSObject+Database.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Database.m"; sourceTree = "<group>"; };
+		E7DE32B228E2A39800398287 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E7DE32B428E2A59C00398287 /* Remote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Remote.swift; sourceTree = "<group>"; };
+		E7DE32B628E2A8C100398287 /* UserSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSession.swift; sourceTree = "<group>"; };
 		E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E7DE4A0528DC087600E4C7BF /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E7DE4A0728DC176E00E4C7BF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -167,6 +173,8 @@
 		E7D5232128D32C8900BB5F27 /* ReportApp */ = {
 			isa = PBXGroup;
 			children = (
+				E7DE32A628E1AC1100398287 /* ReportApp-Bridging-Header.h */,
+				E7DE32A928E2972E00398287 /* Database */,
 				E7DE4A1528DDB95B00E4C7BF /* Helper */,
 				E707F28628D9A30F001F55F8 /* Material */,
 				E7DE4A1228DD948100E4C7BF /* Model */,
@@ -175,13 +183,22 @@
 				E707F29E28DABD15001F55F8 /* View */,
 				E7D5232228D32C8900BB5F27 /* AppDelegate.swift */,
 				E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */,
-				E7D5232828D32C8900BB5F27 /* Main.storyboard */,
 				E7D5232B28D32C8A00BB5F27 /* Assets.xcassets */,
 				E7D5232D28D32C8A00BB5F27 /* LaunchScreen.storyboard */,
 				E7D5233028D32C8A00BB5F27 /* Info.plist */,
-				E707F2A428DB0791001F55F8 /* GoogleService-Info.plist */,
+				E7DE32B228E2A39800398287 /* GoogleService-Info.plist */,
 			);
 			path = ReportApp;
+			sourceTree = "<group>";
+		};
+		E7DE32A928E2972E00398287 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E7DE32AF28E299A300398287 /* NSObject+Database.h */,
+				E7DE32B028E299A300398287 /* NSObject+Database.m */,
+				E7DE32B428E2A59C00398287 /* Remote.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		E7DE4A0128DC07AB00E4C7BF /* ViewController */ = {
@@ -218,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				E707F28428D9A261001F55F8 /* UIHelper.swift */,
+				E7DE32B628E2A8C100398287 /* UserSession.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -260,6 +278,7 @@
 				TargetAttributes = {
 					E7D5231E28D32C8900BB5F27 = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1340;
 					};
 				};
 			};
@@ -300,9 +319,8 @@
 				E707F29928D9BC5D001F55F8 /* Lato-Regular.ttf in Resources */,
 				E707F29A28D9BC5D001F55F8 /* Lato-BlackItalic.ttf in Resources */,
 				E7D5232F28D32C8A00BB5F27 /* LaunchScreen.storyboard in Resources */,
+				E7DE32B328E2A39800398287 /* GoogleService-Info.plist in Resources */,
 				E7D5232C28D32C8A00BB5F27 /* Assets.xcassets in Resources */,
-				E7D5232A28D32C8900BB5F27 /* Main.storyboard in Resources */,
-				E707F2A528DB0791001F55F8 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,8 +338,11 @@
 				E7DE32A328E0AFC700398287 /* AddReportCell.swift in Sources */,
 				E7DE4A1728DDB99A00E4C7BF /* EditReportViewController.swift in Sources */,
 				E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */,
+				E7DE32B528E2A59C00398287 /* Remote.swift in Sources */,
 				E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */,
+				E7DE32B128E299A300398287 /* NSObject+Database.m in Sources */,
 				E7DE4A0D28DD608800E4C7BF /* ViewReportViewController.swift in Sources */,
+				E7DE32B728E2A8C100398287 /* UserSession.swift in Sources */,
 				E7DE4A0F28DD60C600E4C7BF /* ViewReportView.swift in Sources */,
 				E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */,
 				E707F28528D9A261001F55F8 /* UIHelper.swift in Sources */,
@@ -336,14 +357,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E7D5232828D32C8900BB5F27 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E7D5232928D32C8900BB5F27 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E7D5232D28D32C8A00BB5F27 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -474,6 +487,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -493,6 +507,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Long-Thien.ReportApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReportApp/ReportApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -503,6 +519,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -522,6 +539,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Long-Thien.ReportApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "ReportApp/ReportApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

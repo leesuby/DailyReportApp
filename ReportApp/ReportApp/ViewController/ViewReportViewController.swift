@@ -9,11 +9,15 @@ import UIKit
 
 class ViewReportViewController: UIViewController {
     
+    private var reportDetailList : NSMutableArray = []
+    
     private let viewReportView : ViewReport = ViewReport()
     var detailReportCollectionView : UICollectionView!
+    
+
    
     
-    private var report : [Report] = [Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], user: "longnct", date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], user: "longnct", date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], user: "longnct", date: "19/09/2022")]
+    private var report : [Report] = [Report(tasks: [Task(title: "Bugasdsadad", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022"),Report(tasks: [Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục"),Task(title: "Bug", status: 80, detail: "trace bug màn hình khi không có kết nối", note: "Đã tìm ra nguyên nhân, đang khắc phục")], date: "19/09/2022")]
     
     
     override func viewDidLoad() {
@@ -36,7 +40,6 @@ class ViewReportViewController: UIViewController {
     
     
     private func setupNavBar(){
-        navigationItem.title = "19/09/2022"
         self.navigationController!.navigationBar.tintColor = UIColor.white
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editReport))
         

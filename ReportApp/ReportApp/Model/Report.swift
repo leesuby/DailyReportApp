@@ -6,14 +6,24 @@
 //
 
 import Foundation
-class Report{
-    var tasks : [Task]
-    var userName: String
-    var date : String
+
+@objc(Report)
+class Report: NSObject{
+    @objc var tasks : [Task] = []
+    @objc var date : String = ""
+    @objc var userName: String = ""
     
-    init(tasks: [Task], user: String , date: String){
+    init(tasks: [Task], date: String){
         self.tasks = tasks
-        self.userName = user
         self.date = date
+    }
+    
+    @objc func initDate(date: String){
+    
+        self.date = date
+    }
+    
+    override init(){
+        
     }
 }

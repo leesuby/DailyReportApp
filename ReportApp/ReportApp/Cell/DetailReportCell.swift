@@ -62,15 +62,17 @@ class DetailReportCell: UICollectionViewCell {
         var y = 0
         
         for task in tasks {
-            let title = UITextView(frame: CGRect(x: 10,y: y + Int(heightUserBox) + 10,width: 50,height: 30))
+            let title = UITextView(frame: CGRect(x: 10,y: y + Int(heightUserBox) + 10,width: 200,height: 30))
             title.text = task.title
+            
             title.font = .latoBold(size: 18)
             title.isEditable = false
             title.isScrollEnabled = false
             title.textColor = .white
-            title.textAlignment = .center
+            title.textAlignment = .left
             title.backgroundColor = .zingPurple70a
             title.layer.cornerRadius = 15
+            title.sizeToFit()
             contentView.addSubview(title)
             
             let status = UITextView(frame: CGRect(x: Int(contentView.frame.width) - 50, y: y + Int(heightUserBox) + 10 , width: 50, height: 35))

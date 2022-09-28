@@ -7,8 +7,12 @@
 
 import UIKit
 
+protocol UserReportCellDelegate{
+    func editReport(task : Task)
+    func deleteReport(task: Task)
+}
+
 class UserReportCell: UICollectionViewCell {
-    private var tasks : [Task]  = []
     
     private let userText: UITextView = UITextView()
     
@@ -20,7 +24,10 @@ class UserReportCell: UICollectionViewCell {
     
     private let noteText : UITextView = UITextView()
     
+    private var task : Task!
     private var heightUserBox : Float = 0
+    
+    var delegate: UserReportCellDelegate!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,10 +53,11 @@ class UserReportCell: UICollectionViewCell {
         userBox.backgroundColor = .zingPurple
         userBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
         
+        
         heightUserBox = Float(userBox.frame.size.height)
         
-        userText.frame = CGRect(x: 0,y: 0,width: Int(userBox.frame.size.width),height: Int(userBox.frame.size.height))
-        userText.text = "Longnct"
+        userText.frame = CGRect(x: userBox.center.x - 10, y: 0,width: 30,height: 30)
+        userText.text = ""
         userText.font = .latoBold(size: 20)
         userText.isEditable = false
         userText.isScrollEnabled = false
@@ -57,6 +65,13 @@ class UserReportCell: UICollectionViewCell {
         userText.textAlignment = .center
         userText.backgroundColor = .clear
         
+        
+        let editButton: UIButton = UIButton(frame: CGRect(x: userBox.frame.size.width - 30, y: 10,width: 20,height: 20))
+        editButton.setImage(UIImage(named: "EditSymbol"), for: .normal)
+        editButton.backgroundColor = .clear
+        editButton.addTarget(self, action: #selector(editReport), for: .touchUpInside)
+        
+        userBox.addSubview(editButton)
         userBox.addSubview(userText)
         contentView.addSubview(userBox)
         
@@ -113,18 +128,29 @@ class UserReportCell: UICollectionViewCell {
         noteText.layer.cornerRadius = 10
         contentView.addSubview(noteText)
         
+        let deleteButton : UIButton = UIButton(frame: CGRect(x: 10, y: contentView.frame.size.height - 35, width: 30, height: 30))
+        deleteButton.setImage(UIImage(named: "DeleteSymbol_RedExtra"), for: .normal)
+        deleteButton.backgroundColor = .clear
+        deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
+
+        
+        contentView.addSubview(deleteButton)
+        
         
     }
-    func configureOneTask(task : Task){
+    
+    func configureOneTask(task : Task,text: String){
         
+        self.task = task
         title.frame = CGRect(x: 10,y: Int(heightUserBox) + 10,width: 200,height: 30)
         title.text = task.title
         title.sizeToFit()
         
+        userText.text = text
+        
         status.text = "\(String(task.status))%"
         
         detail.text = task.detail
-
         
         noteText.text = task.note
         
@@ -133,5 +159,14 @@ class UserReportCell: UICollectionViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("Error Creating DetailCell")
+    }
+    
+    
+    @objc func editReport(){
+        delegate.editReport(task: self.task)
+    }
+    
+    @objc func deleteReport(){
+        delegate.deleteReport(task: self.task)
     }
 }

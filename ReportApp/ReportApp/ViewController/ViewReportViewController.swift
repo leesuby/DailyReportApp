@@ -10,7 +10,7 @@ import UIKit
 class ViewReportViewController: UIViewController {
     
     private var reportDetailList : [Report] = []
-    
+
     private let viewReportView : ViewReport = ViewReport()
     var detailReportCollectionView : UICollectionView!
     
@@ -41,6 +41,7 @@ class ViewReportViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
+   
     
     
     
@@ -87,13 +88,14 @@ class ViewReportViewController: UIViewController {
 
 extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let report : Report = reportDetailList[indexPath.row]
         return CGSize(width: collectionView.frame.size.width, height: CGFloat(report.tasks.count * 230 - 30 * (report.tasks.count - 1)))
        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
     }
     
 }
@@ -110,12 +112,15 @@ extension ViewReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
-        
             if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
                 let report : Report = reportDetailList[indexPath.row]
                 
                 detailCell.configure(tasks: report.tasks,userName: report.userName)
             
+                if(report.userName == "Nothing" && reportDetailList.count != 1){
+                    detailCell.hidden()
+                }
+                
                 cell = detailCell
             }
         

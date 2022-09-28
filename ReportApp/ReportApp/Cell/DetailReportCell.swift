@@ -181,6 +181,10 @@ class DetailReportCell: UICollectionViewCell {
         }
     }
     
+    func hidden(){
+        contentView.isHidden = true
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("Error Creating DetailCell")
     }

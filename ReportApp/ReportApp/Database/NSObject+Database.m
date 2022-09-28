@@ -160,6 +160,7 @@
             [tmpTask setTitle:task.value[@"title"]];
             [tmpTask setDetail:task.value[@"detail"]];
             [tmpTask setStatus:[task.value[@"status"] integerValue]];
+            [tmpTask setId:task.key];
             
             [taskArray addObject:tmpTask];
 
@@ -178,6 +179,20 @@
                 @"status": [NSNumber numberWithLong:task.status],
                 @"detail": task.detail
               }];
+}
+
+- (void) editTaskUser: (Task*) task dateofReport: (NSString*) date{
+    [[[[self.ref child:date] child:[UserSession.username lowercaseString]] child:task.id]
+     setValue:@{@"title": task.title,
+                @"note": task.note,
+                @"status": [NSNumber numberWithLong:task.status],
+                @"detail": task.detail
+              }];
+}
+
+- (void) deleteTaskUser: (Task*) task dateofReport: (NSString*) date{
+    [[[[self.ref child:date] child:[UserSession.username lowercaseString]] child:task.id]
+     removeValue];
 }
 
 @end

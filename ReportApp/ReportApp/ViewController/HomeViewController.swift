@@ -38,6 +38,7 @@ class HomeViewController: UIViewController{
         Remote.remoteFirebase.readAllReport { loadedData in
             DispatchQueue.main.async {
                 self.reportlist = loadedData as! [Report]
+                print(self.reportlist)
                 self.reportCollectionView.reloadData()
             }
             

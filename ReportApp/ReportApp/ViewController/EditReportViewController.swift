@@ -87,13 +87,13 @@ extension EditReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
 
-        
         let task = tasks[indexPath.item]
         
         if (task.isEdit == true){
             if let editCell = collectionView.dequeueReusableCell(withReuseIdentifier: "editReport", for: indexPath) as? AddReportCell{
                 
-                editCell.config(title: String(indexPath.item))
+                editCell.config(title: String(indexPath.item), task: task)
+                
                 editCell.delegate = self
                 cell = editCell
             }
@@ -102,7 +102,8 @@ extension EditReportViewController : UICollectionViewDataSource{
             
             if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "userReport", for: indexPath) as? UserReportCell{
                 
-                detailCell.configureOneTask(task: task)
+                detailCell.configureOneTask(task: task,text: String(indexPath.item))
+                detailCell.delegate = self
                 cell = detailCell
             }
         }
@@ -115,8 +116,9 @@ extension EditReportViewController : UICollectionViewDataSource{
 
 extension EditReportViewController : EditReportDelegate{
     func addTask() {
-        
-        tasks.append(Task(isEdit: true))
+        let tmp = Task(isEdit: true)
+        tmp.id = "-1"
+        tasks.append(tmp)
         
         editReportCollectionView.reloadData()
         
@@ -125,26 +127,51 @@ extension EditReportViewController : EditReportDelegate{
 }
 
 extension EditReportViewController : AddReportCellDelegate{
-    func cancelReport(task: String) {
-        let oneTask = tasks[Int(task)!]
-        if(oneTask.detail != ""){
-            oneTask.isEdit = false
+    func cancelReport(task: Task) {
+        for (index, element) in tasks.enumerated(){
+            if(element.id == task.id){
+                if(element.id == "-1"){
+                    tasks.remove(at: index)
+                }
+                else{
+                    element.isEdit = false
+                }
+            }
         }
-        else{
-            tasks.remove(at: Int(task)!)
-        }
-        
         self.editReportCollectionView.reloadData()
     }
     
     func saveReport(task: Task) {
+        if(task.id == "-1"){
+            task.id = "\(Int(Date().timeIntervalSince1970 * 1000000))"
+        }
+        for t in tasks{
+            if(t.id == task.id){
+                t.isEdit = false
+                editReportCollectionView.reloadData()
+            }
+        }
+        print(task.id)
         Remote.remoteFirebase.saveTaskOfUser(task: task, date: self.dateOfReport)
-        tasks.removeAll()
     
     }
     
     
 }
 
-
+extension EditReportViewController : UserReportCellDelegate{
+    func deleteReport(task: Task) {
+        Remote.remoteFirebase.deleteTaskOfUser(task: task, date: self.dateOfReport)
+        tasks.removeAll()
+    }
+    
+    func editReport(task: Task) {
+        for t in tasks{
+            if(t.id == task.id){
+                t.isEdit = true
+                editReportCollectionView.reloadData()
+            }
+        }
+    }
+}
 

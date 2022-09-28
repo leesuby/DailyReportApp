@@ -34,4 +34,12 @@ class Remote {
         database.saveTaskUser(task, dateofReport: date)
     }
     
+    func editTaskOfUser(task: Task,date: String){
+        database.editTaskUser(task, dateofReport: date)
+    }
+    
+    func deleteTaskOfUser(task: Task,date: String){
+        database.deleteTaskUser(task, dateofReport: date)
+    }
+    
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AddReportCellDelegate {
-    func cancelReport(task: String)
+    func cancelReport(task: Task)
     func saveReport(task: Task)
 }
 
@@ -21,6 +21,7 @@ class AddReportCell: UICollectionViewCell {
     var delegate : AddReportCellDelegate!
     
     private let taskText : UITextView = UITextView()
+    private var task: Task!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -197,15 +198,23 @@ class AddReportCell: UICollectionViewCell {
     func config(title: String){
         taskText.text = title
     }
+    func config(title: String,task: Task){
+        self.task = task
+        taskText.text = title
+        tagField.text = task.title
+        statusField.text = "\(task.status)"
+        detailField.text = task.detail
+        noteField.text = task.note
+    }
     
     @objc func cancelAddReport(){
-        self.delegate.cancelReport(task: taskText.text)
+        self.delegate.cancelReport(task: self.task)
     }
     
     @objc func saveAddReport(){
         let task = Task(title: tagField.text!, status: Int(statusField.text!)!, detail: detailField.text, note: noteField.text)
+        task.id = self.task.id
         
-        task.id = "\(Int(taskText.text)! + 1)"
         self.delegate.saveReport(task: task)
     }
     

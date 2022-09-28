@@ -24,11 +24,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void) readAllReport:(void(^)(NSArray *))completionBlock;
 
-- (void) readDetailReportWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock;
+- (void) readDetailReportWithDate: (NSString*)date completion:(void(^)(NSArray *))completionBlock;
 
-- (void)readTaskUserWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock ;
+- (void) readTaskUserWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock;
 
 - (void) saveTaskUser: (Task*) task dateofReport: (NSString*) date;
+
+- (void) editTaskUser: (Task*) task dateofReport: (NSString*) date;
+
+- (void) deleteTaskUser: (Task*) task dateofReport: (NSString*) date;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import MessageUI
 
 class ViewReportViewController: UIViewController {
     
     private var reportDetailList : [Report] = []
-
+    
     private let viewReportView : ViewReport = ViewReport()
     var detailReportCollectionView : UICollectionView!
     
@@ -22,6 +23,7 @@ class ViewReportViewController: UIViewController {
         
         detailReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
+        viewReportView.delegate = self
         viewReportView.initialFisrtLook(viewController: self)
         
         detailReportCollectionView.delegate = self
@@ -35,13 +37,13 @@ class ViewReportViewController: UIViewController {
                 self.reportDetailList = loadedData as! [Report]
                 self.detailReportCollectionView.reloadData()
             }
-           
+            
         }
-       
+        
         
         // Do any additional setup after loading the view.
     }
-   
+    
     
     
     
@@ -55,7 +57,7 @@ class ViewReportViewController: UIViewController {
             appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.latoBold(size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.white]
             appearance.configureWithOpaqueBackground()
             appearance.backgroundImage = UIImage(named: "BannerHome")
-    
+            
             appearance.shadowColor = .white
             appearance.shadowImage = UIImage()
             navigationController?.navigationBar.standardAppearance = appearance
@@ -80,7 +82,7 @@ class ViewReportViewController: UIViewController {
     @objc func editReport(){
         let vc = EditReportViewController()
         vc.dateOfReport = self.navigationItem.title!
-
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -91,7 +93,7 @@ extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
         
         let report : Report = reportDetailList[indexPath.row]
         return CGSize(width: collectionView.frame.size.width, height: CGFloat(report.tasks.count * 230 - 30 * (report.tasks.count - 1)))
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -112,17 +114,17 @@ extension ViewReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
-            if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
-                let report : Report = reportDetailList[indexPath.row]
-                
-                detailCell.configure(tasks: report.tasks,userName: report.userName)
+        if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
+            let report : Report = reportDetailList[indexPath.row]
             
-                if(report.userName == "Nothing" && reportDetailList.count != 1){
-                    detailCell.hidden()
-                }
-                
-                cell = detailCell
+            detailCell.configure(tasks: report.tasks,userName: report.userName)
+            
+            if(report.userName == "Nothing" && reportDetailList.count != 1){
+                detailCell.hidden()
             }
+            
+            cell = detailCell
+        }
         
         
         
@@ -130,4 +132,124 @@ extension ViewReportViewController : UICollectionViewDataSource{
     }
     
     
+}
+
+extension ViewReportViewController : ViewReportDelegate{
+    func sendReport() {
+        print(generateHTMLTableReport())
+        showMailComposer()
+    }
+    
+}
+
+
+extension ViewReportViewController : MFMailComposeViewControllerDelegate{
+    
+    func generateHTMLTableReport() -> String{
+        return """
+                <table style="border: 2px solid black,">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Task</th>
+                        <th>Status</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    \(generateHTMLUserReport())
+                </tbody>
+                </table>
+                """
+    }
+    
+    func generateHTMLUserReport() -> String{
+        var result: String = ""
+        for report in reportDetailList{
+            if(report.userName == "Nothing"){
+                continue}
+            result.append("""
+                        <tr>
+                          <td rowspan=\(report.tasks.count)>\(report.userName)</td>
+                            \(generateHTMLUserTask(tasks: report.tasks))
+                        """)
+            
+        }
+        return result
+    }
+    
+    func generateHTMLUserTask(tasks: [Task]) -> String{
+        var result: String = ""
+        for (index,task) in tasks.enumerated(){
+            if(index != 0){
+                result.append("""
+                              <tr>
+                                <td>[\(task.title)] \(task.detail)</td>
+                                <td><strong>\(task.status)%</strong></td>
+                                <td><p style="color:red">\(task.note)</p></td>
+                              </tr>
+                              """)
+            }
+            else{
+                result.append("""
+                          
+                            <td>[\(task.title)] \(task.detail)</td>
+                            <td><strong>\(task.status)%</strong></td>
+                            <td><p style="color:red">\(task.note)</p></td>
+                          </tr>
+                          """)
+                
+            }
+            
+        }
+        return result
+    }
+    
+    func showMailComposer(){
+        guard MFMailComposeViewController.canSendMail() else{
+            // create the alert
+            let alert = UIAlertController(title: "Notification", message: "Your device is not setting email. Please check again!!!", preferredStyle: UIAlertController.Style.alert)
+            
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        let composer = MFMailComposeViewController()
+        composer.mailComposeDelegate = self
+        composer.setToRecipients(["longnct@vng.com.vn"])
+        composer.setSubject("Daily report - ZingMP3 IOS - \(self.navigationItem.title!)")
+        composer.setMessageBody(generateHTMLTableReport(), isHTML: true)
+        
+        present(composer,animated: true)
+    }
+    
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        if let _ = error{
+            //Show error alert
+            controller.dismiss(animated: true)
+            return
+        }
+        
+        switch result{
+        case .cancelled:
+            print("Mail cancelled")
+        case .failed:
+            print("Mail failed")
+        case .saved:
+            print("Mail saved")
+        case .sent:
+            print("Mail sent")
+        @unknown default:
+            fatalError("result mail error")
+        }
+        
+        controller.dismiss(animated: true)
+        return
+    }
 }

@@ -32,9 +32,6 @@ class EditReport {
         button.layer.shadowOpacity = 0.4
         button.layer.shadowRadius = 30
         
-        
-        
-        
         return button
     }()
     

@@ -6,12 +6,14 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ReportApp-Swift.h"
+
+
 
 @import FirebaseCore;
 @import FirebaseFirestore;
 @import FirebaseAuth;
 @import FirebaseDatabase;
+@class Task;
 
 
 
@@ -33,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) editTaskUser: (Task*) task dateofReport: (NSString*) date;
 
 - (void) deleteTaskUser: (Task*) task dateofReport: (NSString*) date;
+
+- (void) createReport: (NSString*) date;
 @end
 
 NS_ASSUME_NONNULL_END

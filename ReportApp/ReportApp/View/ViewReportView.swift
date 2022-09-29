@@ -28,7 +28,6 @@ class ViewReport {
         button.backgroundColor = .clear
         button.setImage(UIImage(named: "SendSymbol"), for: .normal)
         
-      
         return button
     }()
     
@@ -75,6 +74,7 @@ class ViewReport {
         NSLayoutConstraint(item: sendButton, attribute: .centerY, relatedBy: .equal, toItem: btnView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: sendButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
         NSLayoutConstraint(item: sendButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
+      
         
         sendButton.addTarget(self, action: #selector(sendReport), for: .touchUpInside)
     

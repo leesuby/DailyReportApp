@@ -6,7 +6,7 @@
 //
 
 #import "NSObject+Database.h"
-
+#import "ReportApp-Swift.h"
 
 
 @implementation DatabaseFirebase
@@ -195,4 +195,8 @@
      removeValue];
 }
 
+
+- (void) createReport: (NSString*) date{
+    [[self.ref child:date] setValue:@{@"Nothing": @""}];
+}
 @end

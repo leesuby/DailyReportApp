@@ -59,12 +59,22 @@ class AddReportCell: UICollectionViewCell {
         taskBox.addSubview(taskText)
         contentView.addSubview(taskBox)
         
-        let tagImage = UIImageView(frame: CGRect(x: 10, y: taskBox.frame.size.height + 15, width: 30, height: 30))
-        tagImage.image = UIImage(named: "TitleSymbol")
-        tagImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
-        tagImage.layer.cornerRadius = 15
-        contentView.addSubview(tagImage)
+        let tagView = UIView(frame: CGRect(x: 10, y: taskBox.frame.size.height + 15, width: 30, height: 30))
+        tagView.backgroundColor = .zingPurple70a
+        tagView.layer.cornerRadius = 15
+        contentView.addSubview(tagView)
         
+        
+        let tagImage = UIImageView()
+        tagImage.image = UIImage(named: "TitleSymbol")
+        tagView.addSubview(tagImage)
+        
+        tagImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: tagImage, attribute: .centerX, relatedBy: .equal, toItem: tagView, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: tagImage, attribute: .centerY, relatedBy: .equal, toItem: tagView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: tagImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: tagImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+    
         
         let tagText = UITextView(frame: CGRect(x: 40, y: taskBox.frame.size.height + 12, width: 60, height: 30))
         tagText.text = "Title"
@@ -88,11 +98,22 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(tagField)
         
         
-        let statusImage = UIImageView(frame: CGRect(x: 10, y: tagImage.center.y + 38, width: 30, height: 30))
+        let statusView = UIView(frame: CGRect(x: 10, y: tagView.center.y + 38, width: 30, height: 30))
+        statusView.backgroundColor = .zingPurple70a
+        statusView.layer.cornerRadius = 15
+        contentView.addSubview(statusView)
+        
+        
+        let statusImage = UIImageView()
         statusImage.image = UIImage(named: "StatusSymbol")
-        statusImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
-        statusImage.layer.cornerRadius = 15
-        contentView.addSubview(statusImage)
+        statusView.addSubview(statusImage)
+        
+        statusImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: statusImage, attribute: .centerX, relatedBy: .equal, toItem: statusView, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: statusImage, attribute: .centerY, relatedBy: .equal, toItem: statusView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: statusImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: statusImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+        
         
         
         let statusText = UITextView(frame: CGRect(x: 40, y: tagText.center.y + 38, width: 60, height: 30))
@@ -116,11 +137,21 @@ class AddReportCell: UICollectionViewCell {
         statusField.leftViewMode = .always
         contentView.addSubview(statusField)
         
-        let detailImage = UIImageView(frame: CGRect(x: 10, y: statusImage.center.y + 38, width: 30, height: 30))
+        let detailView = UIView(frame: CGRect(x: 10, y: statusView.center.y + 38, width: 30, height: 30))
+        detailView.backgroundColor = .zingPurple70a
+        detailView.layer.cornerRadius = 15
+        contentView.addSubview(detailView)
+        
+        
+        let detailImage = UIImageView()
         detailImage.image = UIImage(named: "DetailSymbol")
-        detailImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
-        detailImage.layer.cornerRadius = 15
-        contentView.addSubview(detailImage)
+        detailView.addSubview(detailImage)
+        
+        detailImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: detailImage, attribute: .centerX, relatedBy: .equal, toItem: detailView, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: detailImage, attribute: .centerY, relatedBy: .equal, toItem: detailView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: detailImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: detailImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
         
         
         let detailText = UITextView(frame: CGRect(x: 40, y: statusText.center.y + 38, width: 60, height: 30))
@@ -133,7 +164,7 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(detailText)
         
 
-        detailField.frame = CGRect(x: 10, y: detailImage.center.y + 25, width: contentView.frame.size.width - 20, height: 100)
+        detailField.frame = CGRect(x: 10, y: detailView.center.y + 25, width: contentView.frame.size.width - 20, height: 100)
         detailField.textColor = .black
         detailField.backgroundColor = .clear
         detailField.font = .latoLight(size: 14)
@@ -142,14 +173,21 @@ class AddReportCell: UICollectionViewCell {
         detailField.layer.cornerRadius = 20
         contentView.addSubview(detailField)
         
+        let noteView = UIView(frame: CGRect(x: 10, y: detailView.center.y + detailField.frame.size.height + 38, width: 30, height: 30))
+        noteView.backgroundColor = .zingPurple70a
+        noteView.layer.cornerRadius = 15
+        contentView.addSubview(noteView)
         
-        let noteImage = UIImageView(frame: CGRect(x: 10, y: detailImage.center.y + detailField.frame.size.height + 38, width: 30, height: 30))
+        
+        let noteImage = UIImageView()
         noteImage.image = UIImage(named: "NoteSymbol_White")
-     
-        noteImage.contentMode = .scaleAspectFit
-        noteImage.layer.backgroundColor = UIColor.zingPurple70a.cgColor
-        noteImage.layer.cornerRadius = 15
-        contentView.addSubview(noteImage)
+        noteView.addSubview(noteImage)
+        
+        noteImage.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: noteImage, attribute: .centerX, relatedBy: .equal, toItem: noteView, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: noteImage, attribute: .centerY, relatedBy: .equal, toItem: noteView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: noteImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: noteImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
         
         
         let noteText = UITextView(frame: CGRect(x: 40, y: detailText.center.y + detailField.frame.size.height + 38, width: 60, height: 30))
@@ -162,7 +200,7 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(noteText)
         
 
-        noteField.frame = CGRect(x: 10, y: noteImage.center.y + 25, width: contentView.frame.size.width - 20, height: 100)
+        noteField.frame = CGRect(x: 10, y: noteView.center.y + 25, width: contentView.frame.size.width - 20, height: 100)
         noteField.textColor = .black
         noteField.backgroundColor = .clear
         noteField.font = .latoLight(size: 14)

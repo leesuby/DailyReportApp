@@ -67,7 +67,8 @@ class UserReportCell: UICollectionViewCell {
         
         
         let editButton: UIButton = UIButton(frame: CGRect(x: userBox.frame.size.width - 30, y: 10,width: 20,height: 20))
-        editButton.setImage(UIImage(named: "EditSymbol"), for: .normal)
+        editButton.setImage(UIImage(named: "EditSymbol")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        editButton.tintColor = .white
         editButton.backgroundColor = .clear
         editButton.addTarget(self, action: #selector(editReport), for: .touchUpInside)
         
@@ -98,7 +99,7 @@ class UserReportCell: UICollectionViewCell {
         status.backgroundColor = .clear
         contentView.addSubview(status)
         
-        detail.frame = CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
+        detail.frame = CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 90)
         detail.font = .latoRegular(size: 16)
         detail.isEditable = false
         detail.isScrollEnabled = false
@@ -117,20 +118,22 @@ class UserReportCell: UICollectionViewCell {
         
         noteText.frame =  CGRect(x: Int(noteImage.center.x) + 20, y: Int(detail.center.y) + 40 , width: Int(contentView.frame.width * 7/8) - 20, height: 60)
     
+    
         noteText.font = .latoRegular(size: 16)
         noteText.isEditable = false
         noteText.isScrollEnabled = false
         noteText.textColor = .red
         noteText.textAlignment = .left
-        noteText.backgroundColor = .clear
-        noteText.layer.borderColor = UIColor.black.cgColor
-        noteText.layer.borderWidth = 0.5
-        noteText.layer.cornerRadius = 10
+        noteText.backgroundColor = .noteColor
+
         contentView.addSubview(noteText)
         
-        let deleteButton : UIButton = UIButton(frame: CGRect(x: 10, y: contentView.frame.size.height - 35, width: 30, height: 30))
-        deleteButton.setImage(UIImage(named: "DeleteSymbol_RedExtra"), for: .normal)
+        let deleteButton : UIButton = UIButton(frame: CGRect(x: 10, y: 10, width: 20, height:20))
+        
+        deleteButton.setImage(UIImage(named: "DeleteSymbol_Red")?.withRenderingMode(.alwaysTemplate), for: .normal)
         deleteButton.backgroundColor = .clear
+        deleteButton.tintColor = .white
+        deleteButton.layer.cornerRadius = 10
         deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
 
         

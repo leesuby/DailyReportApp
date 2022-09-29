@@ -42,4 +42,7 @@ class Remote {
         database.deleteTaskUser(task, dateofReport: date)
     }
     
+    func createReport(date: String){
+        database.createReport(date)
+    }
 }

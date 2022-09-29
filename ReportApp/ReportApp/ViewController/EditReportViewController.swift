@@ -107,7 +107,7 @@ extension EditReportViewController : UICollectionViewDataSource{
                 cell = detailCell
             }
         }
-        
+        cell.sizeToFit()
         return cell
     }
     
@@ -116,6 +116,18 @@ extension EditReportViewController : UICollectionViewDataSource{
 
 extension EditReportViewController : EditReportDelegate{
     func addTask() {
+        for task in tasks{
+            if(task.id == "-1"){
+                let alert = UIAlertController(title: "Information", message: "There is a new task created at the bottom.Please save before create a new task!!!", preferredStyle: UIAlertController.Style.alert)
+
+                alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: nil))
+              
+                self.present(alert, animated: true, completion: nil)
+                
+                return
+            }
+        }
+        
         let tmp = Task(isEdit: true)
         tmp.id = "-1"
         tasks.append(tmp)
@@ -161,8 +173,20 @@ extension EditReportViewController : AddReportCellDelegate{
 
 extension EditReportViewController : UserReportCellDelegate{
     func deleteReport(task: Task) {
-        Remote.remoteFirebase.deleteTaskOfUser(task: task, date: self.dateOfReport)
-        tasks.removeAll()
+        // create the alert
+        let alert = UIAlertController(title: "Warning", message: "Do you want to delete this task?", preferredStyle: UIAlertController.Style.alert)
+
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: {_ in
+            Remote.remoteFirebase.deleteTaskOfUser(task: task, date: self.dateOfReport)
+            self.tasks.removeAll()
+        }))
+                        
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
+                        
+      
+        self.present(alert, animated: true, completion: nil)
+      
     }
     
     func editReport(task: Task) {

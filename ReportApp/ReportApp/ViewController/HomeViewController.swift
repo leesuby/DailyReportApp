@@ -25,6 +25,7 @@ class HomeViewController: UIViewController{
         
         reportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
+        homeView.delegate = self
         homeView.initialFisrtLook(viewController : self)
     
         
@@ -38,21 +39,12 @@ class HomeViewController: UIViewController{
         Remote.remoteFirebase.readAllReport { loadedData in
             DispatchQueue.main.async {
                 self.reportlist = loadedData as! [Report]
-                print(self.reportlist)
                 self.reportCollectionView.reloadData()
             }
             
         }
       
     }
-    
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        homeView.initialLayer(view: view)
-        
-    }
-    
 }
 
 extension HomeViewController: UICollectionViewDelegate{
@@ -96,4 +88,42 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width, height:collectionView.frame.size.height / 4 )
     }
+}
+
+extension HomeViewController : HomeViewDelegate{
+    func createReport() {
+        // create the alert
+        let alert = UIAlertController(title: "Information", message: "Would you like to generate a report for today?", preferredStyle: UIAlertController.Style.alert)
+
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: {_ in
+            let mytime = Date()
+            let format = DateFormatter()
+            format.dateFormat = "dd-MM-yyyy"
+            
+            for report in self.reportlist{
+                if(report.date == format.string(from: mytime)){
+                    // create the alert
+                    let alert = UIAlertController(title: "Notification", message: "Today's report was created earlier.", preferredStyle: UIAlertController.Style.alert)
+                    
+                
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+                    
+                 
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    return
+                }
+            }
+            Remote.remoteFirebase.createReport(date: format.string(from: mytime))
+        }))
+                        
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
+                        
+      
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    
 }

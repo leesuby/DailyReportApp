@@ -35,6 +35,8 @@ class ViewReportViewController: UIViewController {
         Remote.remoteFirebase.readDetailReport(date: self.navigationItem.title!) { loadedData in
             DispatchQueue.main.async {
                 self.reportDetailList = loadedData as! [Report]
+                print(self.reportDetailList)
+
                 self.detailReportCollectionView.reloadData()
             }
             
@@ -147,7 +149,40 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
     
     func generateHTMLTableReport() -> String{
         return """
-                <table style="border: 2px solid black,">
+                <style>
+                  .report {
+                    border-collapse: collapse;
+                    margin: 25px 0;
+                    font-size: 0.9em;
+                    font-family: sans-serif;
+                    min-width: 400px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+                }
+                  .report thead tr {
+                    background-color: #72179A;
+                    color: #ffffff;
+                    text-align: left;
+                }
+                  .report th,
+                .report td {
+                    padding: 12px 15px;
+                }
+                  .report tbody tr {
+                    border-bottom: 1px solid #dddddd;
+                }
+
+                .report tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+
+                  .report tbody tr.active-row {
+                    font-weight: bold;
+                    color: #009879;
+                }
+
+                </style>
+                
+                <table class="report">
                 <thead>
                     <tr>
                         <th></th>

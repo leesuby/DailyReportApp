@@ -15,12 +15,13 @@ protocol AddReportCellDelegate {
 class AddReportCell: UICollectionViewCell {
     
     private var tagField : UITextField = UITextField()
-    private var statusField : UITextField = UITextField()
+    private var statusField : UISlider = UISlider()
     private var detailField : UITextView = UITextView()
     private var noteField : UITextView = UITextView()
     var delegate : AddReportCellDelegate!
     
     private let taskText : UITextView = UITextView()
+    private let statusValueText: UITextView = UITextView()
     private var task: Task!
     
     override init(frame: CGRect) {
@@ -87,7 +88,7 @@ class AddReportCell: UICollectionViewCell {
         
 
         tagField.frame = CGRect(x: 105, y: taskBox.frame.size.height + 12, width: contentView.frame.size.width - tagText.frame.size
-            .width - tagImage.frame.size.width - 40, height: 40)
+            .width - tagView.frame.size.width - 40, height: 40)
         tagField.textColor = .black
         tagField.font = .latoLight(size: 14)
         tagField.layer.borderColor = UIColor.darkPurple40a.cgColor
@@ -127,15 +128,24 @@ class AddReportCell: UICollectionViewCell {
         
 
         statusField.frame = CGRect(x: 105, y: tagField.center.y + 34, width: contentView.frame.size.width - statusText.frame.size
-            .width - statusImage.frame.size.width - 40, height: 40)
-        statusField.textColor = .black
-        statusField.font = .latoLight(size: 14)
-        statusField.layer.borderColor = UIColor.darkPurple40a.cgColor
-        statusField.layer.borderWidth = 0.5
-        statusField.layer.cornerRadius = 20
-        statusField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: statusField.frame.height))
-        statusField.leftViewMode = .always
+            .width - statusView.frame.size.width - 80, height: 40)
+        statusField.minimumValue = 0
+        statusField.maximumValue = 100
+        statusField.value = 50
+        statusField.isContinuous = true
+        statusField.tintColor = .zingPurple70a
+        statusField.setThumbImage(UIImage(named: "LogoZingMp3")?.resizeImage(targetSize: CGSize(width: 20, height: 20)), for: .normal)
+        statusField.addTarget(self, action: #selector(changeStatus), for: .valueChanged)
         contentView.addSubview(statusField)
+        
+        statusValueText.frame = CGRect(x: 105 + statusField.frame.size.width , y: tagField.center.y + 34, width: 60, height: 40)
+        statusValueText.text = "0%"
+        statusValueText.textColor = .zingPurple70a
+        statusValueText.font = .latoRegular(size: 16)
+        statusValueText.backgroundColor = .clear
+        statusValueText.isEditable = false
+        statusValueText.isScrollEnabled = false
+        contentView.addSubview(statusValueText)
         
         let detailView = UIView(frame: CGRect(x: 10, y: statusView.center.y + 38, width: 30, height: 30))
         detailView.backgroundColor = .zingPurple70a
@@ -164,13 +174,13 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(detailText)
         
 
-        detailField.frame = CGRect(x: 10, y: detailView.center.y + 25, width: contentView.frame.size.width - 20, height: 100)
+        detailField.frame = CGRect(x: 40, y: detailView.center.y + 25, width: contentView.frame.size.width - 65, height: 100)
         detailField.textColor = .black
         detailField.backgroundColor = .clear
         detailField.font = .latoLight(size: 14)
         detailField.layer.borderColor = UIColor.darkPurple40a.cgColor
         detailField.layer.borderWidth = 0.5
-        detailField.layer.cornerRadius = 20
+        detailField.layer.cornerRadius = 10
         contentView.addSubview(detailField)
         
         let noteView = UIView(frame: CGRect(x: 10, y: detailView.center.y + detailField.frame.size.height + 38, width: 30, height: 30))
@@ -200,13 +210,13 @@ class AddReportCell: UICollectionViewCell {
         contentView.addSubview(noteText)
         
 
-        noteField.frame = CGRect(x: 10, y: noteView.center.y + 25, width: contentView.frame.size.width - 20, height: 100)
+        noteField.frame = CGRect(x: 40, y: noteView.center.y + 25, width: contentView.frame.size.width - 65, height: 100)
         noteField.textColor = .black
         noteField.backgroundColor = .clear
         noteField.font = .latoLight(size: 14)
         noteField.layer.borderColor = UIColor.darkPurple40a.cgColor
         noteField.layer.borderWidth = 0.5
-        noteField.layer.cornerRadius = 20
+        noteField.layer.cornerRadius = 10
         contentView.addSubview(noteField)
         
         
@@ -233,14 +243,29 @@ class AddReportCell: UICollectionViewCell {
         
     }
     
+    @objc func changeStatus(){
+        statusValueText.text = "\(Int(statusField.value))%"
+        
+        switch statusField.value{
+        case 75...100:
+            statusValueText.textColor = .darkGreen
+        case 35..<75:
+            statusValueText.textColor = .darkYello
+        default:
+            statusValueText.textColor = .darkRed
+            
+        }
+    }
+    
     func config(title: String){
         taskText.text = title
     }
+    
     func config(title: String,task: Task){
         self.task = task
         taskText.text = title
         tagField.text = task.title
-        statusField.text = "\(task.status)"
+        statusField.value = Float(task.status)
         detailField.text = task.detail
         noteField.text = task.note
     }
@@ -250,7 +275,7 @@ class AddReportCell: UICollectionViewCell {
     }
     
     @objc func saveAddReport(){
-        let task = Task(title: tagField.text!, status: Int(statusField.text!)!, detail: detailField.text, note: noteField.text)
+        let task = Task(title: tagField.text!, status: Int(statusField.value), detail: detailField.text, note: noteField.text)
         task.id = self.task.id
         
         self.delegate.saveReport(task: task)

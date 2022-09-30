@@ -21,6 +21,7 @@ class ViewController: UIViewController, LoginViewDelegate {
         super.viewDidLoad()
         loginView.initialFirstLook(view: view)
         loginView.delegate = self
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewDidLayoutSubviews() {

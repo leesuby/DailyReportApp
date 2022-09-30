@@ -22,6 +22,7 @@ class EditReportViewController: UIViewController {
         
         editReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
+        self.hideKeyboardWhenTappedAround()
         
         editReportView.initialFisrtLook(viewController: self)
         

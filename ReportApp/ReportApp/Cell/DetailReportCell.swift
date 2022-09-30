@@ -77,9 +77,6 @@ class DetailReportCell: UICollectionViewCell {
     
     func configure(tasks : [Task],userName : String){
         userText.text = userName
-        if(userName == "Nothing"){
-            userBox.roundCorners(corners: [.allCorners], radius: 10)
-        }
         
         self.tasks = tasks
         taskCollectionView.reloadData()

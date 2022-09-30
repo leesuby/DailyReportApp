@@ -21,7 +21,7 @@ class ViewReportViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         
-        var layout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         detailReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
@@ -41,6 +41,11 @@ class ViewReportViewController: UIViewController {
 
                 if(self.reportDetailList.count > 1){
                     self.reportDetailList.removeFirst()
+                    for (index,report) in self.reportDetailList.enumerated() {
+                        if(report.userName.caseInsensitiveCompare(UserSession.username) == .orderedSame){
+                            self.reportDetailList.swapAt(0, index)
+                        }
+                    }
                 }
                 
                 self.detailReportCollectionView.reloadData()

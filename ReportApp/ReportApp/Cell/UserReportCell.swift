@@ -153,6 +153,16 @@ class UserReportCell: UICollectionViewCell {
         
         status.text = "\(String(task.status))%"
         
+        switch task.status{
+        case 75...100:
+            status.textColor = .darkGreen
+        case 35..<75:
+            status.textColor = .darkYello
+        default:
+            status.textColor = .darkRed
+            
+        }
+        
         detail.text = task.detail
         
         noteText.text = task.note

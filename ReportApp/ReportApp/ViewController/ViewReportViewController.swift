@@ -21,7 +21,9 @@ class ViewReportViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         
-        detailReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        var layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        detailReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         viewReportView.delegate = self
         viewReportView.initialFisrtLook(viewController: self)
@@ -34,9 +36,13 @@ class ViewReportViewController: UIViewController {
         
         Remote.remoteFirebase.readDetailReport(date: self.navigationItem.title!) { loadedData in
             DispatchQueue.main.async {
+                
                 self.reportDetailList = loadedData as! [Report]
-                print(self.reportDetailList)
 
+                if(self.reportDetailList.count > 1){
+                    self.reportDetailList.removeFirst()
+                }
+                
                 self.detailReportCollectionView.reloadData()
             }
             
@@ -93,8 +99,7 @@ class ViewReportViewController: UIViewController {
 extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let report : Report = reportDetailList[indexPath.row]
-        return CGSize(width: collectionView.frame.size.width, height: CGFloat(report.tasks.count * 230 - 30 * (report.tasks.count - 1)))
+        return CGSize(width: collectionView.frame.size.width - 30, height: CGFloat(500))
         
     }
     
@@ -109,6 +114,8 @@ extension ViewReportViewController : UICollectionViewDelegate{
 }
 
 extension ViewReportViewController : UICollectionViewDataSource{
+    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reportDetailList.count
     }
@@ -116,8 +123,10 @@ extension ViewReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
+    
         if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
             let report : Report = reportDetailList[indexPath.row]
+            
             
             detailCell.configure(tasks: report.tasks,userName: report.userName)
             

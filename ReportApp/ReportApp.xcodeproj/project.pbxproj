@@ -23,6 +23,7 @@
 		E707F29C28D9BC63001F55F8 /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E707F29128D9A32A001F55F8 /* Lato-Light.ttf */; };
 		E707F29D28D9BC63001F55F8 /* Lato-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E707F29228D9A32A001F55F8 /* Lato-ThinItalic.ttf */; };
 		E707F2A028DABD44001F55F8 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E707F29F28DABD44001F55F8 /* CustomTextField.swift */; };
+		E7ADD8A928E6A9EA008C506B /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD8A828E6A9EA008C506B /* TaskCell.swift */; };
 		E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232228D32C8900BB5F27 /* AppDelegate.swift */; };
 		E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */; };
 		E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232628D32C8900BB5F27 /* LoginViewController.swift */; };
@@ -60,6 +61,7 @@
 		E707F29128D9A32A001F55F8 /* Lato-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Light.ttf"; sourceTree = "<group>"; };
 		E707F29228D9A32A001F55F8 /* Lato-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-ThinItalic.ttf"; sourceTree = "<group>"; };
 		E707F29F28DABD44001F55F8 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		E7ADD8A828E6A9EA008C506B /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		E7D5231F28D32C8900BB5F27 /* ReportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D5232228D32C8900BB5F27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				E7DE4A1028DD8E8D00E4C7BF /* DetailReportCell.swift */,
 				E7DE32A228E0AFC700398287 /* AddReportCell.swift */,
 				E7DE32B828E35EB100398287 /* UserReportCell.swift */,
+				E7ADD8A828E6A9EA008C506B /* TaskCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				E7DE32B928E35EB100398287 /* UserReportCell.swift in Sources */,
 				E7DE4A1428DD949700E4C7BF /* Task.swift in Sources */,
 				E7DE4A0828DC176E00E4C7BF /* HomeView.swift in Sources */,
+				E7ADD8A928E6A9EA008C506B /* TaskCell.swift in Sources */,
 				E707F2A028DABD44001F55F8 /* CustomTextField.swift in Sources */,
 				E7DE4A0328DC07C200E4C7BF /* HomeViewController.swift in Sources */,
 				E7DE4A0B28DC60E400E4C7BF /* ReportCell.swift in Sources */,

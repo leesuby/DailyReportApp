@@ -29,6 +29,7 @@ class HomeViewController: UIViewController{
         homeView.initialFisrtLook(viewController : self)
     
         
+        reportCollectionView.showsVerticalScrollIndicator = false
         reportCollectionView.delegate = self
         reportCollectionView.dataSource = self
         
@@ -109,7 +110,7 @@ extension HomeViewController : HomeViewDelegate{
                 
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                     
-                 
+                    // show the alert
                     self.present(alert, animated: true, completion: nil)
                     
                     return

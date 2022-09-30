@@ -18,7 +18,6 @@ class Report: NSObject{
         self.date = date
     }
 
-    
     @objc func setTask(tasks: [Task]){
         self.tasks = tasks
     }

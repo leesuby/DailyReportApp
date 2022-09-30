@@ -22,8 +22,10 @@ class EditReportViewController: UIViewController {
         
         editReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
+        
         editReportView.initialFisrtLook(viewController: self)
         
+        editReportCollectionView.showsVerticalScrollIndicator = false
         editReportCollectionView.delegate = self
         editReportCollectionView.dataSource = self
         

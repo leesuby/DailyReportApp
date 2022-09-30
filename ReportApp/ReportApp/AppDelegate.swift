@@ -9,9 +9,11 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
+import FirebaseMessaging
+import UserNotifications
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     
@@ -21,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
         FirebaseApp.configure()
         
+        notificationAlert()
+       
         if #available(iOS 13.0, *) {
            
         } else {
@@ -28,6 +32,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    func notificationAlert(){
+        UNUserNotificationCenter.current().delegate = self
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { success, _ in
+            guard success else{
+                return
+            }
+        }
+        
+        var tenMinutesBefore = DateComponents()
+        tenMinutesBefore.hour = 17
+        tenMinutesBefore.minute = 50
+        
+        createNotification(title: "Report Daily", body: "Don't forget to report daily for the next 10 minutes :3", date: tenMinutesBefore, identifier: "tenMinutesBefore")
+        
+        var itstime = DateComponents()
+        itstime.hour = 18
+        itstime.minute = 00
+        
+        createNotification(title: "Report Daily", body: "Ting Ting.It's time to report daily! ", date: itstime, identifier: "itstime")
+        
+        
+    }
+    
+    func createNotification(title: String,body: String, date: DateComponents, identifier: String){
+        //
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = UNNotificationSound.default
+
+        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+        
+        let request = UNNotificationRequest(
+            identifier: identifier, content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if error != nil {
+                // handle error
+            }
+        }
     }
     
     func checkUser(){

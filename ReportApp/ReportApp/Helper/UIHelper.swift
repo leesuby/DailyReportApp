@@ -83,6 +83,7 @@ extension UIColor{
     static var deepPurple = hexStringToUIColor(hex: "552FAC",alpha: 1)
     static var zingPurple = hexStringToUIColor(hex: "72179A",alpha: 1)
     static var zingPurple70a = hexStringToUIColor(hex: "72179A",alpha: 0.7)
+    static var zingPurple40a = hexStringToUIColor(hex: "72179A",alpha: 0.4)
     static var gray40a = hexStringToUIColor(hex: "9C9494",alpha: 0.4)
     static var noteColor = hexStringToUIColor(hex: "f7f6f3", alpha: 1.0)
     static var darkGreen = hexStringToUIColor(hex: "2B8B2F",alpha: 1.0)

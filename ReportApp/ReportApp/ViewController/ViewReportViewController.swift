@@ -104,7 +104,7 @@ class ViewReportViewController: UIViewController {
 extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: collectionView.frame.size.width - 30, height: CGFloat(500))
+        return CGSize(width: collectionView.frame.size.width - 20, height: collectionView.frame.size.height - 120)
         
     }
     

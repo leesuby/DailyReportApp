@@ -14,6 +14,8 @@ class EditReportViewController: UIViewController {
     private var tasks : [Task] = []
     var dateOfReport: String!
     
+    let templateBox = TemplateModal()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
@@ -65,7 +67,7 @@ extension EditReportViewController : UICollectionViewDelegateFlowLayout{
         let task = tasks[indexPath.row]
         
         if (task.isEdit == true){
-            return CGSize(width: collectionView.frame.size.width, height:  500)
+            return CGSize(width: collectionView.frame.size.width, height:  525)
         }
         else{
             return CGSize(width: collectionView.frame.size.width, height:  260)
@@ -142,6 +144,14 @@ extension EditReportViewController : EditReportDelegate{
 }
 
 extension EditReportViewController : AddReportCellDelegate{
+    func getTemplate(taskId: String) {
+        templateBox.showBox(title: "Saved Task", viewController: self)
+    }
+    
+    @objc func dismiss(){
+        templateBox.dismiss()
+    }
+    
     func cancelReport(task: Task) {
         for (index, element) in tasks.enumerated(){
             if(element.id == task.id){
@@ -166,7 +176,7 @@ extension EditReportViewController : AddReportCellDelegate{
                 editReportCollectionView.reloadData()
             }
         }
-        print(task.id)
+    
         Remote.remoteFirebase.saveTaskOfUser(task: task, date: self.dateOfReport)
     
     }
@@ -201,4 +211,5 @@ extension EditReportViewController : UserReportCellDelegate{
         }
     }
 }
+
 

@@ -10,6 +10,7 @@ import UIKit
 protocol AddReportCellDelegate {
     func cancelReport(task: Task)
     func saveReport(task: Task)
+    func getTemplate(taskId: String)
 }
 
 class AddReportCell: UICollectionViewCell {
@@ -60,8 +61,9 @@ class AddReportCell: UICollectionViewCell {
         taskBox.addSubview(taskText)
         contentView.addSubview(taskBox)
         
+        //TITLE
         let tagView = UIView(frame: CGRect(x: 10, y: taskBox.frame.size.height + 15, width: 30, height: 30))
-        tagView.backgroundColor = .zingPurple70a
+        tagView.backgroundColor = .zingPurple40a
         tagView.layer.cornerRadius = 15
         contentView.addSubview(tagView)
         
@@ -88,19 +90,41 @@ class AddReportCell: UICollectionViewCell {
         
 
         tagField.frame = CGRect(x: 105, y: taskBox.frame.size.height + 12, width: contentView.frame.size.width - tagText.frame.size
-            .width - tagView.frame.size.width - 40, height: 40)
+            .width - tagView.frame.size.width - 65, height: 35)
         tagField.textColor = .black
         tagField.font = .latoLight(size: 14)
         tagField.layer.borderColor = UIColor.darkPurple40a.cgColor
         tagField.layer.borderWidth = 0.5
-        tagField.layer.cornerRadius = 20
+        tagField.layer.cornerRadius = 17
         tagField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: tagField.frame.height))
         tagField.leftViewMode = .always
         contentView.addSubview(tagField)
         
         
+        let templateView = UIView(frame: CGRect(x: 108 + tagField.frame.size.width, y: taskBox.frame.size.height + 15, width: 30, height: 30))
+        templateView.backgroundColor = .zingPurple
+        templateView.layer.cornerRadius = 15
+        
+        contentView.addSubview(templateView)
+        
+        let templateButton = UIButton()
+        templateButton.backgroundColor = .zingPurple
+        templateButton.setImage(UIImage(named: "TemplateSymbol"), for: .normal)
+        templateButton.addTarget(self, action: #selector(getTemplate), for: .touchUpInside)
+        
+        templateView.addSubview(templateButton)
+        
+        templateButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint(item: templateButton, attribute: .centerX, relatedBy: .equal, toItem: templateView, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: templateButton, attribute: .centerY, relatedBy: .equal, toItem: templateView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: templateButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: templateButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 20).isActive = true
+        
+        
+        //STATUS
         let statusView = UIView(frame: CGRect(x: 10, y: tagView.center.y + 38, width: 30, height: 30))
-        statusView.backgroundColor = .zingPurple70a
+        statusView.backgroundColor = .zingPurple40a
         statusView.layer.cornerRadius = 15
         contentView.addSubview(statusView)
         
@@ -128,7 +152,7 @@ class AddReportCell: UICollectionViewCell {
         
 
         statusField.frame = CGRect(x: 105, y: tagField.center.y + 34, width: contentView.frame.size.width - statusText.frame.size
-            .width - statusView.frame.size.width - 80, height: 40)
+            .width - statusView.frame.size.width - 65, height: 40)
         statusField.minimumValue = 0
         statusField.maximumValue = 100
         statusField.value = 50
@@ -138,7 +162,7 @@ class AddReportCell: UICollectionViewCell {
         statusField.addTarget(self, action: #selector(changeStatus), for: .valueChanged)
         contentView.addSubview(statusField)
         
-        statusValueText.frame = CGRect(x: 105 + statusField.frame.size.width , y: tagField.center.y + 34, width: 60, height: 40)
+        statusValueText.frame = CGRect(x: 108 + statusField.frame.size.width , y: tagField.center.y + 34, width: 60, height: 40)
         statusValueText.text = "0%"
         statusValueText.textColor = .zingPurple70a
         statusValueText.font = .latoRegular(size: 16)
@@ -147,8 +171,10 @@ class AddReportCell: UICollectionViewCell {
         statusValueText.isScrollEnabled = false
         contentView.addSubview(statusValueText)
         
+        
+        //DETAIL
         let detailView = UIView(frame: CGRect(x: 10, y: statusView.center.y + 38, width: 30, height: 30))
-        detailView.backgroundColor = .zingPurple70a
+        detailView.backgroundColor = .zingPurple40a
         detailView.layer.cornerRadius = 15
         contentView.addSubview(detailView)
         
@@ -183,8 +209,10 @@ class AddReportCell: UICollectionViewCell {
         detailField.layer.cornerRadius = 10
         contentView.addSubview(detailField)
         
+        
+        //NOTE
         let noteView = UIView(frame: CGRect(x: 10, y: detailView.center.y + detailField.frame.size.height + 38, width: 30, height: 30))
-        noteView.backgroundColor = .zingPurple70a
+        noteView.backgroundColor = .zingPurple40a
         noteView.layer.cornerRadius = 15
         contentView.addSubview(noteView)
         
@@ -257,10 +285,6 @@ class AddReportCell: UICollectionViewCell {
         }
     }
     
-    func config(title: String){
-        taskText.text = title
-    }
-    
     func config(title: String,task: Task){
         self.task = task
         taskText.text = title
@@ -279,6 +303,10 @@ class AddReportCell: UICollectionViewCell {
         task.id = self.task.id
         
         self.delegate.saveReport(task: task)
+    }
+    
+    @objc func getTemplate(){
+        self.delegate.getTemplate(taskId: self.task.id)
     }
     
     required init?(coder: NSCoder) {

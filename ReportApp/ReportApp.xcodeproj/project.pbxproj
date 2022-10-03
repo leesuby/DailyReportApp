@@ -26,6 +26,8 @@
 		E7ADD8A928E6A9EA008C506B /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD8A828E6A9EA008C506B /* TaskCell.swift */; };
 		E7ADD8AB28E6D565008C506B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD8AA28E6D565008C506B /* Helper.swift */; };
 		E7ADD8AD28E6F1D5008C506B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = E7ADD8AC28E6F1D5008C506B /* FirebaseMessaging */; };
+		E7C4DCA228EAED48008E5CC7 /* TemplateModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4DCA128EAED48008E5CC7 /* TemplateModal.swift */; };
+		E7C4DCA428EAF101008E5CC7 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4DCA328EAF101008E5CC7 /* TemplateCell.swift */; };
 		E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232228D32C8900BB5F27 /* AppDelegate.swift */; };
 		E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */; };
 		E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232628D32C8900BB5F27 /* LoginViewController.swift */; };
@@ -65,6 +67,8 @@
 		E707F29F28DABD44001F55F8 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		E7ADD8A828E6A9EA008C506B /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		E7ADD8AA28E6D565008C506B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		E7C4DCA128EAED48008E5CC7 /* TemplateModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateModal.swift; sourceTree = "<group>"; };
+		E7C4DCA328EAF101008E5CC7 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
 		E7D5231F28D32C8900BB5F27 /* ReportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D5232228D32C8900BB5F27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +173,14 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		E7C4DCA028EAED2D008E5CC7 /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				E7C4DCA128EAED48008E5CC7 /* TemplateModal.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
 		E7D5231628D32C8900BB5F27 = {
 			isa = PBXGroup;
 			children = (
@@ -191,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				E7DE32A628E1AC1100398287 /* ReportApp-Bridging-Header.h */,
+				E7C4DCA028EAED2D008E5CC7 /* Modal */,
 				E7DE32A928E2972E00398287 /* Database */,
 				E7DE4A1528DDB95B00E4C7BF /* Helper */,
 				E707F28628D9A30F001F55F8 /* Material */,
@@ -237,6 +250,7 @@
 				E7DE32A228E0AFC700398287 /* AddReportCell.swift */,
 				E7DE32B828E35EB100398287 /* UserReportCell.swift */,
 				E7ADD8A828E6A9EA008C506B /* TaskCell.swift */,
+				E7C4DCA328EAF101008E5CC7 /* TemplateCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -359,6 +373,8 @@
 				E7DE32A328E0AFC700398287 /* AddReportCell.swift in Sources */,
 				E7DE4A1728DDB99A00E4C7BF /* EditReportViewController.swift in Sources */,
 				E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */,
+				E7C4DCA428EAF101008E5CC7 /* TemplateCell.swift in Sources */,
+				E7C4DCA228EAED48008E5CC7 /* TemplateModal.swift in Sources */,
 				E7DE32B528E2A59C00398287 /* Remote.swift in Sources */,
 				E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */,
 				E7DE32B128E299A300398287 /* NSObject+Database.m in Sources */,

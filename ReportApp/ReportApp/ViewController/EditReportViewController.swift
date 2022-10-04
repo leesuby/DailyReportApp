@@ -8,6 +8,7 @@
 import UIKit
 
 class EditReportViewController: UIViewController {
+    
 
     private let editReportView : EditReport = EditReport()
     var editReportCollectionView : UICollectionView!
@@ -21,6 +22,7 @@ class EditReportViewController: UIViewController {
         setupNavBar()
         
         editReportView.delegate = self
+        templateBox.delegate = self
         
         editReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
@@ -145,7 +147,7 @@ extension EditReportViewController : EditReportDelegate{
 
 extension EditReportViewController : AddReportCellDelegate{
     func getTemplate(taskId: String) {
-        templateBox.showBox(title: "Saved Task", viewController: self)
+        templateBox.showBox(title: "Saved Task", viewController: self, id: taskId)
     }
     
     @objc func dismiss(){
@@ -179,6 +181,27 @@ extension EditReportViewController : AddReportCellDelegate{
     
         Remote.remoteFirebase.saveTaskOfUser(task: task, date: self.dateOfReport)
     
+    }
+    
+    
+}
+extension EditReportViewController : TemplateModelDelegate{
+    func chooseTask(taskId: String,recentTaskId: String) {
+        Remote.remoteFirebase.readARecentTask(id: recentTaskId) { result in
+
+            for t in self.tasks{
+                if(t.id == taskId){
+                    t.detail = result.detail
+                    t.status = result.status
+                    t.title = result.title
+                    t.note = result.note
+                    DispatchQueue.main.async {
+                        self.editReportCollectionView.reloadData()
+                    }
+                }
+            }
+        }
+        
     }
     
     

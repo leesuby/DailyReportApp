@@ -38,11 +38,15 @@ class HomeViewController: UIViewController{
         
         
         Remote.remoteFirebase.readAllReport { loadedData in
-            DispatchQueue.main.async {
+            DispatchQueue.global().async {
                 self.reportlist = loadedData as! [Report]
                 self.reportlist = self.reportlist.sorted(by: {Helper.getDate(dateString: $0.date)!  > Helper.getDate(dateString: $1.date)!})
-                self.reportCollectionView.reloadData()
+                
+                DispatchQueue.main.async {
+                    self.reportCollectionView.reloadData()
+                }
             }
+            
             
         }
       

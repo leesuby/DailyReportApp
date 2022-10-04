@@ -19,6 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
+        windowScene.sizeRestrictions?.minimumSize = CGSize(width: 640, height: 900)
+        windowScene.sizeRestrictions?.maximumSize = CGSize(width: 640, height: 900)
+        
         if(UserDefaults.standard.value(forKey: "user")) != nil{
             UserSession.username = UserDefaults.standard.value(forKey: "user") as! String
             let homeViewController = HomeViewController()

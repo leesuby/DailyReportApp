@@ -290,6 +290,17 @@ class AddReportCell: UICollectionViewCell {
         taskText.text = title
         tagField.text = task.title
         statusField.value = Float(task.status)
+        
+        statusValueText.text = "\(Int(statusField.value))%"
+        switch statusField.value{
+        case 75...100:
+            statusValueText.textColor = .darkGreen
+        case 35..<75:
+            statusValueText.textColor = .darkYello
+        default:
+            statusValueText.textColor = .darkRed
+            
+        }
         detailField.text = task.detail
         noteField.text = task.note
     }

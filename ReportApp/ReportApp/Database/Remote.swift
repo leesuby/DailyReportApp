@@ -25,9 +25,20 @@ class Remote {
         database.readDetailReport(withDate: date, completion: completion)
     }
     
-    
     func readTaskOfUser(date : String, completion: @escaping ([Any]) -> Void){
         database.readTaskUser(withDate: date, completion: completion)
+    }
+    
+    func readRecentTask(completion: @escaping ([Any]) -> Void){
+        database.readRecentTasks(completion)
+    }
+    
+    func readARecentTask(id: String,completion: @escaping (Task) -> Void){
+        database.readARecentTask(id, completion: completion)
+    }
+    
+    func updateRecentTask(tasks: [Task]){
+        database.updateRecentTask(tasks)
     }
     
     func saveTaskOfUser(task: Task,date: String){

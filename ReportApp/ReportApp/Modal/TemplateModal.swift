@@ -7,6 +7,10 @@
 
 import Foundation
 import UIKit
+
+protocol TemplateModelDelegate{
+    func chooseTask(taskId: String,recentTaskId: String)
+}
 class TemplateModal : NSObject{
     private let backgroundView: UIView = {
         let view = UIView()
@@ -25,14 +29,17 @@ class TemplateModal : NSObject{
         
     }()
     
+    var delegate: TemplateModelDelegate!
     private var view : UIView?
     private var taskCollectionView : UICollectionView!
+    private var tasks : [Task] = []
+    private var taskId: String!
     
-    func showBox(title: String, viewController: UIViewController){
+    func showBox(title: String, viewController: UIViewController, id: String){
         guard let targetView = viewController.view else{
             return
         }
-        
+        taskId = id
         view = targetView
         
         backgroundView.frame = targetView.bounds
@@ -48,7 +55,7 @@ class TemplateModal : NSObject{
         templateView.addSubview(imageLogo)
         
         let guideText = UITextView(frame: CGRect(x: 0, y: 50, width: templateView.frame.size.width, height: 30))
-        guideText.text = "Your five recent tasks:"
+        guideText.text = "Recent tasks"
         guideText.textColor = .deepPurple
         guideText.font = .latoBold(size: 16)
         guideText.textAlignment = .center
@@ -71,6 +78,7 @@ class TemplateModal : NSObject{
         
         taskCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         taskCollectionView.backgroundColor = .clear
+        taskCollectionView.showsVerticalScrollIndicator = false
         
         templateView.addSubview(taskCollectionView)
         
@@ -84,6 +92,25 @@ class TemplateModal : NSObject{
         taskCollectionView.dataSource = self
         taskCollectionView.delegate = self
         
+        Remote.remoteFirebase.readRecentTask { result in
+            DispatchQueue.global().async {
+                self.tasks = result as! [Task]
+                
+                self.tasks = self.tasks.sorted(by: {Helper.getDate(dateString: $0.date)!  > Helper.getDate(dateString: $1.date)!})
+                
+                if (self.tasks.count > 5){
+                    self.tasks = Array(self.tasks[0..<5])
+                    Remote.remoteFirebase.updateRecentTask(tasks: self.tasks)
+                }
+                DispatchQueue.main.async {
+                    self.taskCollectionView.reloadData()
+                }
+            }
+            
+            
+            
+        }
+        
         UIView.animate(withDuration: 0.25, animations: {
             self.backgroundView.alpha = 0.4
         }) { done in
@@ -93,14 +120,13 @@ class TemplateModal : NSObject{
                 })
             }
         }
-        
     }
     
     func initCollectionView(){
         
     }
     
-    @objc func dismiss(){
+    @objc func dismiss() {
         guard let targetView = view else {
             return
         }
@@ -123,18 +149,22 @@ class TemplateModal : NSObject{
                 }
             }
         }
+        
     }
 }
 
 extension TemplateModal : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return tasks.count > 5 ? 5 : tasks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
+        let task = tasks[indexPath.item]
         if let templateCell = collectionView.dequeueReusableCell(withReuseIdentifier: "template", for: indexPath) as? TemplateCell{
+            
+            templateCell.config(task: task, date: task.date)
             
             cell = templateCell
         }
@@ -146,11 +176,17 @@ extension TemplateModal : UICollectionViewDataSource{
 }
 
 extension TemplateModal : UICollectionViewDelegate{
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let task = tasks[indexPath.item]
+        delegate.chooseTask(taskId: taskId, recentTaskId: task.id)
+        
+        self.dismiss()
+        
+    }
 }
 
 extension TemplateModal : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 10, height: 40)
+        return CGSize(width: collectionView.frame.width - 10, height: 55)
     }
 }

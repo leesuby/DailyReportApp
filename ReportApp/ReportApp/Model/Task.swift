@@ -14,6 +14,7 @@ class Task :NSObject{
     @objc var detail: String = ""
     @objc var note: String = ""
     @objc var isEdit: Bool = false
+    @objc var date: String = ""
     
     init(title: String, status: Int, detail: String, note: String){
         self.title = title

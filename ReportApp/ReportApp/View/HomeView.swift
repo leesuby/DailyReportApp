@@ -123,25 +123,25 @@ class HomeView {
         
         view.addSubview(brand)
         brand.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: brand, attribute: .bottom, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 55).isActive = true
+        NSLayoutConstraint(item: brand, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: -6).isActive = true
         NSLayoutConstraint(item: brand, attribute: .centerX, relatedBy: .equal, toItem: logo, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: brand, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1/3, constant: 0).isActive = true
-        NSLayoutConstraint(item: brand, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/12, constant: 0).isActive = true
+        NSLayoutConstraint(item: brand, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200).isActive = true
+        NSLayoutConstraint(item: brand, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 60).isActive = true
        
         
         view.addSubview(avatar)
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: avatar, attribute: .bottom, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 20).isActive = true
+        NSLayoutConstraint(item: avatar, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: avatar, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 10).isActive = true
-        NSLayoutConstraint(item: avatar, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1/20, constant: 0).isActive = true
-        NSLayoutConstraint(item: avatar, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/26, constant: 0).isActive = true
+        NSLayoutConstraint(item: avatar, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
+        NSLayoutConstraint(item: avatar, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
         
         view.addSubview(userName)
         userName.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: userName, attribute: .leading , relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: userName, attribute: .centerY, relatedBy: .equal, toItem: avatar, attribute: .centerY, multiplier: 1.0, constant: 5).isActive = true
-        NSLayoutConstraint(item: userName, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1/4, constant: 0).isActive = true
-        NSLayoutConstraint(item: userName, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/20, constant: 0).isActive = true
+        NSLayoutConstraint(item: userName, attribute: .leading , relatedBy: .equal, toItem: avatar, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: userName, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: userName, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 60).isActive = true
+        NSLayoutConstraint(item: userName, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
         
         view.addSubview(latestText)
         latestText.translatesAutoresizingMaskIntoConstraints = false

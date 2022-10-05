@@ -9,105 +9,98 @@ import UIKit
 
 class TaskCell: UICollectionViewCell {
     
-    private var title : UITextView = UITextView()
+    private var title : UILabel = UILabel()
     
-    private var status : UITextView = UITextView()
+    private var status : UILabel = UILabel()
     
-    private var detail : UITextView = UITextView()
+    private var detail : UILabel = UILabel()
     
-    private var note : UITextView = UITextView()
+    private var note : UILabel = UILabel()
     
-    private var noteImage: UIImageView!
+    private var noteImage: UIImageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        initView()
+        initConstraint()
+        
+    }
+    
+    func initView() {
         let divider = UIView(frame: CGRect(x: 0, y: contentView.frame.size.height, width: contentView.frame.size.width, height: 1))
-        
         divider.backgroundColor = .darkPurple40a
-        
         contentView.addSubview(divider)
-        title.frame = CGRect(x: 5,y: 5,width: .max ,height: 30)
         
-        title.font = .latoBold(size: 18)
-        title.isEditable = false
-        title.isScrollEnabled = false
-        title.textColor = .white
+        title.font = .latoBold(size: 20)
+        title.textColor = Global.titleColor
+        title.numberOfLines = 2
         title.textAlignment = .left
-        title.backgroundColor = .zingPurple70a
-        title.layer.cornerRadius = 15
-        
         contentView.addSubview(title)
         
-        
-        status.frame = CGRect(x: Int(contentView.frame.width) - 40, y: 5, width: 40, height: 35)
-        
         status.font = .latoRegular(size: 18)
-        status.isEditable = false
-        status.isScrollEnabled = false
-        status.textColor = .darkGreen
         status.textAlignment = .right
         status.backgroundColor = .clear
         contentView.addSubview(status)
         
-        detail.frame = CGRect(x: 5, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
-        
         detail.font = .latoRegular(size: 16)
-        detail.isEditable = false
-        detail.isScrollEnabled = false
-        detail.textColor = .black
+        detail.textColor = Global.detailColor
         detail.textAlignment = .left
+        detail.numberOfLines = 3
         detail.backgroundColor = .clear
-        
         contentView.addSubview(detail)
-        
-        noteImage = UIImageView(frame: CGRect(x: 0, y: Int(detail.center.y) + 40, width: Int(contentView.frame.width / 8), height: 40))
         
         noteImage.image = UIImage(named: "NoteSymbol")
         noteImage.contentMode = .scaleAspectFit
         noteImage.backgroundColor = .clear
         contentView.addSubview(noteImage)
         
-        note.frame = CGRect(x: Int(noteImage.center.x) + 20, y: Int(detail.center.y) + 40 , width: Int(contentView.frame.width * 7/8) - 20, height: 60)
         
         note.font = .latoRegular(size: 16)
-        note.isEditable = false
-        note.isScrollEnabled = false
-        note.textColor = .red
+        note.textColor = Global.noteColor
         note.textAlignment = .left
-        note.backgroundColor = .noteColor
-        
+        note.numberOfLines = 3
+        note.backgroundColor = .clear
         contentView.addSubview(note)
     }
     
-    func setupChildViews() {
+    func initConstraint() {
+        status.translatesAutoresizingMaskIntoConstraints = false
+        status.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Global.padding).isActive = true
+        status.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true
+        status.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Global.padding).isActive = true
+        title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Global.padding).isActive = true
+        title.trailingAnchor.constraint(equalTo: status.leadingAnchor).isActive = true
+        
+        detail.translatesAutoresizingMaskIntoConstraints = false
+        detail.topAnchor.constraint(equalTo: title.bottomAnchor,constant: Global.padding).isActive = true
+        detail.leadingAnchor.constraint(equalTo: title.leadingAnchor).isActive = true
+        detail.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true
+        
+        noteImage.translatesAutoresizingMaskIntoConstraints = false
+        noteImage.topAnchor.constraint(equalTo: detail.bottomAnchor, constant: Global.padding).isActive = true
+        noteImage.leadingAnchor.constraint(equalTo: detail.leadingAnchor).isActive = true
+        noteImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        noteImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        note.translatesAutoresizingMaskIntoConstraints = false
+        note.leadingAnchor.constraint(equalTo: noteImage.trailingAnchor).isActive = true
+        note.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true
+        note.topAnchor.constraint(equalTo: detail.bottomAnchor, constant: Global.padding + 5).isActive = true
+    
     }
     
-    func setupConstraints() {
-        
-    }
     
     func config(task: Task){
-        title.frame = CGRect(x: 5 ,y: 5,width: contentView.frame.size.width - status.frame.width,height: 30)
         title.text = task.title
-        title.sizeToFit()
-        
-        switch task.status{
-        case 75...100:
-            status.textColor = .darkGreen
-        case 35..<75:
-            status.textColor = .darkYello
-        default:
-            status.textColor = .darkRed
-            
-        }
         
         status.text = "\(task.status)%"
+        status.textColor = Helper.getStatusColor(status: task.status)
         
-        detail.frame = CGRect(x: 5, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
         detail.text = task.detail
-        detail.sizeToFit()
         
         note.text = task.note
         

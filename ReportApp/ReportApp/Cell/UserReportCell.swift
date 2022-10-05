@@ -14,15 +14,19 @@ protocol UserReportCellDelegate{
 
 class UserReportCell: UICollectionViewCell {
     
-    private let userText: UITextView = UITextView()
+    private let taskText: UITextView = UITextView()
     
-    private let title: UITextView = UITextView()
+    private let title: UILabel = UILabel()
     
-    private let status: UITextView = UITextView()
+    private let status: UILabel = UILabel()
     
-    private let detail : UITextView = UITextView()
+    private let detail : UILabel = UILabel()
     
-    private let noteText : UITextView = UITextView()
+    private let note : UILabel = UILabel()
+    
+    private let noteImage : UIImageView = UIImageView()
+    
+    private let taskBox : UIView = UIView()
     
     private var task : Task!
     private var heightUserBox : Float = 0
@@ -31,142 +35,127 @@ class UserReportCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .clear
         
+        initView()
+        initConstraint()
+    }
+    
+    func initView(){
+        contentView.backgroundColor = .clear
         let shadowLayer = CAShapeLayer()
         shadowLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: contentView.frame.width - 3, height: contentView.frame.height), cornerRadius: 20).cgPath
         shadowLayer.fillColor = UIColor.white.cgColor
-   
         shadowLayer.shadowColor = UIColor.darkGray.cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         shadowLayer.shadowOpacity = 0.5
         shadowLayer.shadowRadius = 1
-        
         contentView.layer.addSublayer(shadowLayer)
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.gray.cgColor
         contentView.layer.cornerRadius = 20
         
-        let userBox: UIView = UIView(frame: CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: Int(contentView.frame.size.width) / 10))
+        taskBox.frame = CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: Int(contentView.frame.size.width) / 10)
+        taskBox.backgroundColor = .zingPurple
+        taskBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
+        taskText.frame = CGRect(x: taskBox.center.x - 10, y: 0,width: 30,height: 30)
+        taskText.font = .latoBold(size: 20)
+        taskText.isEditable = false
+        taskText.isScrollEnabled = false
+        taskText.textColor = .white
+        taskText.textAlignment = .center
+        taskText.backgroundColor = .clear
+        taskBox.addSubview(taskText)
+        contentView.addSubview(taskBox)
         
-        userBox.backgroundColor = .zingPurple
-        userBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
-        
-        
-        heightUserBox = Float(userBox.frame.size.height)
-        
-        userText.frame = CGRect(x: userBox.center.x - 10, y: 0,width: 30,height: 30)
-        userText.text = ""
-        userText.font = .latoBold(size: 20)
-        userText.isEditable = false
-        userText.isScrollEnabled = false
-        userText.textColor = .white
-        userText.textAlignment = .center
-        userText.backgroundColor = .clear
-        
-        
-        let editButton: UIButton = UIButton(frame: CGRect(x: userBox.frame.size.width - 30, y: 10,width: 20,height: 20))
+        let editButton: UIButton = UIButton(frame: CGRect(x: taskBox.frame.size.width - 30, y: 10,width: 20,height: 20))
         editButton.setImage(UIImage(named: "EditSymbol")?.withRenderingMode(.alwaysTemplate), for: .normal)
         editButton.tintColor = .white
         editButton.backgroundColor = .clear
         editButton.addTarget(self, action: #selector(editReport), for: .touchUpInside)
+        contentView.addSubview(editButton)
         
-        userBox.addSubview(editButton)
-        userBox.addSubview(userText)
-        contentView.addSubview(userBox)
+        let deleteButton : UIButton = UIButton(frame: CGRect(x: 10, y: 10, width: 20, height:20))
+        deleteButton.setImage(UIImage(named: "DeleteSymbol_Red")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        deleteButton.backgroundColor = .clear
+        deleteButton.tintColor = .white
+        deleteButton.layer.cornerRadius = 10
+        deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
+        contentView.addSubview(deleteButton)
         
-        
-        title.frame = CGRect(x: 10,y: Int(heightUserBox) + 10,width: 200,height: 30)
-        title.font = .latoBold(size: 18)
-        title.isEditable = false
-        title.isScrollEnabled = false
-        title.textColor = .white
+        title.font = .latoBold(size: 20)
+        title.textColor = Global.titleColor
+        title.numberOfLines = 2
         title.textAlignment = .left
-        title.backgroundColor = .zingPurple70a
-        title.layer.cornerRadius = 15
-        
-
         contentView.addSubview(title)
         
-        status.frame = CGRect(x: Int(contentView.frame.width) - 80, y:  Int(heightUserBox) + 10 , width: 80, height: 35)
-        
         status.font = .latoRegular(size: 18)
-        status.isEditable = false
-        status.isScrollEnabled = false
-        status.textColor = .darkGreen
         status.textAlignment = .right
         status.backgroundColor = .clear
         contentView.addSubview(status)
         
-        detail.frame = CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 90)
         detail.font = .latoRegular(size: 16)
-        detail.isEditable = false
-        detail.isScrollEnabled = false
-        detail.textColor = .black
+        detail.textColor = Global.detailColor
         detail.textAlignment = .left
+        detail.numberOfLines = 3
         detail.backgroundColor = .clear
-        
         contentView.addSubview(detail)
-        
-        let noteImage = UIImageView(frame: CGRect(x: 10, y: Int(detail.center.y) + 40, width: Int(contentView.frame.width / 8), height: 40))
         
         noteImage.image = UIImage(named: "NoteSymbol")
         noteImage.contentMode = .scaleAspectFit
         noteImage.backgroundColor = .clear
         contentView.addSubview(noteImage)
         
-        noteText.frame =  CGRect(x: Int(noteImage.center.x) + 20, y: Int(detail.center.y) + 40 , width: Int(contentView.frame.width * 7/8) - 20, height: 60)
+        note.font = .latoRegular(size: 16)
+        note.textColor = Global.noteColor
+        note.textAlignment = .left
+        note.numberOfLines = 3
+        note.backgroundColor = .clear
+        contentView.addSubview(note)
+        
+    }
     
-    
-        noteText.font = .latoRegular(size: 16)
-        noteText.isEditable = false
-        noteText.isScrollEnabled = false
-        noteText.textColor = .red
-        noteText.textAlignment = .left
-        noteText.backgroundColor = .noteColor
-
-        contentView.addSubview(noteText)
+    func initConstraint(){
+        status.translatesAutoresizingMaskIntoConstraints = false
+        status.topAnchor.constraint(equalTo: taskBox.bottomAnchor, constant: Global.padding).isActive = true
+        status.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true
+        status.widthAnchor.constraint(equalToConstant: 60).isActive = true
         
-        let deleteButton : UIButton = UIButton(frame: CGRect(x: 10, y: 10, width: 20, height:20))
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.topAnchor.constraint(equalTo: taskBox.bottomAnchor, constant: Global.padding).isActive = true
+        title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Global.padding).isActive = true
+        title.trailingAnchor.constraint(equalTo: status.leadingAnchor).isActive = true
         
-        deleteButton.setImage(UIImage(named: "DeleteSymbol_Red")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        deleteButton.backgroundColor = .clear
-        deleteButton.tintColor = .white
-        deleteButton.layer.cornerRadius = 10
-        deleteButton.addTarget(self, action: #selector(deleteReport), for: .touchUpInside)
-
+        detail.translatesAutoresizingMaskIntoConstraints = false
+        detail.topAnchor.constraint(equalTo: title.bottomAnchor,constant: Global.padding).isActive = true
+        detail.leadingAnchor.constraint(equalTo: title.leadingAnchor).isActive = true
+        detail.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true
         
-        contentView.addSubview(deleteButton)
+        noteImage.translatesAutoresizingMaskIntoConstraints = false
+        noteImage.topAnchor.constraint(equalTo: detail.bottomAnchor, constant: Global.padding).isActive = true
+        noteImage.leadingAnchor.constraint(equalTo: detail.leadingAnchor).isActive = true
+        noteImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        noteImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        
+        note.translatesAutoresizingMaskIntoConstraints = false
+        note.leadingAnchor.constraint(equalTo: noteImage.trailingAnchor).isActive = true
+        note.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true
+        note.topAnchor.constraint(equalTo: detail.bottomAnchor, constant: Global.padding + 5).isActive = true
     }
     
     func configureOneTask(task : Task,text: String){
         self.task = task
-        title.frame = CGRect(x: 10,y: Int(heightUserBox) + 10,width: Int(contentView.frame.size.width - status.frame.width),height: 30)
+    
         title.text = task.title
-        title.sizeToFit()
         
-        userText.text = text
+        taskText.text = text
         
         status.text = "\(String(task.status))%"
+        status.textColor = Helper.getStatusColor(status: task.status)
         
-        switch task.status{
-        case 75...100:
-            status.textColor = .darkGreen
-        case 35..<75:
-            status.textColor = .darkYello
-        default:
-            status.textColor = .darkRed
-            
-        }
-        
-        detail.frame = CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
         detail.text = task.detail
-        detail.sizeToFit()
         
-        noteText.text = task.note
+        note.text = task.note
         
     }
     

@@ -61,7 +61,7 @@ class HomeView {
         textView.text = UserSession.username
         textView.textColor = .white
         textView.backgroundColor = .clear
-        textView.textAlignment = .right
+        textView.textAlignment = .left
         textView.font = .latoRegular(size: 14)
         textView.isEditable = false
         textView.isScrollEnabled = false
@@ -70,7 +70,7 @@ class HomeView {
     
     var latestText : UITextView = {
         let textView = UITextView(frame: .zero)
-        textView.text = "Latest"
+        textView.text = "Latest Report"
         textView.textColor = .black
         textView.backgroundColor = .clear
         textView.textAlignment = .left
@@ -157,16 +157,13 @@ class HomeView {
         NSLayoutConstraint(item: latestText, attribute: .top , relatedBy: .equal, toItem: logo, attribute: .bottom, multiplier: 1.0, constant: 10).isActive = true
         NSLayoutConstraint(item: latestText, attribute: .centerX, relatedBy: .equal, toItem: logo, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: latestText, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1.0, constant: -30).isActive = true
-        NSLayoutConstraint(item: latestText, attribute: .height, relatedBy: .equal, toItem: view, attribute: .height, multiplier: 1/20, constant: 0).isActive = true
-        
+        NSLayoutConstraint(item: latestText, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 40).isActive = true
         
         
         collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
-        
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint(item: collectionView, attribute: .top , relatedBy: .equal, toItem: latestText, attribute: .bottom, multiplier: 1.0, constant: 10).isActive = true
+        NSLayoutConstraint(item: collectionView, attribute: .top , relatedBy: .equal, toItem: latestText, attribute: .bottom, multiplier: 1.0, constant: 15).isActive = true
         NSLayoutConstraint(item: collectionView, attribute: .centerX, relatedBy: .equal, toItem: latestText, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: collectionView, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1.0, constant: -30).isActive = true
         NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
@@ -189,7 +186,6 @@ class HomeView {
         
         
         btnView.addSubview(createButton)
-        
         createButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: createButton, attribute: .centerX, relatedBy: .equal, toItem: btnView, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: createButton, attribute: .centerY, relatedBy: .equal, toItem: btnView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
@@ -199,13 +195,11 @@ class HomeView {
         
         
         view.addSubview(logoutButton)
-        
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: logoutButton, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 5).isActive = true
         NSLayoutConstraint(item: logoutButton, attribute: .trailing, relatedBy: .equal, toItem: safeArea, attribute: .trailing, multiplier: 1.0, constant: -10).isActive = true
         NSLayoutConstraint(item: logoutButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25).isActive = true
         NSLayoutConstraint(item: logoutButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25).isActive = true
-        
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
     }

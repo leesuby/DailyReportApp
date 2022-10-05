@@ -20,13 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-      
+        // Configuration Firebase
         FirebaseApp.configure()
         
+        // Notification Time
         notificationAlert()
-       
+        
+        // Check if user already login before
         if #available(iOS 13.0, *) {
-           
         } else {
            checkUser()
         }
@@ -36,30 +37,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func notificationAlert(){
         UNUserNotificationCenter.current().delegate = self
-        
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { success, _ in
             guard success else{
                 return
             }
         }
         
+        
         var tenMinutesBefore = DateComponents()
         tenMinutesBefore.hour = 17
         tenMinutesBefore.minute = 50
-        
         createNotification(title: "Report Daily", body: "Don't forget to report daily for the next 10 minutes :3", date: tenMinutesBefore, identifier: "tenMinutesBefore")
+        
         
         var itstime = DateComponents()
         itstime.hour = 18
         itstime.minute = 00
-        
         createNotification(title: "Report Daily", body: "Ting Ting.It's time to report daily! ", date: itstime, identifier: "itstime")
         
         
     }
     
     func createNotification(title: String,body: String, date: DateComponents, identifier: String){
-        //
+        // Create notification
         let content = UNMutableNotificationContent()
         content.title = title
         content.body = body

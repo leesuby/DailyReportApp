@@ -152,7 +152,6 @@ extension ViewReportViewController : UICollectionViewDataSource{
 
 extension ViewReportViewController : ViewReportDelegate{
     func sendReport() {
-        print(generateHTMLTableReport())
         showMailComposer()
     }
     
@@ -160,6 +159,28 @@ extension ViewReportViewController : ViewReportDelegate{
 
 
 extension ViewReportViewController : MFMailComposeViewControllerDelegate{
+    func showMailComposer(){
+        guard MFMailComposeViewController.canSendMail() else{
+            // create the alert
+            let alert = UIAlertController(title: "Notification", message: "Your device is not setting email. Please check again!!!", preferredStyle: UIAlertController.Style.alert)
+            
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+            
+            return
+        }
+        
+        let composer = MFMailComposeViewController()
+        composer.mailComposeDelegate = self
+        composer.setToRecipients(["longnct@vng.com.vn"])
+        composer.setSubject("Daily report - ZingMP3 IOS - \(self.navigationItem.title!)")
+        composer.setMessageBody(generateHTMLTableReport(), isHTML: true)
+        
+        present(composer,animated: true)
+    }
     
     func generateHTMLTableReport() -> String{
         return """
@@ -195,6 +216,8 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
                 }
 
                 </style>
+                <p>Team Dev IOS Zing MP3 xin gửi tới anh report ngày \(self.navigationItem.title!) như sau:</p>
+                
                 
                 <table class="report">
                 <thead>
@@ -209,6 +232,8 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
                     \(generateHTMLUserReport())
                 </tbody>
                 </table>
+                <p> Best regards, </p>
+                <p> \(UserSession.username) </p>
                 """
     }
     
@@ -254,28 +279,7 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
         return result
     }
     
-    func showMailComposer(){
-        guard MFMailComposeViewController.canSendMail() else{
-            // create the alert
-            let alert = UIAlertController(title: "Notification", message: "Your device is not setting email. Please check again!!!", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
-            return
-        }
-        
-        let composer = MFMailComposeViewController()
-        composer.mailComposeDelegate = self
-        composer.setToRecipients(["longnct@vng.com.vn"])
-        composer.setSubject("Daily report - ZingMP3 IOS - \(self.navigationItem.title!)")
-        composer.setMessageBody(generateHTMLTableReport(), isHTML: true)
-        
-        present(composer,animated: true)
-    }
+    
     
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
@@ -289,11 +293,16 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
         case .cancelled:
             print("Mail cancelled")
         case .failed:
-            print("Mail failed")
+            print("Mail fail")
         case .saved:
             print("Mail saved")
         case .sent:
-            print("Mail sent")
+            let currentDateTime = Date()
+            let formatter = DateFormatter()
+            formatter.timeStyle = .medium
+            formatter.dateStyle = .none
+            
+            Remote.remoteFirebase.updateStatusReport(status: "Sent by \(UserSession.username) at \(formatter.string(from: currentDateTime))", date: self.navigationItem.title!)
         @unknown default:
             fatalError("result mail error")
         }

@@ -56,4 +56,8 @@ class Remote {
     func createReport(date: String){
         database.createReport(date)
     }
+    
+    func updateStatusReport(status: String , date: String){
+        database.updateStatusReport(status, date: date)
+    }
 }

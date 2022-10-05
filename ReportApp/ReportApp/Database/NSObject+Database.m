@@ -21,29 +21,6 @@
 }
 
 
-
-- (void) readAllReport: (NSMutableArray*) reportList collectionView :(UICollectionView*) cv{
-    [[_ref child:@"Report"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-      // Get user value
-        
-        
-        NSMutableArray *reportArray  =  [[NSMutableArray alloc] init ];
-        for(FIRDataSnapshot* child in snapshot.children)
-        {
-            Report* tmp = [[Report alloc] init];
-            [tmp setDate:child.key];
-        
-            [reportArray addObject:tmp];
-            
-        }
-        
-        [reportList setArray:reportArray];
-        [cv reloadData];
-        
-      // ...
-    }];
-}
-
 - (void) readAllReport:(void (^)(NSArray * _Nonnull))completionBlock{
     [[_ref child:@"Report"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
 
@@ -52,6 +29,14 @@
         {
             Report* tmp = [[Report alloc] init];
             [tmp setDate:child.key];
+
+            for (FIRDataSnapshot* grandChild in child.children){
+                if([grandChild.key  isEqual: @"Status"]){
+                    
+                    [tmp setStatus:grandChild.value[@"mail"]];
+    
+                }
+            }
         
             [reportArray addObject:tmp];
             
@@ -62,9 +47,10 @@
     }];
     
 }
+
 - (void) readDetailReport : (NSMutableArray*) reportDetailList collectionView :(UICollectionView*) cv dateofReport: (NSString*) date{
     
-    [[[_ref child:@"Report"] child:date] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[[[_ref child:@"Report"] child:date] child:@"Tasks"]observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSMutableArray *reportArray  =  [[NSMutableArray alloc] init ];
         for(FIRDataSnapshot* user in snapshot.children)
@@ -106,7 +92,7 @@
 
 - (void) readDetailReportWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock{
     
-    [[[_ref child:@"Report"] child:date] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[[[_ref child:@"Report"] child:date] child:@"Tasks"]observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSMutableArray *reportArray  =  [[NSMutableArray alloc] init ];
         for(FIRDataSnapshot* user in snapshot.children)
@@ -146,7 +132,7 @@
 }
 
 - (void)readTaskUserWithDate:(NSString*)date completion:(void(^)(NSArray *))completionBlock{
-    [[[[_ref child:@"Report"] child:date] child:[UserSession.username lowercaseString]]observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[[[[_ref child:@"Report"] child:date] child:@"Tasks"] child:[UserSession.username lowercaseString]]observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         ///
         ///LOAD DATA..
         NSMutableArray *taskArray = [[NSMutableArray alloc] init ];
@@ -224,7 +210,7 @@
 
 - (void)saveTaskUser:(Task *)task dateofReport: (NSString*) date{
     
-    [[[[[_ref child:@"Report"] child:date] child:[UserSession.username lowercaseString]] child:task.id]
+    [[[[[[_ref child:@"Report"] child:date] child:@"Tasks"] child:[UserSession.username lowercaseString]] child:task.id]
      setValue:@{@"title": task.title,
                 @"note": task.note,
                 @"status": [NSNumber numberWithLong:task.status],
@@ -256,7 +242,7 @@
 }
 
 - (void) editTaskUser: (Task*) task dateofReport: (NSString*) date{
-    [[[[[_ref child:@"Report"] child:date] child:[UserSession.username lowercaseString]] child:task.id]
+    [[[[[[_ref child:@"Report"] child:date] child:@"Tasks"]child:[UserSession.username lowercaseString]] child:task.id]
      setValue:@{@"title": task.title,
                 @"note": task.note,
                 @"status": [NSNumber numberWithLong:task.status],
@@ -265,12 +251,16 @@
 }
 
 - (void) deleteTaskUser: (Task*) task dateofReport: (NSString*) date{
-    [[[[[_ref child:@"Report"] child:date] child:[UserSession.username lowercaseString]] child:task.id]
+    [[[[[[_ref child:@"Report"] child:date] child:@"Tasks"] child:[UserSession.username lowercaseString]] child:task.id]
      removeValue];
 }
 
-
 - (void) createReport: (NSString*) date{
-    [[[_ref child:@"Report"] child:date] setValue:@{@"Nothing": @""}];
+    [[[[_ref child:@"Report"] child:date] child:@"Tasks"] setValue:@{@"Nothing": @""}];
 }
+
+- (void) updateStatusReport:(NSString *)status date:(NSString *)d{
+    [[[[_ref child:@"Report"] child:d] child:@"Status"] setValue:@{@"mail": status}];
+}
+
 @end

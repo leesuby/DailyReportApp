@@ -51,7 +51,6 @@ class TemplateCell : UICollectionViewCell{
         imageGet.image = UIImage(named: "GetSymbol")
         imageGet.contentMode = .scaleAspectFit
         contentView.addSubview(imageGet)
-        
     }
     
     func config(task: Task, date: String){

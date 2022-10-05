@@ -12,6 +12,7 @@ class Report: NSObject{
     @objc var tasks : [Task] = []
     @objc var date : String = ""
     @objc var userName: String = ""
+    @objc var status: String = ""
     
     init(tasks: [Task], date: String){
         self.tasks = tasks

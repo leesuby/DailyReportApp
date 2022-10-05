@@ -43,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) createReport: (NSString*)date;
 
 - (void) updateRecentTask: (NSArray*)listTask;
+
+- (void) updateStatusReport: (NSString*)status date:(NSString*)d;
 @end
 
 NS_ASSUME_NONNULL_END

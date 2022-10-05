@@ -9,12 +9,9 @@ import UIKit
 
 class SignUpViewController: UIViewController,SignUpViewDelegate {
     
-
     private var isInitial : Bool = true
-    
     private var signUpView = SignUpView()
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +34,37 @@ class SignUpViewController: UIViewController,SignUpViewDelegate {
         let pass = signUpView.passTextField.text!
         let confirmPass = signUpView.confirmPassTextField.text!
         
+        if(checkRequirement(email: email, pass: pass, confirmPass: confirmPass)){
+            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pass) { result, error in
+                guard error == nil else{
+                    let alert = UIAlertController(title: "Notification", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
+                    
+                    // add an action (button)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+                    
+                    // show the alert
+                    self.present(alert, animated: true, completion: nil)
+                    return
+                }
+                
+                let alert = UIAlertController(title: "Notification", message: "Create account successfully!!!", preferredStyle: UIAlertController.Style.alert)
+                
+                // add an action (button)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { action in
+                    let vc = ViewController()
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true)
+                }))
+                
+                // show the alert
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        
+    }
+    
+    func checkRequirement(email: String, pass: String, confirmPass: String) -> Bool{
         if (!email.contains("@vng.com.vn")){
             let alert = UIAlertController(title: "Notification", message: "Please check again your email. Must be follow format @vng.com.vn!!!", preferredStyle: UIAlertController.Style.alert)
             
@@ -45,7 +73,7 @@ class SignUpViewController: UIViewController,SignUpViewDelegate {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
-            return
+            return false
         }
         
         if(pass.count < 6){
@@ -56,6 +84,7 @@ class SignUpViewController: UIViewController,SignUpViewDelegate {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+            return false
         }
         
         if (!pass.elementsEqual(confirmPass)){
@@ -66,33 +95,10 @@ class SignUpViewController: UIViewController,SignUpViewDelegate {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
-            return
+            return false
         }
         
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pass) { result, error in
-            guard error == nil else{
-                let alert = UIAlertController(title: "Notification", message: error?.localizedDescription, preferredStyle: UIAlertController.Style.alert)
-                
-                // add an action (button)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-                
-                // show the alert
-                self.present(alert, animated: true, completion: nil)
-                return
-            }
-            
-            let alert = UIAlertController(title: "Notification", message: "Create account successfully!!!", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: { action in
-                let vc = ViewController()
-                vc.modalPresentationStyle = .fullScreen
-                self.present(vc, animated: true)
-            }))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-        }
+        return true
     }
     
     func btnLoginTapped() {

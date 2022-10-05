@@ -22,6 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         windowScene.sizeRestrictions?.minimumSize = CGSize(width: 640, height: 900)
         windowScene.sizeRestrictions?.maximumSize = CGSize(width: 640, height: 900)
         
+        checkUser(windowScene: windowScene)
+        
+    }
+    
+    
+    func checkUser(windowScene: UIWindowScene){
         if(UserDefaults.standard.value(forKey: "user")) != nil{
             UserSession.username = UserDefaults.standard.value(forKey: "user") as! String
             let homeViewController = HomeViewController()
@@ -41,12 +47,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
             self.window = window
         }
-        
-    }
-    
-    
-    func checkUser(){
-        
         
     }
     func sceneDidDisconnect(_ scene: UIScene) {

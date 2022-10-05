@@ -143,9 +143,8 @@ class UserReportCell: UICollectionViewCell {
     }
     
     func configureOneTask(task : Task,text: String){
-        
         self.task = task
-        title.frame = CGRect(x: 10,y: Int(heightUserBox) + 10,width: 200,height: 30)
+        title.frame = CGRect(x: 10,y: Int(heightUserBox) + 10,width: Int(contentView.frame.size.width - status.frame.width),height: 30)
         title.text = task.title
         title.sizeToFit()
         
@@ -163,7 +162,9 @@ class UserReportCell: UICollectionViewCell {
             
         }
         
+        detail.frame = CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
         detail.text = task.detail
+        detail.sizeToFit()
         
         noteText.text = task.note
         

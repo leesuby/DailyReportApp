@@ -58,7 +58,7 @@ class DetailReportCell: UICollectionViewCell {
         userBox.addSubview(userText)
         contentView.addSubview(userBox)
         
-        taskCollectionView = UICollectionView(frame: CGRect(x: 10,y: Int(heightUserBox) + 10,width: Int(userBox.frame.size.width) - 10,height: Int(contentView.frame.height) - heightUserBox - 20), collectionViewLayout: UICollectionViewFlowLayout.init())
+        taskCollectionView = UICollectionView(frame: CGRect(x: 0,y: Int(heightUserBox) + 10,width: Int(userBox.frame.size.width),height: Int(contentView.frame.height) - heightUserBox - 20), collectionViewLayout: UICollectionViewFlowLayout.init())
         
         taskCollectionView.backgroundColor = .clear
         
@@ -82,73 +82,6 @@ class DetailReportCell: UICollectionViewCell {
         taskCollectionView.reloadData()
         
     }
-    
-    
-    
-    //        for task in tasks {
-    //
-    //            var title = UITextView(frame: CGRect(x: 10,y: y + Int(heightUserBox) + 10,width: 200,height: 30))
-    //            titles.append(title)
-    //            titles[titles.count - 1].frame = CGRect(x: 10,y: y + Int(heightUserBox) + 10,width: 200,height: 30)
-    //            titles[titles.count - 1].text = task.title
-    //
-    //            titles[titles.count - 1].font = .latoBold(size: 18)
-    //            titles[titles.count - 1].isEditable = false
-    //            titles[titles.count - 1].isScrollEnabled = false
-    //            titles[titles.count - 1].textColor = .white
-    //            titles[titles.count - 1].textAlignment = .left
-    //            titles[titles.count - 1].backgroundColor = .zingPurple70a
-    //            titles[titles.count - 1].layer.cornerRadius = 15
-    //            titles[titles.count - 1].sizeToFit()
-    //            contentView.addSubview(titles[titles.count - 1])
-    //            y = y + 40
-    //        }
-    //            let status = UITextView(frame: CGRect(x: Int(contentView.frame.width) - 80, y: y + Int(heightUserBox) + 10 , width: 80, height: 35))
-    //
-    //            status.text = "\(task.status)%"
-    //            status.font = .latoRegular(size: 18)
-    //            status.isEditable = false
-    //            status.isScrollEnabled = false
-    //            status.textColor = .darkGreen
-    //            status.textAlignment = .right
-    //            status.backgroundColor = .clear
-    //            contentView.addSubview(status)
-    //
-    //            let detail = UITextView(frame: CGRect(x: 10, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100))
-    //            detail.text = task.detail
-    //            detail.font = .latoRegular(size: 16)
-    //            detail.isEditable = false
-    //            detail.isScrollEnabled = false
-    //            detail.textColor = .black
-    //            detail.textAlignment = .left
-    //            detail.backgroundColor = .clear
-    //            detail.sizeToFit()
-    //            contentView.addSubview(detail)
-    //
-    //            let noteImage = UIImageView(frame: CGRect(x: 10, y: Int(detail.center.y) + 40, width: Int(contentView.frame.width / 8), height: 40))
-    //
-    //            noteImage.image = UIImage(named: "NoteSymbol")
-    //            noteImage.contentMode = .scaleAspectFit
-    //            noteImage.backgroundColor = .clear
-    //            contentView.addSubview(noteImage)
-    //
-    //            let noteText = UITextView(frame: CGRect(x: Int(noteImage.center.x) + 20, y: Int(detail.center.y) + 40 , width: Int(contentView.frame.width * 7/8) - 20, height: 60))
-    //            noteText.text = task.note
-    //            noteText.font = .latoRegular(size: 16)
-    //            noteText.isEditable = false
-    //            noteText.isScrollEnabled = false
-    //            noteText.textColor = .red
-    //            noteText.textAlignment = .left
-    //            noteText.backgroundColor = .noteColor
-    //
-    //            contentView.addSubview(noteText)
-    
-    
-    
-    //            y = Int(noteImage.center.y) + 5
-    //        }
-    //
-    //    }
     
     func hidden(){
         contentView.isHidden = true

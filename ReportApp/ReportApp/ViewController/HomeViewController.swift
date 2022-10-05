@@ -97,6 +97,24 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
 }
 
 extension HomeViewController : HomeViewDelegate{
+    func logOut() {
+       
+        let alert = UIAlertController(title: "Information", message: "Do you want to logout?", preferredStyle: UIAlertController.Style.alert)
+
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: {_ in
+            UserDefaults.standard.removeObject(forKey: "user")
+            let vc = ViewController()
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true)
+        }))
+                        
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
+                        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
     func createReport() {
         // create the alert
         let alert = UIAlertController(title: "Information", message: "Would you like to generate a report for today?", preferredStyle: UIAlertController.Style.alert)

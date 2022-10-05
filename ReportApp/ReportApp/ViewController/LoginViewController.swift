@@ -11,6 +11,8 @@ import FirebaseAuth
 class ViewController: UIViewController, LoginViewDelegate {
     
     
+    
+    
     private var isInitial : Bool = true
     
     private var loginView = LoginView()
@@ -22,7 +24,10 @@ class ViewController: UIViewController, LoginViewDelegate {
         loginView.initialFirstLook(view: view)
         loginView.delegate = self
         self.hideKeyboardWhenTappedAround()
+        self.keyboardMoveView()
     }
+    
+    
     
     override func viewDidLayoutSubviews() {
         if (isInitial){
@@ -34,42 +39,46 @@ class ViewController: UIViewController, LoginViewDelegate {
     
     
     
-    func btnLoginTapped(sender: UIButton) {
-        let button: UIButton = sender
-        if (button.tag == 1){
-            let email = loginView.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-            let password = loginView.passTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+    func btnLoginTapped() {
+        
+        let email = loginView.emailTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        let password = loginView.passTextField.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        Auth.auth().signIn(withEmail: email, password: password){
+            (result,error) in
             
-            Auth.auth().signIn(withEmail: email, password: password){
-                (result,error) in
-                
-                if error != nil{
-                    print(error!.localizedDescription)
-                }
-                else {
-                    UserDefaults.standard.set(email.components(separatedBy: "@")[0], forKey: "user")
-                    UserSession.username = email.components(separatedBy: "@")[0]
-                    
-                    let homeViewController = HomeViewController()
-                    
-                    let nav = UINavigationController(rootViewController: homeViewController)
-                    nav.modalPresentationStyle = .fullScreen
-                    self.present(nav, animated: true, completion: nil)
-                }
-                
-                // create the alert
-                let alert = UIAlertController(title: "Notification", message: "Please check again your email and password!!!", preferredStyle: UIAlertController.Style.alert)
-                
-                // add an action (button)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-                
-                // show the alert
-                self.present(alert, animated: true, completion: nil)
-                
+            if error != nil{
+                print(error!.localizedDescription)
             }
+            else {
+                UserDefaults.standard.set(email.components(separatedBy: "@")[0], forKey: "user")
+                UserSession.username = email.components(separatedBy: "@")[0]
+                
+                let homeViewController = HomeViewController()
+                
+                let nav = UINavigationController(rootViewController: homeViewController)
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+            }
+            
+            // create the alert
+            let alert = UIAlertController(title: "Notification", message: "Please check again your email and password!!!", preferredStyle: UIAlertController.Style.alert)
+            
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+            
         }
+        
     }
     
+    func btnSignUpTapped() {
+        let vc = SignUpViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
     
 }
 

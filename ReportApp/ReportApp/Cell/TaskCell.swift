@@ -27,7 +27,7 @@ class TaskCell: UICollectionViewCell {
         divider.backgroundColor = .darkPurple40a
         
         contentView.addSubview(divider)
-        title.frame = CGRect(x: 0,y: 5,width: .max ,height: 30)
+        title.frame = CGRect(x: 5,y: 5,width: .max ,height: 30)
         
         title.font = .latoBold(size: 18)
         title.isEditable = false
@@ -40,7 +40,7 @@ class TaskCell: UICollectionViewCell {
         contentView.addSubview(title)
         
         
-        status.frame = CGRect(x: Int(contentView.frame.width) - 80, y: 5, width: 80, height: 35)
+        status.frame = CGRect(x: Int(contentView.frame.width) - 40, y: 5, width: 40, height: 35)
         
         status.font = .latoRegular(size: 18)
         status.isEditable = false
@@ -50,7 +50,7 @@ class TaskCell: UICollectionViewCell {
         status.backgroundColor = .clear
         contentView.addSubview(status)
         
-        detail.frame = CGRect(x: 0, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
+        detail.frame = CGRect(x: 5, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
         
         detail.font = .latoRegular(size: 16)
         detail.isEditable = false
@@ -80,9 +80,16 @@ class TaskCell: UICollectionViewCell {
         contentView.addSubview(note)
     }
     
+    func setupChildViews() {
+        
+    }
+    
+    func setupConstraints() {
+        
+    }
     
     func config(task: Task){
-        title.frame = CGRect(x: 0 ,y: 5,width: 200,height: 30)
+        title.frame = CGRect(x: 5 ,y: 5,width: contentView.frame.size.width - status.frame.width,height: 30)
         title.text = task.title
         title.sizeToFit()
         
@@ -98,7 +105,9 @@ class TaskCell: UICollectionViewCell {
         
         status.text = "\(task.status)%"
         
+        detail.frame = CGRect(x: 5, y: Int(title.center.y) + 20, width: Int(contentView.frame.width) - 20, height: 100)
         detail.text = task.detail
+        detail.sizeToFit()
         
         note.text = task.note
         

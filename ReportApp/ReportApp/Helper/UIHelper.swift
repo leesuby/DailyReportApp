@@ -84,8 +84,8 @@ extension UIColor{
     static var zingPurple = hexStringToUIColor(hex: "72179A",alpha: 1)
     static var zingPurple70a = hexStringToUIColor(hex: "72179A",alpha: 0.7)
     static var zingPurple40a = hexStringToUIColor(hex: "72179A",alpha: 0.4)
-    static var gray40a = hexStringToUIColor(hex: "9C9494",alpha: 0.4)
-    static var noteColor = hexStringToUIColor(hex: "f7f6f3", alpha: 1.0)
+    static var gray70a = hexStringToUIColor(hex: "9C9494",alpha: 0.7)
+    static var noteColor = hexStringToUIColor(hex: "FFF1A6", alpha: 1.0)
     static var darkGreen = hexStringToUIColor(hex: "2B8B2F",alpha: 1.0)
     static var darkYello = hexStringToUIColor(hex: "F6BE00", alpha: 1.0)
     static var darkRed = hexStringToUIColor(hex: "8b0000", alpha: 1.0)
@@ -166,6 +166,24 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+    func keyboardMoveView(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
 }
 
 extension UIImage{
@@ -194,4 +212,6 @@ extension UIImage{
         
         return newImage!
     }
+    
+    
 }

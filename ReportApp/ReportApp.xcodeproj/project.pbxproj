@@ -28,6 +28,8 @@
 		E7ADD8AD28E6F1D5008C506B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = E7ADD8AC28E6F1D5008C506B /* FirebaseMessaging */; };
 		E7C4DCA228EAED48008E5CC7 /* TemplateModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4DCA128EAED48008E5CC7 /* TemplateModal.swift */; };
 		E7C4DCA428EAF101008E5CC7 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4DCA328EAF101008E5CC7 /* TemplateCell.swift */; };
+		E7C997FA28ED3582003EFE73 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C997F928ED3582003EFE73 /* SignUpView.swift */; };
+		E7C997FC28ED36CA003EFE73 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C997FB28ED36CA003EFE73 /* SignUpViewController.swift */; };
 		E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232228D32C8900BB5F27 /* AppDelegate.swift */; };
 		E7D5232528D32C8900BB5F27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */; };
 		E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232628D32C8900BB5F27 /* LoginViewController.swift */; };
@@ -69,6 +71,8 @@
 		E7ADD8AA28E6D565008C506B /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		E7C4DCA128EAED48008E5CC7 /* TemplateModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateModal.swift; sourceTree = "<group>"; };
 		E7C4DCA328EAF101008E5CC7 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
+		E7C997F928ED3582003EFE73 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		E7C997FB28ED36CA003EFE73 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		E7D5231F28D32C8900BB5F27 /* ReportApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReportApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7D5232228D32C8900BB5F27 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7D5232428D32C8900BB5F27 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +165,7 @@
 				E7DE4A0728DC176E00E4C7BF /* HomeView.swift */,
 				E7DE4A0E28DD60C600E4C7BF /* ViewReportView.swift */,
 				E7DE32A028E0AD7800398287 /* EditReportView.swift */,
+				E7C997F928ED3582003EFE73 /* SignUpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -238,6 +243,7 @@
 				E7DE4A0228DC07C200E4C7BF /* HomeViewController.swift */,
 				E7DE4A0C28DD608800E4C7BF /* ViewReportViewController.swift */,
 				E7DE4A1628DDB99A00E4C7BF /* EditReportViewController.swift */,
+				E7C997FB28ED36CA003EFE73 /* SignUpViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -372,8 +378,10 @@
 				E7DE4A0628DC087600E4C7BF /* LoginView.swift in Sources */,
 				E7DE32A328E0AFC700398287 /* AddReportCell.swift in Sources */,
 				E7DE4A1728DDB99A00E4C7BF /* EditReportViewController.swift in Sources */,
+				E7C997FC28ED36CA003EFE73 /* SignUpViewController.swift in Sources */,
 				E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */,
 				E7C4DCA428EAF101008E5CC7 /* TemplateCell.swift in Sources */,
+				E7C997FA28ED3582003EFE73 /* SignUpView.swift in Sources */,
 				E7C4DCA228EAED48008E5CC7 /* TemplateModal.swift in Sources */,
 				E7DE32B528E2A59C00398287 /* Remote.swift in Sources */,
 				E7D5232328D32C8900BB5F27 /* AppDelegate.swift in Sources */,

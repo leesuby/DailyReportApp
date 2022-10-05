@@ -10,6 +10,7 @@ import UIKit
 
 protocol HomeViewDelegate{
     func createReport();
+    func logOut();
 }
 
 class HomeView {
@@ -86,6 +87,14 @@ class HomeView {
         
         return button
     }()
+    
+    var logoutButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .clear
+        button.setImage(UIImage(named: "LogoutSymbol"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        return button
+    }()
    
     
     func initialFisrtLook(viewController : HomeViewController){
@@ -131,7 +140,7 @@ class HomeView {
         
         view.addSubview(avatar)
         avatar.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: avatar, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: avatar, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 5).isActive = true
         NSLayoutConstraint(item: avatar, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 10).isActive = true
         NSLayoutConstraint(item: avatar, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
         NSLayoutConstraint(item: avatar, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
@@ -139,8 +148,8 @@ class HomeView {
         view.addSubview(userName)
         userName.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: userName, attribute: .leading , relatedBy: .equal, toItem: avatar, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: userName, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: userName, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 60).isActive = true
+        NSLayoutConstraint(item: userName, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 5).isActive = true
+        NSLayoutConstraint(item: userName, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 80).isActive = true
         NSLayoutConstraint(item: userName, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
         
         view.addSubview(latestText)
@@ -186,13 +195,26 @@ class HomeView {
         NSLayoutConstraint(item: createButton, attribute: .centerY, relatedBy: .equal, toItem: btnView, attribute: .centerY, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: createButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
         NSLayoutConstraint(item: createButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 30).isActive = true
-        
         createButton.addTarget(self, action: #selector(createReport), for: .touchUpInside)
+        
+        
+        view.addSubview(logoutButton)
+        
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: logoutButton, attribute: .top, relatedBy: .equal, toItem: safeArea, attribute: .top, multiplier: 1.0, constant: 5).isActive = true
+        NSLayoutConstraint(item: logoutButton, attribute: .trailing, relatedBy: .equal, toItem: safeArea, attribute: .trailing, multiplier: 1.0, constant: -10).isActive = true
+        NSLayoutConstraint(item: logoutButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25).isActive = true
+        NSLayoutConstraint(item: logoutButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25).isActive = true
+        
+        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
     }
     
     @objc func createReport(){
-        
         delegate.createReport()
+    }
+    
+    @objc func logout(){
+        delegate.logOut()
     }
 }

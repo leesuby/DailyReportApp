@@ -253,7 +253,7 @@ class AddReportCell: UICollectionViewCell {
         buttonCancel.setTitle("Cancel", for: .normal)
         buttonCancel.titleLabel?.textColor = .white
         buttonCancel.titleLabel?.font = .latoBold(size: 16)
-        buttonCancel.backgroundColor = .gray40a
+        buttonCancel.backgroundColor = .gray70a
         buttonCancel.layer.cornerRadius = 10
         buttonCancel.addTarget(self, action: #selector(cancelAddReport) , for: .touchUpInside)
         contentView.addSubview(buttonCancel)

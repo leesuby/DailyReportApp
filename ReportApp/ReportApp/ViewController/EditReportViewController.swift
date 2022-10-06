@@ -66,7 +66,7 @@ extension EditReportViewController : UICollectionViewDelegateFlowLayout{
             let heigthofNote = task.note.height(withConstrainedWidth: collectionView.frame.size.width - 30 - Global.padding*2, font:  .latoRegular(size: 16)!) // 30 is note image
              
             if(tasks[indexPath.item].note.isEmpty){
-                return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + Global.padding*4)
+                return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + Global.padding*4 + 40)
             }
             else{
                 return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + heigthofNote + Global.padding*6 + 40) // 40 is top box

@@ -22,7 +22,7 @@ class ViewController: UIViewController, LoginViewDelegate {
         self.hideKeyboardWhenTappedAround()
         self.keyboardMoveView()
     }
-
+    
     override func viewDidLayoutSubviews() {
         if (isInitial){
             loginView.initialLoginBox(view: view)
@@ -40,16 +40,17 @@ class ViewController: UIViewController, LoginViewDelegate {
         Auth.auth().signIn(withEmail: email, password: password){
             (result,error) in
             if error != nil{
-                let alert = UIAlertController(title: "Notification", message: "Please check again your email and password!!!", preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                //Login fail
+                Helper.createAlertOneOption(viewController: self, title: "Notification", messages: "Please check again your email and password!!!", completion: nil)
+                return
             }
             else {
+                //Get username for login next time
                 UserDefaults.standard.set(email.components(separatedBy: "@")[0], forKey: "user")
                 UserSession.username = email.components(separatedBy: "@")[0]
                 
+                //Go to HomeViewController
                 let homeViewController = HomeViewController()
-                
                 let nav = UINavigationController(rootViewController: homeViewController)
                 nav.modalPresentationStyle = .fullScreen
                 self.present(nav, animated: true, completion: nil)

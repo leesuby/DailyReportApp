@@ -23,7 +23,6 @@ class TemplateCell : UICollectionViewCell{
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .clear
-        
         contentView.layer.borderColor = UIColor.deepPurple.cgColor
         contentView.layer.borderWidth = 0.5
         contentView.layer.cornerRadius = 5
@@ -47,19 +46,15 @@ class TemplateCell : UICollectionViewCell{
         contentView.addSubview(date)
         
         let imageGet = UIImageView(frame: CGRect(x: contentView.frame.size.width - 30, y: 0, width: 25, height: contentView.frame.size.height))
-        
         imageGet.image = UIImage(named: "GetSymbol")
         imageGet.contentMode = .scaleAspectFit
         contentView.addSubview(imageGet)
     }
     
     func config(task: Task, date: String){
-        
         self.id = task.id
         self.title.text = task.title
         self.date.text = date
-        
-        
     }
     
     

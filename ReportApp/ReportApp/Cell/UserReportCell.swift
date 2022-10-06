@@ -55,7 +55,7 @@ class UserReportCell: UICollectionViewCell {
         contentView.layer.borderColor = UIColor.gray.cgColor
         contentView.layer.cornerRadius = 20
         
-        taskBox.frame = CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: Int(contentView.frame.size.width) / 10)
+        taskBox.frame = CGRect(x: 0, y: 0, width: Int(contentView.frame.size.width), height: 40)
         taskBox.backgroundColor = .zingPurple
         taskBox.roundCorners(corners: [.topLeft,.topRight], radius: 20)
         taskText.frame = CGRect(x: taskBox.center.x - 10, y: 0,width: 30,height: 30)
@@ -97,7 +97,7 @@ class UserReportCell: UICollectionViewCell {
         detail.font = .latoRegular(size: 16)
         detail.textColor = Global.detailColor
         detail.textAlignment = .left
-        detail.numberOfLines = 3
+        detail.numberOfLines = 0
         detail.backgroundColor = .clear
         contentView.addSubview(detail)
         
@@ -109,7 +109,7 @@ class UserReportCell: UICollectionViewCell {
         note.font = .latoRegular(size: 16)
         note.textColor = Global.noteColor
         note.textAlignment = .left
-        note.numberOfLines = 3
+        note.numberOfLines = 0
         note.backgroundColor = .clear
         contentView.addSubview(note)
         
@@ -145,7 +145,7 @@ class UserReportCell: UICollectionViewCell {
     
     func configureOneTask(task : Task,text: String){
         self.task = task
-    
+        
         title.text = task.title
         
         taskText.text = text
@@ -155,11 +155,20 @@ class UserReportCell: UICollectionViewCell {
         
         detail.text = task.detail
         
-        note.text = task.note
+        if (task.note.isEmpty){
+            note.isHidden = true
+            noteImage.isHidden = true
+        }
+        else{
+            note.isHidden = false
+            noteImage.isHidden = false
+            note.text = task.note
+        }
+        
         
     }
     
-
+    
     required init?(coder: NSCoder) {
         fatalError("Error Creating DetailCell")
     }

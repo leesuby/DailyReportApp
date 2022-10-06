@@ -24,7 +24,6 @@ class TaskCell: UICollectionViewCell {
         
         initView()
         initConstraint()
-        
     }
     
     func initView() {
@@ -46,7 +45,7 @@ class TaskCell: UICollectionViewCell {
         detail.font = .latoRegular(size: 16)
         detail.textColor = Global.detailColor
         detail.textAlignment = .left
-        detail.numberOfLines = 3
+        detail.numberOfLines = 0
         detail.backgroundColor = .clear
         contentView.addSubview(detail)
         
@@ -55,11 +54,10 @@ class TaskCell: UICollectionViewCell {
         noteImage.backgroundColor = .clear
         contentView.addSubview(noteImage)
         
-        
         note.font = .latoRegular(size: 16)
         note.textColor = Global.noteColor
         note.textAlignment = .left
-        note.numberOfLines = 3
+        note.numberOfLines = 0
         note.backgroundColor = .clear
         contentView.addSubview(note)
     }
@@ -90,7 +88,7 @@ class TaskCell: UICollectionViewCell {
         note.leadingAnchor.constraint(equalTo: noteImage.trailingAnchor).isActive = true
         note.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true
         note.topAnchor.constraint(equalTo: detail.bottomAnchor, constant: Global.padding + 5).isActive = true
-    
+        
     }
     
     
@@ -101,13 +99,21 @@ class TaskCell: UICollectionViewCell {
         status.textColor = Helper.getStatusColor(status: task.status)
         
         detail.text = task.detail
-        
-        note.text = task.note
-        
+        if (task.note.isEmpty){
+            note.isHidden = true
+            noteImage.isHidden = true
+        }
+        else{
+            note.isHidden = false
+            noteImage.isHidden = false
+            note.text = task.note
+        }
         
     }
     
     required init?(coder: NSCoder) {
         fatalError("Error init taskcell")
     }
+    
+    
 }

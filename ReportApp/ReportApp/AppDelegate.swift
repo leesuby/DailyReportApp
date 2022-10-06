@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Check if user already login before
         if #available(iOS 13.0, *) {
         } else {
-           checkUser()
+            checkUser()
         }
         
         return true
@@ -64,12 +64,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         content.title = title
         content.body = body
         content.sound = UNNotificationSound.default
-
+        
         let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
         
         let request = UNNotificationRequest(
             identifier: identifier, content: content, trigger: trigger)
-
+        
         UNUserNotificationCenter.current().add(request) { error in
             if error != nil {
                 // handle error
@@ -78,14 +78,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func checkUser(){
-
+        
         if(UserDefaults.standard.value(forKey: "user")) != nil{
             UserSession.username = UserDefaults.standard.value(forKey: "user") as! String
             let homeViewController = HomeViewController()
             
             let nav = UINavigationController(rootViewController: homeViewController)
             nav.modalPresentationStyle = .fullScreen
-        
+            
             let share = UIApplication.shared.delegate as? AppDelegate
             share?.window?.rootViewController = nav
             share?.window?.makeKeyAndVisible()

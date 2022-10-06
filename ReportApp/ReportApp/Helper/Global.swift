@@ -10,7 +10,7 @@ import UIKit
 
 class Global{
     static var padding : CGFloat = 15
-    static var titleColor : UIColor = .darkPurple
-    static var detailColor : UIColor = .deepPurple
-    static var noteColor : UIColor = .black
+    static var titleColor : UIColor = .darkGray
+    static var detailColor : UIColor = .gray
+    static var noteColor : UIColor = .red
 }

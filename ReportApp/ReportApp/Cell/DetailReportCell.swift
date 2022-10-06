@@ -41,7 +41,7 @@ class DetailReportCell: UICollectionViewCell {
         shadowLayer.shadowRadius = 1
         
         contentView.layer.addSublayer(shadowLayer)
-        contentView.layer.borderWidth = 2
+        contentView.layer.borderWidth = 1
         contentView.layer.borderColor = UIColor.zingPurple.cgColor
         contentView.layer.cornerRadius = 20
         
@@ -60,7 +60,9 @@ class DetailReportCell: UICollectionViewCell {
         userBox.addSubview(userText)
         contentView.addSubview(userBox)
         
-        taskCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
+        let layout = UICollectionViewFlowLayout.init()
+        
+        taskCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         taskCollectionView.backgroundColor = .clear
         contentView.addSubview(taskCollectionView)
         taskCollectionView.delegate = self
@@ -77,7 +79,6 @@ class DetailReportCell: UICollectionViewCell {
         
         
     }
-    
     
     func configure(tasks : [Task],userName : String){
         userText.text = userName
@@ -109,7 +110,7 @@ extension DetailReportCell : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
         
-        if let taskCell = collectionView.dequeueReusableCell(withReuseIdentifier: "task", for: indexPath) as? TaskCell{
+        if let taskCell = collectionView.dequeueReusableCell(withReuseIdentifier: "task", for: indexPath) as? TaskCell {
             
             taskCell.config(task: tasks[indexPath.row])
             
@@ -125,8 +126,19 @@ extension DetailReportCell : UICollectionViewDataSource{
 extension DetailReportCell : UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-       
-            return CGSize(width: collectionView.frame.size.width, height: 195)
+        
+        let task = tasks[indexPath.item]
+        let heigthofTitle = task.title.height(withConstrainedWidth: collectionView.frame.size.width - 60 - Global.padding*2, font: .latoBold(size: 20)!)
+        let heigthofDetail = task.detail.height(withConstrainedWidth: collectionView.frame.size.width - Global.padding*2, font:  .latoRegular(size: 16)!)
+        let heigthofNote = task.note.height(withConstrainedWidth: collectionView.frame.size.width - 30 - Global.padding*2, font:  .latoRegular(size: 16)!)
+        
+        if(tasks[indexPath.item].note.isEmpty){
+            return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + Global.padding*4)
+        }
+        else{
+            return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + heigthofNote + Global.padding*5)
+        }
+        
     }
 }
 

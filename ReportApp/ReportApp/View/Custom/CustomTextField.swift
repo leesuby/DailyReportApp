@@ -27,8 +27,8 @@ class CustomTextField : UITextField {
         let image = UIImage(named: imageName)
         imageView.image = image
         imageView.contentMode = .scaleAspectFit
-       
-
+        
+        
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 32, height: 40))
         view.addSubview(imageView)
         view.backgroundColor = .clear

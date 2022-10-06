@@ -14,14 +14,18 @@ class HomeViewController: UIViewController{
     private let homeView = HomeView()
     var reportCollectionView : UICollectionView!
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        //Hidden navigation
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         reportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         
         homeView.initialFisrtLook(viewController : self)
@@ -34,6 +38,7 @@ class HomeViewController: UIViewController{
         //Read data report date from database
         Remote.remoteFirebase.readAllReport { loadedData in
             DispatchQueue.global().async {
+                //Save data and sort descending date
                 self.reportlist = loadedData as! [Report]
                 self.reportlist = self.reportlist.sorted(by: {Helper.getDate(dateString: $0.date)!  > Helper.getDate(dateString: $1.date)!})
                 
@@ -44,7 +49,7 @@ class HomeViewController: UIViewController{
             
             
         }
-      
+        
     }
 }
 
@@ -66,17 +71,11 @@ extension HomeViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-        
         if let reportCell = collectionView.dequeueReusableCell(withReuseIdentifier: "report", for: indexPath) as? ReportCell{
-            
-            let report : Report = reportlist[indexPath.row]
-            
+            let report : Report = reportlist[indexPath.item]
             reportCell.config(report: report)
-            
             cell = reportCell
-            
         }
-        
         return cell
     }
     
@@ -91,46 +90,26 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout{
 
 extension HomeViewController : HomeViewDelegate{
     func logOut() {
-        let alert = UIAlertController(title: "Information", message: "Do you want to logout?", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: {_ in
+        Helper.createAlertTwoOption(viewController: self, title: "Information", messages: "Do you want to logout?", yes: { _ in
             UserDefaults.standard.removeObject(forKey: "user")
             let vc = ViewController()
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true)
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        }, no: nil)
         
     }
     
     func createReport() {
-        let alert = UIAlertController(title: "Information", message: "Would you like to generate a report for today?", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: {_ in
-            
+        Helper.createAlertTwoOption(viewController: self, title: "Information", messages: "Would you like to generate a report for today?", yes: { _ in
             let mytime = Date()
             let format = DateFormatter()
             format.dateFormat = "dd-MM-yyyy"
             for report in self.reportlist{
                 if(report.date == format.string(from: mytime)){
-                    // create the alert
-                    let alert = UIAlertController(title: "Notification", message: "Today's report was created earlier.", preferredStyle: UIAlertController.Style.alert)
-                    
-                
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-                    
-                    // show the alert
-                    self.present(alert, animated: true, completion: nil)
-                    
-                    return
+                    Helper.createAlertOneOption(viewController: self, title: "Notification", messages: "Today's report was created earlier", completion: nil)
                 }
             }
             Remote.remoteFirebase.createReport(date: format.string(from: mytime))
-            
-        }))
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
-        
+        }, no: nil)
     }
-    
-    
 }

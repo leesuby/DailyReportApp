@@ -23,27 +23,27 @@
 
 - (void) readAllReport:(void (^)(NSArray * _Nonnull))completionBlock{
     [[_ref child:@"Report"] observeEventType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-
+        
         NSMutableArray *reportArray  =  [[NSMutableArray alloc] init ];
         for(FIRDataSnapshot* child in snapshot.children)
         {
             Report* tmp = [[Report alloc] init];
             [tmp setDate:child.key];
-
+            
             for (FIRDataSnapshot* grandChild in child.children){
                 if([grandChild.key  isEqual: @"Status"]){
                     
                     [tmp setStatus:grandChild.value[@"mail"]];
-    
+                    
                 }
             }
-        
+            
             [reportArray addObject:tmp];
             
         }
-    
+        
         completionBlock([NSArray arrayWithArray:reportArray]);
-      // ...
+        // ...
     }];
     
 }
@@ -58,7 +58,7 @@
             
             Report* tmp = [[Report alloc] init];
             [tmp setUserName:user.key];
-           
+            
             
             if(user.hasChildren){
                 NSMutableArray* tasks = [[NSMutableArray alloc] init ];
@@ -79,13 +79,13 @@
             }
             
             [reportArray addObject:tmp];
-
+            
         }
         
         [reportDetailList setArray:reportArray];
         [cv reloadData];
-
-      // ...
+        
+        // ...
     }];
     
 }
@@ -100,7 +100,7 @@
             
             Report* tmp = [[Report alloc] init];
             [tmp setUserName:user.key];
-           
+            
             
             if(user.hasChildren){
                 NSMutableArray* tasks = [[NSMutableArray alloc] init ];
@@ -121,12 +121,12 @@
             }
             
             [reportArray addObject:tmp];
-
+            
         }
         
         completionBlock([NSArray arrayWithArray:reportArray]);
-
-      // ...
+        
+        // ...
     }];
     
 }
@@ -149,7 +149,7 @@
             [tmpTask setId:task.key];
             
             [taskArray addObject:tmpTask];
-
+            
         }
         
         
@@ -174,7 +174,7 @@
             [tmpTask setId:task.key];
             
             [taskArray addObject:tmpTask];
-
+            
         }
         
         completionBlock([NSArray arrayWithArray:taskArray]);
@@ -186,7 +186,7 @@
         if (error) {
             NSLog(@"Received an error %@", error);
             return;
-          }
+        }
         
         for(FIRDataSnapshot* task in snapshot.children)
         {
@@ -257,6 +257,7 @@
 
 - (void) createReport: (NSString*) date{
     [[[[_ref child:@"Report"] child:date] child:@"Tasks"] setValue:@{@"Nothing": @""}];
+    [[[[_ref child:@"Report"] child:date] child:@"Status"] setValue:@{@"mail": @"Unsent"}];
 }
 
 - (void) updateStatusReport:(NSString *)status date:(NSString *)d{

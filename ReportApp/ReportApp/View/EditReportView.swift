@@ -27,27 +27,33 @@ class EditReport {
         let button = UIButton()
         button.backgroundColor = .darkPurple
         button.setImage(UIImage(named: "AddSymbol"), for: .normal)
-        
         button.layer.cornerRadius = 25
         button.layer.shadowOpacity = 0.4
         button.layer.shadowRadius = 30
-        
         return button
+    }()
+    
+    var textNoTask : UILabel = {
+        let text = UILabel()
+        text.backgroundColor = .clear
+        text.font = .latoBold(size: 24)
+        text.text = "You have not created any task yet"
+        text.textColor = .darkGray
+        return text
     }()
     
     func initialFisrtLook(viewController : EditReportViewController){
         let view: UIView = viewController.view
         let collectionView: UICollectionView = viewController.editReportCollectionView
+        collectionView.backgroundColor = .clear
         
         view.addSubview(background)
         background.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: background, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        background.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        background.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        background.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        background.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
-        
-        collectionView.backgroundColor = .clear
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
@@ -55,15 +61,27 @@ class EditReport {
         NSLayoutConstraint(item: collectionView, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: -10).isActive = true
         NSLayoutConstraint(item: collectionView, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 10).isActive = true
         
-        addButton.addTarget(self, action: #selector(btnAddTask), for: .touchUpInside)
         view.addSubview(addButton)
         addButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: addButton, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -20).isActive = true
         NSLayoutConstraint(item: addButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: -10).isActive = true
         NSLayoutConstraint(item: addButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50).isActive = true
         NSLayoutConstraint(item: addButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50).isActive = true
+        addButton.addTarget(self, action: #selector(btnAddTask), for: .touchUpInside)
         
+        view.addSubview(textNoTask)
+        textNoTask.translatesAutoresizingMaskIntoConstraints = false
+        textNoTask.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        textNoTask.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+    }
+    
+    func hiddenText(){
+        textNoTask.isHidden = true
+    }
+    
+    func showText(){
+        textNoTask.isHidden = false
     }
     
     @objc func btnAddTask(sender:UIButton){

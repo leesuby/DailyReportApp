@@ -9,7 +9,7 @@ import UIKit
 
 class EditReportViewController: UIViewController {
     
-
+    
     private let editReportView : EditReport = EditReport()
     var editReportCollectionView : UICollectionView!
     private var tasks : [Task] = []
@@ -19,47 +19,35 @@ class EditReportViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.hideKeyboardWhenTappedAround()
+        
         setupNavBar()
         
         editReportView.delegate = self
         templateBox.delegate = self
         
         editReportCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
-        
-        self.hideKeyboardWhenTappedAround()
-        self.keyboardMoveView()
-        
         editReportView.initialFisrtLook(viewController: self)
-        
         editReportCollectionView.showsVerticalScrollIndicator = false
         editReportCollectionView.delegate = self
         editReportCollectionView.dataSource = self
-        
         editReportCollectionView.register(UserReportCell.self, forCellWithReuseIdentifier: "userReport")
-        
         editReportCollectionView.register(AddReportCell.self, forCellWithReuseIdentifier: "editReport")
-        // Do any additional setup after loading the view.
         
         Remote.remoteFirebase.readTaskOfUser(date: dateOfReport) { loadedTask in
             DispatchQueue.main.async {
                 self.tasks = loadedTask as! [Task]
                 self.editReportCollectionView.reloadData()
+                
             }
             
         }
-
+        
     }
-
-    
     private func setupNavBar(){
         navigationItem.title = "Your Task"
         self.navigationController!.navigationBar.tintColor = UIColor.white
-        
-    }
-    
-    
-    @objc func saveTask(){
-        print("task saved")
     }
 }
 
@@ -67,13 +55,23 @@ class EditReportViewController: UIViewController {
 extension EditReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let task = tasks[indexPath.row]
+        let task = tasks[indexPath.item]
         
         if (task.isEdit == true){
             return CGSize(width: collectionView.frame.size.width, height:  525)
         }
         else{
-            return CGSize(width: collectionView.frame.size.width, height:  260)
+            let heigthofTitle = task.title.height(withConstrainedWidth: collectionView.frame.size.width - 60 - Global.padding*2, font: .latoBold(size: 20)!) // 60 is status field
+            let heigthofDetail = task.detail.height(withConstrainedWidth: collectionView.frame.size.width - Global.padding*2, font:  .latoRegular(size: 16)!)
+            let heigthofNote = task.note.height(withConstrainedWidth: collectionView.frame.size.width - 30 - Global.padding*2, font:  .latoRegular(size: 16)!) // 30 is note image
+             
+            if(tasks[indexPath.item].note.isEmpty){
+                return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + Global.padding*4)
+            }
+            else{
+                return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + heigthofNote + Global.padding*6 + 40) // 40 is top box
+            }
+            
         }
     }
     
@@ -89,14 +87,19 @@ extension EditReportViewController : UICollectionViewDelegate{
 
 extension EditReportViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if (tasks.count == 0){
+            self.editReportView.showText()
+        }
+        else{
+            self.editReportView.hiddenText()
+        }
         return tasks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-
-        let task = tasks[indexPath.item]
         
+        let task = tasks[indexPath.item]
         if (task.isEdit == true){
             if let editCell = collectionView.dequeueReusableCell(withReuseIdentifier: "editReport", for: indexPath) as? AddReportCell{
                 
@@ -107,7 +110,6 @@ extension EditReportViewController : UICollectionViewDataSource{
             }
         }
         else{
-            
             if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "userReport", for: indexPath) as? UserReportCell{
                 
                 detailCell.configureOneTask(task: task,text: String(indexPath.item))
@@ -115,6 +117,7 @@ extension EditReportViewController : UICollectionViewDataSource{
                 cell = detailCell
             }
         }
+        
         cell.sizeToFit()
         return cell
     }
@@ -126,12 +129,7 @@ extension EditReportViewController : EditReportDelegate{
     func addTask() {
         for task in tasks{
             if(task.id == "-1"){
-                let alert = UIAlertController(title: "Information", message: "There is a new task created at the bottom.Please save before create a new task!!!", preferredStyle: UIAlertController.Style.alert)
-
-                alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: nil))
-              
-                self.present(alert, animated: true, completion: nil)
-                
+                Helper.createAlertOneOption(viewController: self, title: "Information", messages: "There is a new task created at the bottom.Please save before create a new task!!!", completion: nil)
                 return
             }
         }
@@ -139,9 +137,7 @@ extension EditReportViewController : EditReportDelegate{
         let tmp = Task(isEdit: true)
         tmp.id = "-1"
         tasks.append(tmp)
-        
         editReportCollectionView.reloadData()
-        
     }
     
 }
@@ -179,17 +175,13 @@ extension EditReportViewController : AddReportCellDelegate{
                 editReportCollectionView.reloadData()
             }
         }
-    
         Remote.remoteFirebase.saveTaskOfUser(task: task, date: self.dateOfReport)
-    
     }
-    
-    
 }
+
 extension EditReportViewController : TemplateModelDelegate{
     func chooseTask(taskId: String,recentTaskId: String) {
         Remote.remoteFirebase.readARecentTask(id: recentTaskId) { result in
-
             for t in self.tasks{
                 if(t.id == taskId){
                     t.detail = result.detail
@@ -202,28 +194,16 @@ extension EditReportViewController : TemplateModelDelegate{
                 }
             }
         }
-        
     }
-    
-    
 }
 
 extension EditReportViewController : UserReportCellDelegate{
     func deleteReport(task: Task) {
         // create the alert
-        let alert = UIAlertController(title: "Warning", message: "Do you want to delete this task?", preferredStyle: UIAlertController.Style.alert)
-
-        
-        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertAction.Style.default,handler: {_ in
+        Helper.createAlertTwoOption(viewController: self, title: "Warning", messages: "Do you want to delete this task?", yes: { _ in
             Remote.remoteFirebase.deleteTaskOfUser(task: task, date: self.dateOfReport)
             self.tasks.removeAll()
-        }))
-                        
-        alert.addAction(UIAlertAction(title: "No", style: UIAlertAction.Style.cancel, handler: nil))
-                        
-      
-        self.present(alert, animated: true, completion: nil)
-      
+        }, no: nil)
     }
     
     func editReport(task: Task) {

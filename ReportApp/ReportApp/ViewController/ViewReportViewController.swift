@@ -11,14 +11,12 @@ import MessageUI
 class ViewReportViewController: UIViewController {
     
     private var reportDetailList : [Report] = []
-    
     private let viewReportView : ViewReport = ViewReport()
     var detailReportCollectionView : UICollectionView!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNavBar()
         
         let layout = UICollectionViewFlowLayout()
@@ -30,15 +28,12 @@ class ViewReportViewController: UIViewController {
         
         detailReportCollectionView.delegate = self
         detailReportCollectionView.dataSource = self
-        
         detailReportCollectionView.register(DetailReportCell.self, forCellWithReuseIdentifier: "detailReport")
-        
         
         Remote.remoteFirebase.readDetailReport(date: self.navigationItem.title!) { loadedData in
             DispatchQueue.main.async {
-                
                 self.reportDetailList = loadedData as! [Report]
-
+                //Remove first item ( milestone item)
                 if(self.reportDetailList.count > 1){
                     self.reportDetailList.removeFirst()
                     for (index,report) in self.reportDetailList.enumerated() {
@@ -47,18 +42,11 @@ class ViewReportViewController: UIViewController {
                         }
                     }
                 }
-                
                 self.detailReportCollectionView.reloadData()
             }
             
         }
-        
-        
-        // Do any additional setup after loading the view.
     }
-    
-    
-    
     
     private func setupNavBar(){
         self.navigationController!.navigationBar.tintColor = UIColor.white
@@ -66,19 +54,16 @@ class ViewReportViewController: UIViewController {
         
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
-            
             appearance.titleTextAttributes = [NSAttributedString.Key.font: UIFont.latoBold(size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.white]
             appearance.configureWithOpaqueBackground()
             appearance.backgroundImage = UIImage(named: "BannerHome")
-            
             appearance.shadowColor = .white
             appearance.shadowImage = UIImage()
             navigationController?.navigationBar.standardAppearance = appearance
             navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
-        }else{
-            
+        }
+        else{
             self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont.latoBold(size: 24)!, NSAttributedString.Key.foregroundColor: UIColor.white]
-            
             self.navigationController!.navigationBar.setBackgroundImage(UIImage(named: "BannerHome"), for: .default)
             self.navigationController!.navigationBar.shadowImage = UIImage()
             self.navigationController!.navigationBar.isTranslucent = true
@@ -95,7 +80,6 @@ class ViewReportViewController: UIViewController {
     @objc func editReport(){
         let vc = EditReportViewController()
         vc.dateOfReport = self.navigationItem.title!
-        
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -103,13 +87,11 @@ class ViewReportViewController: UIViewController {
 
 extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         return CGSize(width: collectionView.frame.size.width - 20, height: collectionView.frame.size.height - 120)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 10, right: 0)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
 }
@@ -120,30 +102,21 @@ extension ViewReportViewController : UICollectionViewDelegate{
 
 extension ViewReportViewController : UICollectionViewDataSource{
     
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reportDetailList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell = UICollectionViewCell()
-        
-    
         if let detailCell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailReport", for: indexPath) as? DetailReportCell{
             let report : Report = reportDetailList[indexPath.row]
-            
-            
             detailCell.configure(tasks: report.tasks,userName: report.userName)
-            
             if(report.userName == "Nothing" && reportDetailList.count != 1){
                 detailCell.hidden()
             }
-            
             cell = detailCell
         }
-        
-        
-        
         return cell
     }
     
@@ -159,26 +132,34 @@ extension ViewReportViewController : ViewReportDelegate{
 
 
 extension ViewReportViewController : MFMailComposeViewControllerDelegate{
+    
+    func getCCRecipients() -> [String]{
+        var cc: [String] = []
+        for report in reportDetailList {
+            cc.append(report.userName + "@vng.com.vn")
+        }
+        cc.append("tuannh2@vng.com.vn")
+        return cc
+    }
+    
     func showMailComposer(){
+        
+        
         guard MFMailComposeViewController.canSendMail() else{
-            // create the alert
-            let alert = UIAlertController(title: "Notification", message: "Your device is not setting email. Please check again!!!", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-            
-            // show the alert
-            self.present(alert, animated: true, completion: nil)
-            
+            Helper.createAlertOneOption(viewController: self, title: "Notification", messages: "Your device is not setting email. Please check again!!!", completion: nil)
             return
         }
+        
+        // format date yyyymmdd
+        let splitDate = self.navigationItem.title!.components(separatedBy: "-")
+        let dateFormat = splitDate[2] + splitDate[1] + splitDate[0]
         
         let composer = MFMailComposeViewController()
         composer.mailComposeDelegate = self
         composer.setToRecipients(["longnct@vng.com.vn"])
-        composer.setSubject("Daily report - ZingMP3 IOS - \(self.navigationItem.title!)")
+        composer.setCcRecipients(getCCRecipients())
+        composer.setSubject("Daily report - Zing MP3 iOS - \(dateFormat)")
         composer.setMessageBody(generateHTMLTableReport(), isHTML: true)
-        
         present(composer,animated: true)
     }
     
@@ -205,16 +186,16 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
                   .report tbody tr {
                     border-bottom: 1px solid #dddddd;
                 }
-
+                
                 .report tbody tr:nth-of-type(even) {
                     background-color: #f3f3f3;
                 }
-
+                
                   .report tbody tr.active-row {
                     font-weight: bold;
                     color: #009879;
                 }
-
+                
                 </style>
                 <p>Team Dev IOS Zing MP3 xin gửi tới anh report ngày \(self.navigationItem.title!) như sau:</p>
                 
@@ -232,7 +213,7 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
                     \(generateHTMLUserReport())
                 </tbody>
                 </table>
-                <p> Best regards, </p>
+                <p> Best regards,</p>
                 <p> \(UserSession.username) </p>
                 """
     }
@@ -303,6 +284,7 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
             formatter.dateStyle = .none
             
             Remote.remoteFirebase.updateStatusReport(status: "Sent by \(UserSession.username) at \(formatter.string(from: currentDateTime))", date: self.navigationItem.title!)
+            
         @unknown default:
             fatalError("result mail error")
         }

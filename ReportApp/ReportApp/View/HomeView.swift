@@ -111,10 +111,10 @@ class HomeView {
         
         view.addSubview(background)
         background.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: background, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        background.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        background.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        background.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        background.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         view.addSubview(banner)
         banner.translatesAutoresizingMaskIntoConstraints = false

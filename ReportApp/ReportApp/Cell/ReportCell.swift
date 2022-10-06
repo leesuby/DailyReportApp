@@ -9,6 +9,7 @@ import UIKit
 
 class ReportCell: UICollectionViewCell {
     
+    let viewDate: UIView = UIView()
     let dateText: UILabel = UILabel()
     let status: UILabel = UILabel()
     
@@ -21,37 +22,43 @@ class ReportCell: UICollectionViewCell {
     
     func initView(){
         let shadowLayer = CAShapeLayer()
-        shadowLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: contentView.frame.width - 3, height: contentView.frame.height), cornerRadius: 20).cgPath
+        shadowLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: contentView.frame.width - 3, height: contentView.frame.height), cornerRadius: 10).cgPath
         shadowLayer.fillColor = UIColor.zingPurple40a.cgColor
         shadowLayer.shadowColor = UIColor.darkGray.cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        shadowLayer.shadowOpacity = 0.5
+        shadowLayer.shadowOpacity = 0.2
         shadowLayer.shadowRadius = 1
         contentView.layer.addSublayer(shadowLayer)
-        contentView.layer.cornerRadius = 20
-        contentView.layer.borderWidth = 0.5
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderWidth = 0.2
         contentView.layer.borderColor = UIColor.gray.cgColor
-        contentView.backgroundColor = .zingPurple40a
-        
+        contentView.backgroundColor = .zingPurple
+    
+        viewDate.backgroundColor = .clear
         dateText.font = .latoBlack(size: 24)
         dateText.textColor = .white
         dateText.textAlignment = .center
         dateText.backgroundColor = .clear
-        contentView.addSubview(dateText)
+        viewDate.addSubview(dateText)
         
         status.font = .latoRegular(size: 14)
-        status.text = "Sent by longnct at 19:03:20"
         status.textColor = .white
         status.backgroundColor = .clear
         status.textAlignment = .center
-        contentView.addSubview(status)
+        viewDate.addSubview(status)
+        
+        contentView.addSubview(viewDate)
     }
     
     func initConstraint(){
+        viewDate.translatesAutoresizingMaskIntoConstraints = false
+        viewDate.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        viewDate.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        
         dateText.translatesAutoresizingMaskIntoConstraints = false
-        dateText.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        dateText.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        dateText.bottomAnchor.constraint(equalTo: viewDate.topAnchor, constant: 5).isActive = true
+        dateText.centerXAnchor.constraint(equalTo: viewDate.centerXAnchor).isActive = true
         
         status.translatesAutoresizingMaskIntoConstraints = false
         status.topAnchor.constraint(equalTo: dateText.bottomAnchor).isActive = true

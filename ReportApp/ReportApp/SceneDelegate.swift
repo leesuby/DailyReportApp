@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             let nav = UINavigationController(rootViewController: homeViewController)
             nav.modalPresentationStyle = .fullScreen
-        
+            
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = nav
             window.makeKeyAndVisible()

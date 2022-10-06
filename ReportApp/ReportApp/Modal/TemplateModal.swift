@@ -24,9 +24,7 @@ class TemplateModal : NSObject{
         templateBox.backgroundColor = .white
         templateBox.layer.cornerRadius = 10
         templateBox.layer.masksToBounds = true
-        
         return templateBox
-        
     }()
     
     var delegate: TemplateModelDelegate!
@@ -64,7 +62,6 @@ class TemplateModal : NSObject{
         guideText.backgroundColor = .clear
         templateView.addSubview(guideText)
         
-        
         let dismissButton = UIButton(frame: CGRect(x: 0, y: templateView.frame.size.height - 50, width: templateView.frame.size.width, height: 50))
         dismissButton.backgroundColor = .zingPurple70a
         dismissButton.setTitle("Cancel", for: .normal)
@@ -73,21 +70,16 @@ class TemplateModal : NSObject{
         dismissButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         templateView.addSubview(dismissButton)
         
-        
         //init collectionView
-        
         taskCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         taskCollectionView.backgroundColor = .clear
         taskCollectionView.showsVerticalScrollIndicator = false
-        
         templateView.addSubview(taskCollectionView)
-        
         taskCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint(item: taskCollectionView!, attribute: .top, relatedBy: .equal, toItem: guideText, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: taskCollectionView!, attribute: .bottom, relatedBy: .equal, toItem: dismissButton, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
         NSLayoutConstraint(item: taskCollectionView!, attribute: .leading, relatedBy: .equal, toItem: templateView, attribute: .leading, multiplier: 1.0, constant: 10).isActive = true
         NSLayoutConstraint(item: taskCollectionView!, attribute: .width, relatedBy: .equal, toItem: templateView, attribute: .width, multiplier: 1.0, constant: -20).isActive = true
-        
         taskCollectionView.register(TemplateCell.self, forCellWithReuseIdentifier: "template")
         taskCollectionView.dataSource = self
         taskCollectionView.delegate = self
@@ -95,9 +87,9 @@ class TemplateModal : NSObject{
         Remote.remoteFirebase.readRecentTask { result in
             DispatchQueue.global().async {
                 self.tasks = result as! [Task]
-                
                 self.tasks = self.tasks.sorted(by: {Helper.getDate(dateString: $0.date)!  > Helper.getDate(dateString: $1.date)!})
                 
+                //Update recent task if count > 5
                 if (self.tasks.count > 5){
                     self.tasks = Array(self.tasks[0..<5])
                     Remote.remoteFirebase.updateRecentTask(tasks: self.tasks)
@@ -106,9 +98,6 @@ class TemplateModal : NSObject{
                     self.taskCollectionView.reloadData()
                 }
             }
-            
-            
-            
         }
         
         UIView.animate(withDuration: 0.25, animations: {
@@ -122,15 +111,11 @@ class TemplateModal : NSObject{
         }
     }
     
-    func initCollectionView(){
-        
-    }
-    
     @objc func dismiss() {
         guard let targetView = view else {
             return
         }
-
+        
         UIView.animate(withDuration: 0.25, animations: {
             self.templateView.frame = CGRect(x: 40,
                                              y: targetView.frame.height,
@@ -163,12 +148,9 @@ extension TemplateModal : UICollectionViewDataSource{
         
         let task = tasks[indexPath.item]
         if let templateCell = collectionView.dequeueReusableCell(withReuseIdentifier: "template", for: indexPath) as? TemplateCell{
-            
             templateCell.config(task: task, date: task.date)
-            
             cell = templateCell
         }
-        
         return cell
     }
     
@@ -179,9 +161,7 @@ extension TemplateModal : UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let task = tasks[indexPath.item]
         delegate.chooseTask(taskId: taskId, recentTaskId: task.id)
-        
         self.dismiss()
-        
     }
 }
 

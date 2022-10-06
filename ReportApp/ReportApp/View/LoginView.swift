@@ -83,33 +83,27 @@ class LoginView{
     
     var loginButton : UIButton = {
         let button = UIButton()
-        
         button.setTitle("Login", for: .normal)
         button.titleLabel?.textColor = .white
         button.titleLabel?.font = .latoBold(size: 16)
         button.layer.cornerRadius = 16
         button.backgroundColor = .deepPurple
-        
         return button
     }()
-    
     @objc func loginTapped(){
         delegate?.btnLoginTapped()
     }
     
     var signUpButton : UIButton = {
         let button = UIButton()
-        
         button.setTitle("Don't have an account yet?", for: .normal)
-        button.setTitleColor(UIColor.deepPurple, for: .normal)
+        button.setTitleColor(UIColor.deepPurple60a, for: .normal)
         button.titleLabel?.font = .latoBold(size: 16)
         button.titleLabel?.attributedText = NSAttributedString(string: "Don't have an account yet?", attributes:
             [.underlineStyle: NSUnderlineStyle.single.rawValue])
         button.backgroundColor = .clear
-        
         return button
     }()
-    
     @objc func signUpTapped(){
         delegate?.btnSignUpTapped()
     }
@@ -119,11 +113,10 @@ class LoginView{
         //Set Background
         view.addSubview(background)
         background.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: background, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: background, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
-        
+        background.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        background.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        background.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        background.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         //Set Logo
         view.addSubview(logo)

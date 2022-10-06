@@ -27,16 +27,10 @@ class AddReportCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        let shadowLayer = CAShapeLayer()
-        shadowLayer.path = UIBezierPath(roundedRect: .init(x: 0, y: 0, width: contentView.frame.width - 3, height: contentView.frame.height), cornerRadius: 20).cgPath
-        shadowLayer.fillColor = UIColor.white.cgColor
-        shadowLayer.shadowColor = UIColor.darkGray.cgColor
-        shadowLayer.shadowPath = shadowLayer.path
-        shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        shadowLayer.shadowOpacity = 0.5
-        shadowLayer.shadowRadius = 1
-        contentView.layer.addSublayer(shadowLayer)
+    
+        contentView.layer.shadowColor = UIColor.darkGray.cgColor
+        contentView.layer.shadowOpacity = 0.2
+        contentView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.gray.cgColor
         contentView.layer.cornerRadius = 20

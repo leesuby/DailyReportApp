@@ -104,7 +104,6 @@ extension EditReportViewController : UICollectionViewDataSource{
             if let editCell = collectionView.dequeueReusableCell(withReuseIdentifier: "editReport", for: indexPath) as? AddReportCell{
                 
                 editCell.config(title: String(indexPath.item), task: task)
-                
                 editCell.delegate = self
                 cell = editCell
             }

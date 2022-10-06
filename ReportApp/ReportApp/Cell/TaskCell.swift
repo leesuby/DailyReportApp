@@ -19,6 +19,8 @@ class TaskCell: UICollectionViewCell {
     
     private var noteImage: UIImageView = UIImageView()
     
+    private var divider: UIView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -27,7 +29,6 @@ class TaskCell: UICollectionViewCell {
     }
     
     func initView() {
-        let divider = UIView(frame: CGRect(x: 0, y: contentView.frame.size.height, width: contentView.frame.size.width, height: 1))
         divider.backgroundColor = .darkPurple40a
         contentView.addSubview(divider)
         
@@ -63,6 +64,11 @@ class TaskCell: UICollectionViewCell {
     }
     
     func initConstraint() {
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        divider.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        divider.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.0).isActive = true
+        divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        
         status.translatesAutoresizingMaskIntoConstraints = false
         status.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Global.padding).isActive = true
         status.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Global.padding).isActive = true

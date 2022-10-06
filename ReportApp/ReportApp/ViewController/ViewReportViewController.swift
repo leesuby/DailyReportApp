@@ -125,6 +125,10 @@ extension ViewReportViewController : UICollectionViewDataSource{
 
 extension ViewReportViewController : ViewReportDelegate{
     func sendReport() {
+        if(reportDetailList[0].userName == "Nothing"){
+            Helper.createAlertOneOption(viewController: self, title: "Information", messages: "Currently there is no task written so it is not possible to send Mail!", completion: nil)
+            return
+        }
         showMailComposer()
     }
     
@@ -143,8 +147,6 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
     }
     
     func showMailComposer(){
-        
-        
         guard MFMailComposeViewController.canSendMail() else{
             Helper.createAlertOneOption(viewController: self, title: "Notification", messages: "Your device is not setting email. Please check again!!!", completion: nil)
             return
@@ -156,7 +158,7 @@ extension ViewReportViewController : MFMailComposeViewControllerDelegate{
         
         let composer = MFMailComposeViewController()
         composer.mailComposeDelegate = self
-        composer.setToRecipients(["longnct@vng.com.vn"])
+        composer.setToRecipients(["cuongvt2@vng.com.vn"])
         composer.setCcRecipients(getCCRecipients())
         composer.setSubject("Daily report - Zing MP3 iOS - \(dateFormat)")
         composer.setMessageBody(generateHTMLTableReport(), isHTML: true)

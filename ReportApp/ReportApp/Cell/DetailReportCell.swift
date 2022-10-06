@@ -37,7 +37,7 @@ class DetailReportCell: UICollectionViewCell {
         shadowLayer.shadowColor = UIColor.darkGray.cgColor
         shadowLayer.shadowPath = shadowLayer.path
         shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        shadowLayer.shadowOpacity = 0.5
+        shadowLayer.shadowOpacity = 0.3
         shadowLayer.shadowRadius = 1
         
         contentView.layer.addSublayer(shadowLayer)

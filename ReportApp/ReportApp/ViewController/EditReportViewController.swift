@@ -117,7 +117,6 @@ extension EditReportViewController : UICollectionViewDataSource{
             }
         }
         
-        cell.sizeToFit()
         return cell
     }
     

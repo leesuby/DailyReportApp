@@ -27,6 +27,16 @@ class TemplateModal : NSObject{
         return templateBox
     }()
     
+    private let textNoTask : UILabel = {
+        let text = UILabel()
+        text.backgroundColor = .clear
+        text.font = .latoBold(size: 22)
+        text.text = "You have no recent tasks"
+        text.textAlignment = .center
+        text.textColor = .darkGray
+        return text
+    }()
+    
     var delegate: TemplateModelDelegate!
     private var view : UIView?
     private var taskCollectionView : UICollectionView!
@@ -70,6 +80,9 @@ class TemplateModal : NSObject{
         dismissButton.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
         templateView.addSubview(dismissButton)
         
+        textNoTask.frame = CGRect(x: 0, y: templateView.frame.size.height / 2, width: templateView.frame.size.width, height: 40)
+        templateView.addSubview(textNoTask)
+    
         //init collectionView
         taskCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout.init())
         taskCollectionView.backgroundColor = .clear
@@ -140,6 +153,12 @@ class TemplateModal : NSObject{
 
 extension TemplateModal : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if(tasks.count == 0){
+            textNoTask.isHidden = false
+        }
+        else{
+            textNoTask.isHidden = true
+        }
         return tasks.count > 5 ? 5 : tasks.count
     }
     

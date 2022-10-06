@@ -27,10 +27,12 @@ class AddReportCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    
+        
+        contentView.backgroundColor = .white
         contentView.layer.shadowColor = UIColor.darkGray.cgColor
-        contentView.layer.shadowOpacity = 0.2
         contentView.layer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+        contentView.layer.shadowOpacity = 0.5
+        contentView.layer.shadowRadius = 1
         contentView.layer.borderWidth = 0.5
         contentView.layer.borderColor = UIColor.gray.cgColor
         contentView.layer.cornerRadius = 20

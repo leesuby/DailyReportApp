@@ -36,7 +36,7 @@ class EditReport {
     var textNoTask : UILabel = {
         let text = UILabel()
         text.backgroundColor = .clear
-        text.font = .latoBold(size: 24)
+        text.font = .latoBold(size: 22)
         text.text = "You have not created any task yet"
         text.textColor = .darkGray
         return text

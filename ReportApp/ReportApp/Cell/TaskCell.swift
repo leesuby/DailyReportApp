@@ -29,7 +29,7 @@ class TaskCell: UICollectionViewCell {
     }
     
     func initView() {
-        divider.backgroundColor = .darkPurple40a
+        divider.backgroundColor = .zingPurple40a
         contentView.addSubview(divider)
         
         title.font = .latoBold(size: 20)
@@ -67,7 +67,7 @@ class TaskCell: UICollectionViewCell {
         divider.translatesAutoresizingMaskIntoConstraints = false
         divider.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         divider.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1.0).isActive = true
-        divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        divider.heightAnchor.constraint(equalToConstant: 2).isActive = true
         
         status.translatesAutoresizingMaskIntoConstraints = false
         status.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Global.padding).isActive = true

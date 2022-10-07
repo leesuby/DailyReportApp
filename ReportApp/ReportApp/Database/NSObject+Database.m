@@ -190,17 +190,19 @@
         
         for(FIRDataSnapshot* task in snapshot.children)
         {
-            Task* tmpTask = [[Task alloc] init];
-            
-            [tmpTask setNote:task.value[@"note"]];
-            [tmpTask setTitle:task.value[@"title"]];
-            [tmpTask setDetail:task.value[@"detail"]];
-            [tmpTask setStatus:[task.value[@"status"] integerValue]];
-            [tmpTask setDate:task.value[@"date"]];
-            [tmpTask setId:task.key];
-            
-            
-            completionBlock(tmpTask);
+            if(task.key == id){
+                Task* tmpTask = [[Task alloc] init];
+                
+                [tmpTask setNote:task.value[@"note"]];
+                [tmpTask setTitle:task.value[@"title"]];
+                [tmpTask setDetail:task.value[@"detail"]];
+                [tmpTask setStatus:[task.value[@"status"] integerValue]];
+                [tmpTask setDate:task.value[@"date"]];
+                [tmpTask setId:task.key];
+                
+                completionBlock(tmpTask);
+                
+            }
         }
         
     }];

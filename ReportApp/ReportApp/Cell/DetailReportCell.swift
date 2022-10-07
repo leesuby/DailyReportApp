@@ -36,12 +36,12 @@ class DetailReportCell: UICollectionViewCell {
         shadowLayer.fillColor = UIColor.white.cgColor
         shadowLayer.shadowColor = UIColor.darkGray.cgColor
         shadowLayer.shadowPath = shadowLayer.path
-        shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
-        shadowLayer.shadowOpacity = 0.3
+        shadowLayer.shadowOffset = CGSize(width: 6.0, height: 6.0)
+        shadowLayer.shadowOpacity = 0.2
         shadowLayer.shadowRadius = 1
         
         contentView.layer.addSublayer(shadowLayer)
-        contentView.layer.borderWidth = 1
+        contentView.layer.borderWidth = 5
         contentView.layer.borderColor = UIColor.zingPurple.cgColor
         contentView.layer.cornerRadius = 20
         
@@ -139,6 +139,10 @@ extension DetailReportCell : UICollectionViewDelegateFlowLayout{
             return CGSize(width: collectionView.frame.size.width, height: heigthofTitle + heigthofDetail + heigthofNote + Global.padding*5)
         }
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
     }
 }
 

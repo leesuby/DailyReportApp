@@ -66,6 +66,12 @@ extension HomeViewController: UICollectionViewDelegate{
 
 extension HomeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if(reportlist.count == 0){
+            homeView.showText()
+        }
+        else{
+            homeView.hideText()
+        }
         return reportlist.count
     }
     

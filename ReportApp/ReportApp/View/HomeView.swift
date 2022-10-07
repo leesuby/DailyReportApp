@@ -96,6 +96,14 @@ class HomeView {
         return button
     }()
    
+    var textNoReport : UILabel = {
+        let text = UILabel()
+        text.backgroundColor = .clear
+        text.font = .latoBold(size: 20)
+        text.text = "Currently no reports have been created"
+        text.textColor = .darkGray
+        return text
+    }()
     
     func initialFisrtLook(viewController : HomeViewController){
         
@@ -202,6 +210,19 @@ class HomeView {
         NSLayoutConstraint(item: logoutButton, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 25).isActive = true
         logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         
+        view.addSubview(textNoReport)
+        textNoReport.translatesAutoresizingMaskIntoConstraints = false
+        textNoReport.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        textNoReport.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+    }
+    
+    func hideText(){
+        textNoReport.isHidden = true
+    }
+    
+    func showText(){
+        textNoReport.isHidden = false
     }
     
     @objc func createReport(){

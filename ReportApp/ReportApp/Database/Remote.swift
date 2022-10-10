@@ -60,4 +60,13 @@ class Remote {
     func updateStatusReport(status: String , date: String){
         database.updateStatusReport(status, date: date)
     }
+    
+    func createUser(user: User, name: String){
+        database.createUser(user, name: name)
+    }
+    
+    func checkUser(user: User, name: String, completion: @escaping (Int) -> Void){
+        database.check(user, name: name, completionBlock: completion)
+    }
+    
 }

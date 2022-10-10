@@ -248,3 +248,26 @@ extension NSAttributedString {
         return ceil(boundingBox.width)
     }
 }
+
+extension UITextField{
+    
+    func setCursorForMacCatalyst(){
+        
+#if targetEnvironment(macCatalyst)
+        let textInputTraits = self.value(forKey: "textInputTraits") as? NSObject
+        textInputTraits?.setValue(UIColor.red, forKey: "insertionPointColor")
+#endif
+        
+    }
+}
+
+extension UITextView{
+    func setCursorForMacCatalyst(){
+        
+#if targetEnvironment(macCatalyst)
+        let textInputTraits = self.value(forKey: "textInputTraits") as? NSObject
+        textInputTraits?.setValue(UIColor.red, forKey: "insertionPointColor")
+#endif
+        
+    }
+}

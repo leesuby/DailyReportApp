@@ -22,6 +22,7 @@ class CustomTextField : UITextField {
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkPurple40a,
                          NSAttributedString.Key.font : UIFont.latoLight(size: 18)!]
         )
+        tintColor = .black
         
         let imageView = UIImageView(frame: CGRect(x: -2, y: 8.0, width: 24.0, height: 24.0))
         let image = UIImage(named: imageName)

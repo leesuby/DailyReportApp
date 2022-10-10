@@ -29,7 +29,7 @@ class TaskCell: UICollectionViewCell {
     }
     
     func initView() {
-        divider.backgroundColor = .zingPurple40a
+        divider.backgroundColor = .gray
         contentView.addSubview(divider)
         
         title.font = .latoBold(size: 20)

@@ -85,6 +85,7 @@ class AddReportCell: UICollectionViewCell {
         tagField.layer.cornerRadius = 17
         tagField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: tagField.frame.height))
         tagField.leftViewMode = .always
+        tagField.setCursorForMacCatalyst()
         contentView.addSubview(tagField)
         
         let templateView = UIView(frame: CGRect(x: 108 + tagField.frame.size.width, y: taskBox.frame.size.height + 15, width: 30, height: 30))
@@ -178,6 +179,7 @@ class AddReportCell: UICollectionViewCell {
         detailField.layer.borderColor = UIColor.darkPurple.cgColor
         detailField.layer.borderWidth = 0.5
         detailField.layer.cornerRadius = 10
+        detailField.setCursorForMacCatalyst()
         contentView.addSubview(detailField)
         
         //NOTE
@@ -211,6 +213,7 @@ class AddReportCell: UICollectionViewCell {
         noteField.layer.borderColor = UIColor.darkPurple.cgColor
         noteField.layer.borderWidth = 0.5
         noteField.layer.cornerRadius = 10
+        noteField.setCursorForMacCatalyst()
         contentView.addSubview(noteField)
         
         let buttonCancel = UIButton(frame: CGRect(x:(contentView.frame.size.width / 2) - 60, y:  contentView.frame.size.height - 40 , width: 60, height: 30))

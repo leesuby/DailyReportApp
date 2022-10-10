@@ -35,24 +35,31 @@ class SignUpViewController: UIViewController,SignUpViewDelegate {
         let confirmPass = signUpView.confirmPassTextField.text!
         
         if(checkRequirement(email: email, pass: pass, confirmPass: confirmPass)){
-            FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pass) { result, error in
-                //Register fail
-                guard error == nil else{
-                    Helper.createAlertOneOption(viewController: self, title: "Notification", messages: error!.localizedDescription, completion: nil)
-                    return
-                }
+            
+            let user = User(email: email.localizedLowercase, password: pass)
+            Remote.remoteFirebase.createUser(user: user, name: email.localizedLowercase.components(separatedBy: "@")[0])
+            
+            //Successfully
+            Helper.createAlertOneOption(viewController: self, title: "Notification", messages: "Create account successfully!!!") { action in
+                let vc = ViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
                 
-                //Successfully
-                Helper.createAlertOneOption(viewController: self, title: "Notification", messages: "Create account successfully!!!") { action in
-                    let vc = ViewController()
-                    vc.modalPresentationStyle = .fullScreen
-                    self.present(vc, animated: true)
-                }
+                //                FirebaseAuth.Auth.auth().createUser(withEmail: email, password: pass) { result, error in
+                //                    //Register fail
+                //                    guard error == nil else{
+                //                        Helper.createAlertOneOption(viewController: self, title: "Notification", messages: error!.localizedDescription, completion: nil)
+                //                        return
+                //                    }
+                //
+                
+                //                    }
+                
+                
             }
-        }
-        
-        
-    }
+            
+            
+        }}
     
     //Check correct of pass and email
     func checkRequirement(email: String, pass: String, confirmPass: String) -> Bool{

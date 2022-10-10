@@ -14,6 +14,7 @@
 @import FirebaseAuth;
 @import FirebaseDatabase;
 @class Task;
+@class User;
 
 
 
@@ -45,6 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) updateRecentTask: (NSArray*)listTask;
 
 - (void) updateStatusReport: (NSString*)status date:(NSString*)d;
+
+- (void) createUser: (User*)user name:(NSString*)username;
+
+- (void) checkUser: (User*)user name:(NSString*)username completionBlock:(void(^)(NSInteger))completionBlock;
 @end
 
 NS_ASSUME_NONNULL_END

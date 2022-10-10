@@ -44,6 +44,7 @@ class SignUpView{
         textView.isEditable = false
         textView.isScrollEnabled = false
         textView.alpha = 0.4
+        
         return textView
     }()
     
@@ -70,6 +71,7 @@ class SignUpView{
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Email : example@vng.com.vn",imageName: "MailSymbol")
         textField.textColor = .deepPurple
         textField.font = .latoLight(size: 16)
+        textField.setCursorForMacCatalyst()
         return textField
     }()
     
@@ -78,6 +80,7 @@ class SignUpView{
         textField.textColor = .deepPurple
         textField.font = .latoLight(size: 16)
         textField.isSecureTextEntry = true
+        textField.setCursorForMacCatalyst()
         return textField
     }()
     
@@ -86,6 +89,7 @@ class SignUpView{
         textField.textColor = .deepPurple
         textField.font = .latoLight(size: 16)
         textField.isSecureTextEntry = true
+        textField.setCursorForMacCatalyst()
         return textField
     }()
     

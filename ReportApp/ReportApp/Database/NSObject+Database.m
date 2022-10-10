@@ -266,4 +266,35 @@
     [[[[_ref child:@"Report"] child:d] child:@"Status"] setValue:@{@"mail": status}];
 }
 
+- (void) createUser:(User *)user name:(NSString *)username{
+    [[[_ref child:@"UserAccount"] child:username] setValue:@{@"Username" : user.email,
+                                                             @"Password" : user.password
+                                                           }];
+}
+
+- (void) checkUser:(User *)user name:(NSString *)username completionBlock:(void (^)(NSInteger))completionBlock{
+    [[_ref child:@"UserAccount"] getDataWithCompletionBlock:^(NSError * _Nullable error, FIRDataSnapshot * _Nullable snapshot) {
+        Boolean flaghaveAccount = false;
+        for(FIRDataSnapshot* users in snapshot.children){
+            
+            if(users.key == username){
+                flaghaveAccount = true;
+                
+                if([users.value[@"Password"] isEqualToString:user.password] && [users.value[@"Username"] isEqualToString:user.email]){
+                    completionBlock(1);
+                }
+                else{
+                    completionBlock(-1);
+                }
+            }
+        }
+        
+        if(flaghaveAccount == false){
+            completionBlock(0);
+        }
+    }
+    ];
+
+}
+
 @end

@@ -70,6 +70,7 @@ class LoginView{
         let textField = CustomTextField(insets: UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0),text: "Email",imageName: "MailSymbol")
         textField.textColor = .deepPurple
         textField.font = .latoLight(size: 16)
+        textField.setCursorForMacCatalyst()
         return textField
     }()
     
@@ -78,6 +79,7 @@ class LoginView{
         textField.textColor = .deepPurple
         textField.font = .latoLight(size: 16)
         textField.isSecureTextEntry = true
+        textField.setCursorForMacCatalyst()
         return textField
     }()
     

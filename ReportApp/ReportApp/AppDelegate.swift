@@ -9,7 +9,6 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
-import FirebaseMessaging
 import UserNotifications
 
 @main

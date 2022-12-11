@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E707ABE128E5785100737E2D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E707ABE028E5785100737E2D /* FirebaseAnalytics */; };
-		E707ABE328E5785100737E2D /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E707ABE228E5785100737E2D /* FirebaseAuth */; };
-		E707ABE528E5785100737E2D /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E707ABE428E5785100737E2D /* FirebaseDatabase */; };
-		E707ABE728E5785100737E2D /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E707ABE628E5785100737E2D /* FirebaseFirestore */; };
 		E707F28528D9A261001F55F8 /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E707F28428D9A261001F55F8 /* UIHelper.swift */; };
 		E707F29428D9BC5D001F55F8 /* Lato-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E707F28828D9A32A001F55F8 /* Lato-Italic.ttf */; };
 		E707F29528D9BC5D001F55F8 /* Lato-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E707F28928D9A32A001F55F8 /* Lato-LightItalic.ttf */; };
@@ -25,7 +21,6 @@
 		E707F2A028DABD44001F55F8 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E707F29F28DABD44001F55F8 /* CustomTextField.swift */; };
 		E7ADD8A928E6A9EA008C506B /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD8A828E6A9EA008C506B /* TaskCell.swift */; };
 		E7ADD8AB28E6D565008C506B /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ADD8AA28E6D565008C506B /* Helper.swift */; };
-		E7ADD8AD28E6F1D5008C506B /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = E7ADD8AC28E6F1D5008C506B /* FirebaseMessaging */; };
 		E7C4DCA228EAED48008E5CC7 /* TemplateModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4DCA128EAED48008E5CC7 /* TemplateModal.swift */; };
 		E7C4DCA428EAF101008E5CC7 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C4DCA328EAF101008E5CC7 /* TemplateCell.swift */; };
 		E7C997FA28ED3582003EFE73 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C997F928ED3582003EFE73 /* SignUpView.swift */; };
@@ -36,6 +31,10 @@
 		E7D5232728D32C8900BB5F27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7D5232628D32C8900BB5F27 /* LoginViewController.swift */; };
 		E7D5232C28D32C8A00BB5F27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7D5232B28D32C8A00BB5F27 /* Assets.xcassets */; };
 		E7D5232F28D32C8A00BB5F27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7D5232D28D32C8A00BB5F27 /* LaunchScreen.storyboard */; };
+		E7DE1CE728F0116D003BF85A /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = E7DE1CE628F0116D003BF85A /* FirebaseAnalytics */; };
+		E7DE1CE928F0116D003BF85A /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = E7DE1CE828F0116D003BF85A /* FirebaseAuth */; };
+		E7DE1CEB28F0116D003BF85A /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = E7DE1CEA28F0116D003BF85A /* FirebaseDatabase */; };
+		E7DE1CED28F0116E003BF85A /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = E7DE1CEC28F0116E003BF85A /* FirebaseFirestore */; };
 		E7DE32A128E0AD7800398287 /* EditReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32A028E0AD7800398287 /* EditReportView.swift */; };
 		E7DE32A328E0AFC700398287 /* AddReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32A228E0AFC700398287 /* AddReportCell.swift */; };
 		E7DE32A528E15C9D00398287 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DE32A428E15C9D00398287 /* Report.swift */; };
@@ -101,6 +100,7 @@
 		E7DE4A1028DD8E8D00E4C7BF /* DetailReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailReportCell.swift; sourceTree = "<group>"; };
 		E7DE4A1328DD949700E4C7BF /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E7DE4A1628DDB99A00E4C7BF /* EditReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditReportViewController.swift; sourceTree = "<group>"; };
+		E7E32FE128EFD5800051E76C /* ReportApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ReportApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,11 +108,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E707ABE528E5785100737E2D /* FirebaseDatabase in Frameworks */,
-				E707ABE728E5785100737E2D /* FirebaseFirestore in Frameworks */,
-				E7ADD8AD28E6F1D5008C506B /* FirebaseMessaging in Frameworks */,
-				E707ABE128E5785100737E2D /* FirebaseAnalytics in Frameworks */,
-				E707ABE328E5785100737E2D /* FirebaseAuth in Frameworks */,
+				E7DE1CEB28F0116D003BF85A /* FirebaseDatabase in Frameworks */,
+				E7DE1CED28F0116E003BF85A /* FirebaseFirestore in Frameworks */,
+				E7DE1CE728F0116D003BF85A /* FirebaseAnalytics in Frameworks */,
+				E7DE1CE928F0116D003BF85A /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +208,7 @@
 		E7D5232128D32C8900BB5F27 /* ReportApp */ = {
 			isa = PBXGroup;
 			children = (
+				E7E32FE128EFD5800051E76C /* ReportApp.entitlements */,
 				E7DE32A628E1AC1100398287 /* ReportApp-Bridging-Header.h */,
 				E7C4DCA028EAED2D008E5CC7 /* Modal */,
 				E7DE32A928E2972E00398287 /* Database */,
@@ -293,6 +293,7 @@
 				E7D5231B28D32C8900BB5F27 /* Sources */,
 				E7D5231C28D32C8900BB5F27 /* Frameworks */,
 				E7D5231D28D32C8900BB5F27 /* Resources */,
+				E7DE1CE528F007CB003BF85A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -300,11 +301,10 @@
 			);
 			name = ReportApp;
 			packageProductDependencies = (
-				E707ABE028E5785100737E2D /* FirebaseAnalytics */,
-				E707ABE228E5785100737E2D /* FirebaseAuth */,
-				E707ABE428E5785100737E2D /* FirebaseDatabase */,
-				E707ABE628E5785100737E2D /* FirebaseFirestore */,
-				E7ADD8AC28E6F1D5008C506B /* FirebaseMessaging */,
+				E7DE1CE628F0116D003BF85A /* FirebaseAnalytics */,
+				E7DE1CE828F0116D003BF85A /* FirebaseAuth */,
+				E7DE1CEA28F0116D003BF85A /* FirebaseDatabase */,
+				E7DE1CEC28F0116E003BF85A /* FirebaseFirestore */,
 			);
 			productName = ReportApp;
 			productReference = E7D5231F28D32C8900BB5F27 /* ReportApp.app */;
@@ -370,6 +370,26 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E7DE1CE528F007CB003BF85A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${BUILD_DIR%Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E7D5231B28D32C8900BB5F27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -424,6 +444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -471,9 +492,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = mh_dylib;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "\"$(inherited)\"";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -485,6 +508,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -526,9 +550,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = mh_dylib;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "\"$(inherited)\"";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -543,6 +569,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ReportApp/ReportApp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TQDRD368XZ;
@@ -559,9 +587,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACH_O_TYPE = mh_dylib;
 				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "Long-Thien.ReportApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ReportApp/ReportApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -576,6 +608,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ReportApp/ReportApp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TQDRD368XZ;
@@ -592,9 +626,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACH_O_TYPE = mh_dylib;
 				MARKETING_VERSION = 1.0;
+				OTHER_CFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "Long-Thien.ReportApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "ReportApp/ReportApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -637,30 +675,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E707ABE028E5785100737E2D /* FirebaseAnalytics */ = {
+		E7DE1CE628F0116D003BF85A /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E707F2A628DB11DB001F55F8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		E707ABE228E5785100737E2D /* FirebaseAuth */ = {
+		E7DE1CE828F0116D003BF85A /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E707F2A628DB11DB001F55F8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		E707ABE428E5785100737E2D /* FirebaseDatabase */ = {
+		E7DE1CEA28F0116D003BF85A /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E707F2A628DB11DB001F55F8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
 		};
-		E707ABE628E5785100737E2D /* FirebaseFirestore */ = {
+		E7DE1CEC28F0116E003BF85A /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E707F2A628DB11DB001F55F8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
-		};
-		E7ADD8AC28E6F1D5008C506B /* FirebaseMessaging */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E707F2A628DB11DB001F55F8 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseMessaging;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

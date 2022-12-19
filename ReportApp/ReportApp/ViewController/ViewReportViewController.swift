@@ -8,7 +8,7 @@
 import UIKit
 import MessageUI
 
-class ViewReportViewController: UIViewController {
+class ViewReportViewController: UIViewController, UIGestureRecognizerDelegate {
     
     private var reportDetailList : [Report] = []
     private let viewReportView : ViewReport = ViewReport()
@@ -29,6 +29,24 @@ class ViewReportViewController: UIViewController {
         detailReportCollectionView.delegate = self
         detailReportCollectionView.dataSource = self
         detailReportCollectionView.register(DetailReportCell.self, forCellWithReuseIdentifier: "detailReport")
+        
+        
+#if targetEnvironment(macCatalyst)
+            //------------right  swipe gestures in collectionView--------------//
+            let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(rightSwiped))
+            swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+            self.detailReportCollectionView.addGestureRecognizer(swipeRight)
+
+            //-----------left swipe gestures in collectionView--------------//
+            let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(leftSwiped))
+            swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+            self.detailReportCollectionView.addGestureRecognizer(swipeLeft)
+        
+            swipeRight.delegate = self
+            swipeLeft.delegate = self
+        
+            //detailReportCollectionView.isPagingEnabled = true
+#endif
         
         Remote.remoteFirebase.readDetailReport(date: self.navigationItem.title!) { loadedData in
             DispatchQueue.main.async {
@@ -83,6 +101,25 @@ class ViewReportViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+#if targetEnvironment(macCatalyst)
+    @objc func rightSwiped(){
+        let pageWidth = detailReportCollectionView.frame.width - 10
+        let contentOffSet = detailReportCollectionView.contentOffset.x
+
+        if(contentOffSet != 0 ){
+            detailReportCollectionView.scrollRectToVisible(CGRect(x: contentOffSet - pageWidth, y: 0, width: detailReportCollectionView.frame.size.width, height:detailReportCollectionView.frame.size.height), animated: true)}
+    }
+    
+    @objc func leftSwiped(){
+        let pageWidth = detailReportCollectionView.frame.width - 10
+        let contentOffSet = detailReportCollectionView.contentOffset.x
+        let contentWidth = detailReportCollectionView.contentSize.width
+
+        if(pageWidth + contentOffSet < contentWidth ){
+            detailReportCollectionView.scrollRectToVisible(CGRect(x: pageWidth + contentOffSet, y: 0, width: detailReportCollectionView.frame.size.width, height:detailReportCollectionView.frame.size.height), animated: true)}
+    }
+#endif
+    
 }
 
 extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
@@ -94,6 +131,9 @@ extension ViewReportViewController : UICollectionViewDelegateFlowLayout{
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+    }
 }
 
 extension ViewReportViewController : UICollectionViewDelegate{

@@ -68,6 +68,7 @@ class DetailReportCell: UICollectionViewCell {
         taskCollectionView.delegate = self
         taskCollectionView.dataSource = self
         taskCollectionView.register(TaskCell.self, forCellWithReuseIdentifier: "task")
+       
     }
     
     func initConstraint(){
